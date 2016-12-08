@@ -1,0 +1,25 @@
+{% set version = "1.2.8" %}
+
+package:
+    name: zlib
+    version: {{ version }}
+
+source:
+    fn: zlib-{{ version }}.tar.gz
+    url: http://zlib.net/zlib-{{ version }}.tar.gz
+    sha256: 2a0dd0894c35b8736ff2bee925aab35b473a6c6b432b25e56442bacb0e72bc3a
+
+build:
+    number: 0
+
+test:
+    commands:
+        - test -f ${PREFIX}/lib/libz.a
+        - conda inspect linkages -n _test zlib
+
+about:
+    home: http://zlib.net/
+    license: zlib (http://zlib.net/zlib_license.html)
+    summary: Massively spiffy yet delicately unobtrusive compression library
+    license_family: Other
+    license_file: license.txt
