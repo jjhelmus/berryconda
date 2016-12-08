@@ -1,0 +1,39 @@
+{% set version="1.0.2h" %}
+
+package:
+  name: openssl
+  version: {{ version }}
+
+source:
+  fn: openssl-{{ version }}.tar.gz
+  url: http://www.openssl.org/source/openssl-{{ version }}.tar.gz
+  sha256: 1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919
+
+build:
+  number: 0
+  no_link: lib/libcrypto.so.1.0.0
+  detect_binary_files_with_prefix: True
+  has_prefix_files:
+    - bin/c_rehash
+    - include/openssl/opensslconf.h
+    - lib/pkgconfig/libcrypto.pc
+    - lib/pkgconfig/libssl.pc
+    - lib/pkgconfig/openssl.pc
+
+requirements:
+  build:
+    # use system provided perl
+  run:
+    - ca-certificates
+
+test:
+  commands:
+    - touch checksum.txt
+    - openssl sha256 checksum.txt
+
+about:
+  home: http://www.openssl.org/
+  license: Apache-style (http://www.openssl.org/source/license.html)
+  license_family: Apache
+  license_file: LICENSE
+  summary: OpenSSL is an open-source implementation of the SSL and TLS protocols
