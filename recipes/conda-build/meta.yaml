@@ -1,0 +1,77 @@
+{% set version = "2.0.11" %}
+
+package:
+  name: conda-build
+  version: {{ version }}
+
+source:
+  fn: conda-build-{{ version }}.tar.gz
+  url: https://github.com/conda/conda-build/archive/{{ version }}.tar.gz
+  sha256: e85c8217b5d3a78a6b4086c90220c081d0d8db1fcff17f60ea19dc2df0b755a9
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+  entry_points:
+    - conda-build = conda_build.cli.main_build:main
+    - conda-convert = conda_build.cli.main_convert:main
+    - conda-develop = conda_build.cli.main_develop:main
+    - conda-index = conda_build.cli.main_index:main
+    - conda-inspect = conda_build.cli.main_inspect:main
+    - conda-metapackage = conda_build.cli.main_metapackage:main
+    - conda-render = conda_build.cli.main_render:main
+    - conda-sign = conda_build.cli.main_sign:main
+    - conda-skeleton = conda_build.cli.main_skeleton:main
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - conda-verify
+    - conda >=4.1
+    - contextlib2   # [py27]
+    - filelock
+    - jinja2
+    - patchelf      # [linux]
+    - pycrypto
+    - python
+    - pyyaml
+    - pkginfo
+    - enum34        # [py<34]
+
+test:
+  # If you run the test suite (~10 min), these are required
+  # requires:
+  #   - pytest
+  #   - pytest-timeout
+  #   - pytest-catchlog
+  imports:
+    - conda_build
+
+  commands:
+    - which conda-build
+    - conda-build -h
+    - which conda-convert
+    - conda-convert -h
+    - which conda-develop
+    - conda-develop -h
+    - which conda-index
+    - conda-index -h
+    - which conda-inspect
+    - conda-inspect linkages -h \| grep "--name ENVIRONMENT"
+    - conda-inspect -h
+    - which conda-metapackage
+    - conda-metapackage -h
+    - which conda-render
+    - conda-render -h
+    - which conda-sign
+    - conda-sign -h
+    - which conda-skeleton
+    - conda-skeleton -h
+
+about:
+  home: https://github.com/conda/conda-build
+  summary: tools for building conda packages
+  license: BSD 3-Clause
