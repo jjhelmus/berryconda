@@ -1,0 +1,64 @@
+{% set version = "8.6.6" %}
+{% set maj_min = ".".join(version.split(".")[:2]) %}
+{% set majmin = "".join(version.split(".")[:2]) %}
+
+{% set VC_VERSION = os.environ.get('VC_VERSION', '9')|string %}
+
+package:
+  name: tk
+  version: {{ version }}
+
+build:
+  number: 0
+  detect_binary_files_with_prefix: true
+
+test:
+
+  files:
+    - hello.tcl
+
+  commands:
+    # Check for binaries.
+    {% for ver_suffix in ["", maj_min] %}
+    - test -f "${PREFIX}/bin/tclsh{{ ver_suffix }}"
+    - test -f "${PREFIX}/bin/wish{{ ver_suffix }}"
+    {% endfor %}
+
+    # Check for includes.
+    {% set tcl_tk_includes = [
+            "tcl",
+            "tclDecls",
+            "tclPlatDecls",
+            "tclPlatDecls",
+            "tclTomMathDecls",
+            "tclTomMath",
+            "tk",
+            "tkDecls",
+            "tkPlatDecls"
+    ] %}
+    {% for each_tcl_tk_include in tcl_tk_includes %}
+    - test -f "${PREFIX}/include/{{ each_tcl_tk_include }}.h"
+    {% endfor %}
+
+    # Check for libraries.
+    # Library naming note: t means "full thread support" in Windows
+    #    https://sourceforge.net/p/tcl/mailman/tcl-bugs/thread/From_noreply@sourceforge.net_Mon_Jul_23_11:46:16_2012/
+    {% set tcl_tk_libs = [
+            "tcl",
+            "tk"
+    ] %}
+    {% for each_tcl_tk_lib in tcl_tk_libs %}
+    - test -f "${PREFIX}/lib/lib{{ each_tcl_tk_lib }}{{ maj_min }}.so"
+    {% endfor %}
+
+    # Check commands work and run a simple program.
+    - tclsh hello.tcl
+    - tclsh{{ maj_min }} hello.tcl
+    - wish hello.tcl
+    - wish{{ maj_min }} hello.tcl
+
+about:
+  home: http://www.tcl.tk/
+  license: Tcl/Tk
+  license_family: BSD
+  summary: A dynamic programming language with GUI support.  Bundles Tcl and Tk.
