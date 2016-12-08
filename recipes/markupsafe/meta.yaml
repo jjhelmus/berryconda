@@ -1,0 +1,30 @@
+{% set version = "0.23" %}
+
+package:
+  name: markupsafe
+  version: {{ version }}
+
+source:
+  fn: MarkupSafe-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/M/MarkupSafe/MarkupSafe-{{ version }}.tar.gz
+  md5: f5ab3deee4c37cd6a922fb81e730da6e
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - markupsafe
+
+about:
+  home: http://github.com/mitsuhiko/markupsafe
+  license: BSD 3-clause
+  summary: A Python module that implements the jinja2.Markup string
