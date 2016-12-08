@@ -1,0 +1,30 @@
+package:
+  name: conda-verify
+  version: 2.0.0
+
+source:
+  git_url: https://github.com/conda/conda-verify.git
+  git_tag: 2.0.0
+
+build:
+  entry_points:
+    - conda-verify = conda_verify.main:main
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+    - pyyaml
+
+test:
+  commands:
+    - conda-verify
+  imports:
+    - conda_verify
+
+about:
+  home: https://github.com/conda/conda-verify
+  license: BSD
+  license_file: LICENSE.txt
+  summary: tool for (passively) verifying conda recipes and conda packages
