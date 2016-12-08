@@ -1,0 +1,60 @@
+{% set name = "conda" %}
+{% set version = "4.2.13" %}
+{% set checksum = "4a04bbf21dc4274f7623793d2746527c614fea8ca533a8efb252a10c42c34d5d" %}
+
+package:
+  name: conda
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
+  sha256: {{ checksum }}
+  patches:
+    # add back in the armv6l and armv7l platforms
+    - constants.py-add_arm_platforms.patch
+
+build:
+  number: 0
+  entry_points:
+    - conda = conda.cli:main
+    - conda-env = conda_env.cli.main:main
+  always_include_files:
+    - bin/conda
+    - bin/activate
+    - bin/deactivate
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+    - conda-env >=2.6
+    - enum34                 # [py<34]
+    - pycosat >=0.6.1
+    - requests >=2.5.3
+    - ruamel_yaml >=0.11.14
+
+test:
+  imports:
+    - conda
+  commands:
+    - which conda
+    - which conda-env
+    - conda --version
+    - conda info
+    - conda env --help
+
+about:
+  home: https://github.com/conda/conda
+  license: BSD 3-Clause
+  license_file: LICENSE.txt
+  summary: OS-agnostic, system-level binary package manager.
+  description: |
+    Conda is an open source package management system and environment
+    management system for installing multiple versions of software packages
+    and their dependencies and switching easily between them. It works on
+    Linux, OS X and Windows, and was created for Python programs but can
+    package and distribute any software.
+  doc_url: http://conda.pydata.org/docs/
+  dev_url: https://github.com/conda/conda
