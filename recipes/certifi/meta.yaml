@@ -1,0 +1,30 @@
+{% set version = "2016.9.26" %}
+
+package:
+  name: certifi
+  version: {{ version }}
+
+source:
+  fn: certifi-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
+  sha256: 8275aef1bbeaf05c53715bfc5d8569bd1e04ca1e8e69608cc52bcaac2604eb19
+
+build:
+  number: 0
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - certifi
+
+about:
+  home: http://certifi.io/
+  license: ISC
+  license_file: LICENSE
+  summary: Python package for providing Mozilla's CA Bundle.
