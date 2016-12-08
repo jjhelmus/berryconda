@@ -1,0 +1,28 @@
+{% set version = "0.1.6" %}
+
+package:
+  name: yaml
+  version: {{ version }}
+
+source:
+  fn: yaml-{{ version }}.tar.gz
+  url: http://pyyaml.org/download/libyaml/yaml-{{ version }}.tar.gz
+  md5: 5fe00cda18ca5daeb43762b80c38e06e
+  patches:
+
+build:
+  number: 0
+
+test:
+  commands:
+    # Check headers.
+    - test -f "${PREFIX}/include/yaml.h"
+
+    # Check libraries.
+    - test -f "${PREFIX}/lib/libyaml.a"
+    - test -f "${PREFIX}/lib/libyaml.so"
+
+about:
+  home: http://pyyaml.org/wiki/LibYAML'
+  license: MIT
+  summary: A C library for parsing and emitting YAML.
