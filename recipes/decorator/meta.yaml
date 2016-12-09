@@ -1,0 +1,33 @@
+package:
+  name: decorator
+  version: 4.0.10
+
+source:
+  fn: decorator-4.0.10.tar.gz
+  url: https://pypi.python.org/packages/13/8a/4eed41e338e8dcc13ca41c94b142d4d20c0de684ee5065523fee406ce76f/decorator-4.0.10.tar.gz
+  md5: 434b57fdc3230c500716c5aff8896100
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - decorator
+
+about:
+  home: http://pypi.python.org/pypi/decorator
+  license: BSD
+  license_file: LICENSE.txt
+  summary: Better living through Python with decorators
+  description: |
+    Preserve the signature of decorated functions in a consistent way
+    across Python releases.
+  doc_url: http://pythonhosted.org/decorator/
+  dev_url: https://github.com/micheles/decorator
