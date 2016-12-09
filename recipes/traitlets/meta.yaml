@@ -1,0 +1,36 @@
+{% set version = "4.3.1" %}
+{% set sha256 = "ba8c94323ccbe8fd792e45d8efe8c95d3e0744cc8c085295b607552ab573724c" %}
+
+package:
+  name: traitlets
+  version: {{ version }}
+
+source:
+  fn: traitlets-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/t/traitlets/traitlets-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: pip install --no-deps .
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - ipython_genutils
+    - six
+    - decorator
+    - enum34  # [py2k or py33]
+
+test:
+  imports:
+    - traitlets
+    - traitlets.config
+
+about:
+  home: http://ipython.org/
+  license: BSD 3-clause
+  summary: Configuration system for Python applications
