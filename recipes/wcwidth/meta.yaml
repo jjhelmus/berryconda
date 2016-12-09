@@ -1,0 +1,31 @@
+{% set version = "0.1.7" %}
+
+package:
+    name: wcwidth
+    version: {{ version }}
+
+source:
+    fn: wcwidth-{{ version }}.tar.gz
+    url: https://pypi.io/packages/source/w/wcwidth/wcwidth-{{ version }}.tar.gz
+    sha256: 3df37372226d6e63e1b1e1eda15c594bca98a22d33a23832a90998faa96bc65e
+
+build:
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+    build:
+        - python
+        - setuptools
+    run:
+        - python
+
+test:
+    imports:
+        - wcwidth
+        - wcwidth.tests
+
+about:
+    home: https://github.com/jquast/wcwidth
+    license: MIT
+    summary: 'Measures number of Terminal column cells of wide-character codes.'
