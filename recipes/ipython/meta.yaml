@@ -1,0 +1,48 @@
+{% set version = "5.1.0" %}
+
+package:
+  name: ipython
+  version: {{ version }}
+
+source:
+  fn: ipython-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/i/ipython/ipython-{{ version }}.tar.gz
+  sha256: 7ef4694e1345913182126b219aaa4a0047e191af414256da6772cf249571b961
+
+build:
+  number: 0
+  script: python -m pip install --no-deps .
+  entry_points:
+    - ipython = IPython:start_ipython
+    - ipython2 = IPython:start_ipython  # [py2k]
+    - ipython3 = IPython:start_ipython  # [py3k]
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - pickleshare
+    - simplegeneric >0.8
+    - prompt_toolkit >=1.0.3,<2.0.0
+    - pygments
+    - decorator
+    - traitlets
+    - pexpect
+    - backports.shutil_get_terminal_size
+    - pathlib2  # [py2k]
+
+test:
+  commands:
+    - ipython -h
+    - ipython2 -h          # [py2k]
+    - ipython3 -h          # [py3k]
+  imports:
+    - IPython
+
+about:
+  home: http://ipython.org/
+  license: BSD 3-clause
+  license_file: COPYING.rst
+  summary: "IPython: Productive Interactive Computing"
