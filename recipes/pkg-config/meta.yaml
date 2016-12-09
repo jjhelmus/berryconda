@@ -1,0 +1,31 @@
+{% set version = "0.29.1" %}
+
+package:
+  name: pkg-config
+  version: {{ version }}
+
+source:
+  fn: pkg-config-{{ version }}.tar.gz
+  url: https://pkg-config.freedesktop.org/releases/pkg-config-{{ version }}.tar.gz
+  sha256: beb43c9e064555469bd4390dcfd8030b1536e0aa103f08d7abf7ae8cac0cb001
+
+build:
+  number: 0
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+    - zlib 1.2*
+    # use the system python
+    #- python
+  run:
+    - zlib 1.2*
+
+test:
+  commands:
+    - pkg-config --help
+
+about:
+  home: http://www.freedesktop.org/wiki/Software/pkg-config/
+  license: GPL 2
+  summary: Interface for querying installed libraries for use during compilation.
