@@ -1,0 +1,39 @@
+{% set version = "1.5.0" %}
+{%set sha256 = "1c5125365c3544ec620b19e9de3ec3d9c5d1becc3d2213b3bc7378a303efd89e" %}
+
+package:
+  name: constructor
+  version: {{ version }}
+
+source:
+  fn: constructor-{{ version }}.tar.gz
+  url: https://github.com/conda/constructor/archive/{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+
+  run:
+    - python
+    - libconda
+    - pycosat >=0.6.1
+
+test:
+  imports:
+    - constructor
+
+  commands:
+    - constructor --test
+    - constructor --help
+
+about:
+  home: http://github.com/conda/constructor
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE.txt
+  summary: create installer from conda packages
