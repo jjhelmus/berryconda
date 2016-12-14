@@ -8,7 +8,7 @@ source:
   sha256: 1524b840e42cf3b909e8f8df67c1724012c7dc7f9d076d4feef2d3eff031e8a0
 
 build:
-  number: 0
+  number: 1
   no_link:
     - bin/python3.5
   script_env:
@@ -16,23 +16,26 @@ build:
   skip_compile_pyc:
     - lib/python3.5/test/*bad*.py
     - lib/python3.5/lib2to3/tests/data/*.py
+  ignore_prefix_files:
+    - lib/libpython3.5m.so.1.0
+    - lib/python3.5/lib-dynload/*.so
 
 requirements:
   build:
     - bzip2 1.0.*
     - openssl 1.0.*
+    - readline 6.3*
     - sqlite 3.15.*
+    - tk 8.6.*
     - xz 5.2.*
     - zlib 1.2.*
-    - readline 6.3*
-    - tk 8.6.*
   run:
     - openssl 1.0.*
+    - readline 6.3*
     - sqlite 3.15.*
+    - tk 8.6.*
     - xz 5.2.*
     - zlib 1.2.*
-    - readline 6.3*
-    - tk 8.6.*
 
 test:
   commands:

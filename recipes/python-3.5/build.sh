@@ -2,6 +2,10 @@
 
 python ${RECIPE_DIR}/brand_python.py
 
+# Remove test data and ensurepip stubs to save space
+rm -rf Lib/test Lib/*/test
+rm -rf Lib/ensurepip
+
 ./configure --enable-shared --enable-ipv6 --with-ensurepip=no \
     --prefix=$PREFIX \
     --with-tcltk-includes="-I$PREFIX/include" \
