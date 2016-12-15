@@ -1,0 +1,30 @@
+package:
+  name: beautifulsoup4
+  version: 4.5.1
+
+source:
+  fn: beautifulsoup4-4.5.1.tar.gz
+  url: https://pypi.python.org/packages/86/ea/8e9fbce5c8405b9614f1fd304f7109d9169a3516a493ce4f7f77c39435b7/beautifulsoup4-4.5.1.tar.gz
+  md5: 994abd90e691beaf7d42c00ffb2f3a67
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - bs4
+
+about:
+  home: http://www.crummy.com/software/BeautifulSoup/
+  license: MIT
+  license_file: COPYING.txt
+  summary: Python library designed for screen-scraping
+  description: |
+    Beautiful Soup is a library for pulling data out of HTML and XML files.
+    It provides ways of navigating, searching, and modifying parse trees.
+  doc_url: http://www.crummy.com/software/BeautifulSoup/bs4/doc/
+  dev_url: https://code.launchpad.net/beautifulsoup
