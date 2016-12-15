@@ -1,0 +1,61 @@
+{% set version = "1.14.3" %}
+
+package:
+  name: distributed
+  version: "{{ version }}"
+
+source:
+  fn: distributed-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/d/distributed/distributed-{{ version }}.tar.gz
+  sha256: 7235db718afab3be62aef2e416fe2c75278cfa8ef646bd8b8b043f0f08bffa39
+
+build:
+  number: 0
+  entry_points:
+    - dask-scheduler=distributed.cli.dask_scheduler:go
+    - dask-ssh=distributed.cli.dask_ssh:go
+    - dask-worker=distributed.cli.dask_worker:go
+    - dask-remote=distributed.cli.dask_remote:go
+    - dask-submit=distributed.cli.dask_submit:go
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - bokeh >=0.12.3
+    - boto3
+    - click >=6.6
+    - cloudpickle >=0.2.1
+    - dask >=0.12.0
+    - locket
+    - msgpack-python
+    - psutil
+    - s3fs >=0.0.7
+    - six
+    - tblib
+    - toolz >=0.7.4
+    - tornado >=4.2
+    - zict >=0.1.0
+
+test:
+  imports:
+    - distributed
+    - distributed.bokeh
+    - distributed.bokeh.status
+    - distributed.bokeh.tasks
+    - distributed.cli
+    - distributed.diagnostics
+    - distributed.http
+  commands:
+    - dask-scheduler --help
+    - dask-ssh --help
+    - dask-worker --help
+
+about:
+  home: http://distributed.readthedocs.io/en/latest/
+  license: BSD 3-Clause
+  summary: 'Distributed computing'
