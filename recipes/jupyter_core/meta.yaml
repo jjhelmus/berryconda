@@ -1,0 +1,41 @@
+{% set version = "4.2.1" %}
+
+package:
+  name: jupyter_core
+  version: {{ version }}
+
+source:
+  fn: jupyter_core-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/j/jupyter_core/jupyter_core-{{ version }}.tar.gz
+  sha256: 89c55399c8437f777197c2c82c1ff5639c7f71d4eb2f172a81afa120b68dc7b3
+
+build:
+  number: 0
+  script: pip install --no-deps .
+  entry_points:
+    - jupyter = jupyter_core.command:main
+    - jupyter-migrate = jupyter_core.migrate:main
+    - jupyter-troubleshoot = jupyter_core.troubleshoot:main
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - traitlets
+
+test:
+  commands:
+    - jupyter -h
+    - jupyter-migrate -h
+    - jupyter-troubleshoot --help
+  imports:
+    - jupyter_core
+    - jupyter_core.utils
+
+about:
+  home: http://jupyter.org
+  license: BSD 3-clause
+  license_file: COPYING.md
+  summary: Core common functionality of Jupyter projects.
