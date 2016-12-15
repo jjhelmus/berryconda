@@ -1,0 +1,35 @@
+package:
+  name: blist
+  version: 1.3.6
+
+source:
+  fn: blist-1.3.6.tar.gz
+  url: https://pypi.python.org/packages/source/b/blist/blist-1.3.6.tar.gz
+  md5: a538f1a24b9191e3c40252e9397408a9
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - blist
+    - blist._blist
+
+about:
+  home: http://stutzbachenterprises.com/blist/
+  license: BSD
+  license_file: LICENSE
+  summary: Replacement for Python lists with better performance
+  description: |
+    Blist is a drop-in replacement for the Python list that provides
+    better performance for large lists and virtually identical performance for
+    small lists. The blist uses a flexible, hybrid array/tree structure to
+    minimize the number of items in memory that are moved. The blist package
+    also provides sortedlist, sortedset, weaksortedlist, weaksortedset,
+    sorteddict, and btuple.
+  doc_url: http://stutzbachenterprises.com/blist/
+  dev_url: https://github.com/DanielStutzbach/blist
