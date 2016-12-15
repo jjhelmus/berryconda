@@ -1,0 +1,29 @@
+From https://github.com/h5py/h5py/pull/776
+
+Fix #775: avoid errors when the GC runs during nonlocal_close()
+
+diff --git a/h5py/_objects.pyx b/h5py/_objects.pyx
+index 438572c..9ea9cbc 100644
+--- a/h5py/_objects.pyx
++++ b/h5py/_objects.pyx
+@@ -115,16 +115,14 @@ def nonlocal_close():
+     """
+     cdef ObjectID obj
+ 
+-    for python_id, ref in registry.items():
++    # list() needed because the registry can be mutated concurrently
++    for python_id, ref in list(registry.items()):
+ 
+         obj = ref()
+ 
+-        # Object somehow died without being removed from the registry.
+-        # I think this is impossible, but let's make sure.
++        # Object died while walking the registry list, presumably because
++        # the cyclic GC kicked in.
+         if obj is None:
+-            warnings.warn("Found murdered identifier %d of kind %s HDF5 id %d" % 
+-                             (python_id, type(obj), obj.id), RuntimeWarning)
+-            del registry[python_id]
+             continue
+ 
+         # Locked objects are immortal, as they generally are provided by
