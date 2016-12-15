@@ -1,0 +1,37 @@
+{% set version = "2.0.0" %}
+
+package:
+  name: mock
+  version: {{ version }}
+
+source:
+  fn: mock-{{ version }}.tar.gz
+  url: https://pypi.python.org/packages/source/m/mock/mock-{{ version }}.tar.gz
+  md5: 0febfafd14330c9dcaa40de2d82d40ad
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - funcsigs    # [py<33]
+    - pbr
+    - six
+
+  run:
+    - python
+    - funcsigs    # [py<33]
+    - pbr
+    - six
+
+test:
+  imports:
+    - mock
+
+about:
+  home: https://github.com/testing-cabal/mock
+  license: BSD 2-Clause
+  summary: A library for testing in Python.
