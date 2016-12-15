@@ -1,0 +1,31 @@
+{% set version = "1.0.0" %}
+
+package:
+  name: cyordereddict
+  version: {{ version }}
+
+source:
+  fn: cyordereddict-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/c/cyordereddict/cyordereddict-{{ version }}.tar.gz
+  sha256: d9b2c31796999770801a9a49403b8cb49510ecb64e5d1e9d4763ed44f2d5a76e
+
+build:
+  number: 0
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+    - cython
+  run:
+    - python
+
+test:
+  imports:
+    - cyordereddict
+    - cyordereddict.benchmark
+
+about:
+  home: https://github.com/shoyer/cyordereddict
+  license: MIT
+  summary: "Cython implementation of Python's collections.OrderedDict."
