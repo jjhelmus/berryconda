@@ -1,0 +1,38 @@
+{% set version = "0.8.2" %}
+
+package:
+  name: cytoolz
+  version: {{ version }}
+
+source:
+  fn: cytoolz-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/c/cytoolz/cytoolz-{{ version }}.tar.gz
+  sha256: 476a2ad176de5eaef80499b7b43d4f72ba6d23df33d349088dae315e9b31c552
+
+build:
+  number: 0
+  script: python setup.py install --no-cython --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - setuptools
+    - python
+    - toolz >=0.8.0
+  run:
+    - python
+    - toolz >=0.8.0
+
+test:
+  requires:
+    - nose
+    - toolz 0.8.2
+  imports:
+    - cytoolz
+    - cytoolz.curried
+  commands:
+    - nosetests --with-doctest cytoolz
+
+about:
+  home: https://github.com/pytoolz/cytoolz
+  license: BSD 3-Clause
+  summary: Cython implementation of Toolz. High performance functional utilities.
