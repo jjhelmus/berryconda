@@ -1,0 +1,29 @@
+{% set version = "0.2.2" %}
+
+package:
+    name: entrypoints
+    version: {{ version }}
+
+source:
+    fn: {{ version }}.tar.gz
+    url: https://github.com/takluyver/entrypoints/archive/{{ version }}.tar.gz
+    md5: 7dae980f7c6affd777dc60a51c8d0b0b
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+    run:
+        - python
+        - configparser  # [not py35]
+
+test:
+    imports:
+        - entrypoints
+
+about:
+    home: http://entrypoints.readthedocs.org/en/latest/
+    license: MIT
+    summary: Discover and load entry points from installed packages
