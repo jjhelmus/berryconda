@@ -1,0 +1,37 @@
+package:
+  name: argcomplete
+  version: 1.0.0
+
+source:
+  fn: argcomplete-1.0.0.tar.gz
+  url: https://pypi.python.org/packages/source/a/argcomplete/argcomplete-1.0.0.tar.gz
+  md5: 7cdf147b498e7e4d6ab71036292939a3
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - setuptools
+
+test:
+  commands:
+    - activate-global-python-argcomplete --help
+    - register-python-argcomplete --help
+  imports:
+    - argcomplete
+
+about:
+  home: https://argcomplete.readthedocs.org/en/latest/
+  license: Apache
+  summary:  Bash tab completion of arguments for Python scripts
+  description: |
+   Argcomplete is an extensible command line tab completion of arguments
+   for Python scripts. It requires users to use bash or zsh as their
+   shell, and to use argparse to manage their command line arguments.
+  doc_url: https://argcomplete.readthedocs.org/en/latest/
+  dev_url: https://github.com/kislyuk/argcomplete
