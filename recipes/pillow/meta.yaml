@@ -1,0 +1,39 @@
+{% set version = "3.4.2" %}
+
+package:
+  name: pillow
+  version: {{ version }}
+
+source:
+  fn: Pillow-{{ version }}.tar.gz
+  url: https://github.com/python-pillow/Pillow/archive/{{ version }}.tar.gz
+  sha256: 0ee762ab924e004b7e69643b44e82cf65e0fa1f16862e11bd821950dbbc5f3d3
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - zlib 1.2.*
+    - libtiff 4.0.*
+    - jpeg 9*
+    - freetype 2.7.*
+    - tk 8.6.*
+  run:
+    - python
+    - jpeg 9*
+    - zlib 1.2.*
+    - freetype 2.7.*
+    - libtiff 4.0.*
+
+test:
+  imports:
+    - PIL
+    - PIL.Image
+
+about:
+  home: http://python-imaging.github.io/
+  license: Standard PIL license
+  summary: 'Pillow is the friendly PIL fork by Alex Clark and Contributors.'
