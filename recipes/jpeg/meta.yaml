@@ -1,0 +1,24 @@
+{% set version = "9b" %}
+
+package:
+    name: jpeg
+    version: {{ version }}
+
+source:
+    fn: jpegsrc.v9b.tar.gz
+    url: http://www.ijg.org/files/jpegsrc.v{{ version }}.tar.gz
+    md5: 6a9996ce116ec5c52b4870dbcd6d3ddb
+
+build:
+    number: 0
+        
+test:
+    files:
+        - testorig.jpg
+    commands:
+        - djpeg -dct int -ppm -outfile testout.ppm testorig.jpg
+
+about:
+    home: http://www.ijg.org/
+    license: Custom free software license
+    summary: read/write jpeg COM, EXIF, IPTC medata
