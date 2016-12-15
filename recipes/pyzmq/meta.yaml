@@ -1,0 +1,41 @@
+{% set version = "16.0.2" %}
+package:
+  name: pyzmq
+  version: {{ version }}
+
+source:
+  fn: pyzmq-{{ version }}.tar.gz
+  # We use the pypi URL as it includes the prepared Cython files.
+  url: https://pypi.io/packages/source/p/pyzmq/pyzmq-{{ version }}.tar.gz
+  sha256: 0322543fff5ab6f87d11a8a099c4c07dd8a1719040084b6ce9162bcdf5c45c9d
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - zeromq 4.1*
+    - libsodium
+  run:
+    - python
+    - zeromq 4.1*
+    - libsodium
+
+test:
+  imports:
+    - zmq
+    - zmq.backend.cython.socket
+    - zmq.backend.cython.utils
+    - zmq.devices.monitoredqueue
+
+  requires:
+    - pytest
+
+  commands:
+    - py.test --pyargs zmq.tests
+
+about:
+  home: https://github.com/zeromq/pyzmq
+  summary: Python bindings for zeromq
+  license: BSD 3-clause
