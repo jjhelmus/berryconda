@@ -1,0 +1,39 @@
+{% set version = "2.9.4" %}
+
+package:
+  name: libxml2
+  version: {{ version }}
+
+source:
+  fn: libxml2-{{ version }}.tar.gz
+  url: https://git.gnome.org/browse/libxml2/snapshot/libxml2-{{ version }}.tar.gz
+  sha256: 1d5257abac02aab323bf6ab26199ce0bb2a7b798bb7acea302e136438237268a
+  patches:
+    # Bug 767063 - Fix build of libxml2 2.9.4 (git master) on pre-C99 compilers.
+    - pre-c99.patch
+    # https://bugzilla.gnome.org/show_bug.cgi?id=766834
+    - fix-attribute-decoding-during-xml-schema-validation.patch
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - zlib 1.2.*
+    - xz 5.2.*
+  run:
+    - zlib 1.2.*
+    - xz 5.2.*
+
+test:
+  files:
+    - test.xml
+  commands:
+    - xmllint test.xml
+    - conda inspect linkages -p $PREFIX libxml2
+
+about:
+  home: http://xmlsoft.org/
+  license: MIT
+  license_file: Copyright
+  summary: 'The XML C parser and toolkit of Gnome.'
