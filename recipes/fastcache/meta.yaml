@@ -1,0 +1,31 @@
+package:
+  name: fastcache
+  version: 1.0.2
+
+source:
+  fn: fastcache-1.0.2.tar.gz
+  url: https://pypi.python.org/packages/source/f/fastcache/fastcache-1.0.2.tar.gz
+  md5: 1c301bedd2be2ae48d9c853ca7719e19
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - fastcache
+
+about:
+  home: https://github.com/pbrady/fastcache
+  license: MIT
+  summary: C implementation of Python 3 functools.lru_cache
+  description: |
+    C implementation of Python 3 functools.lru_cache. Provides speedup of 10-
+    30x over standard library.
+  doc_url: https://pypi.python.org/pypi/fastcache/1.0.2
+  dev_url: https://github.com/pbrady/fastcache
