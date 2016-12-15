@@ -1,0 +1,66 @@
+{% set version="3.3.0" %}
+
+package:
+    name: pytables
+    version: {{ version }}
+
+source:
+    fn: PyTables-v{{ version }}.tar.gz
+    url: https://github.com/PyTables/PyTables/archive/v{{ version }}.tar.gz
+    sha256: dceb15fef556a2775121bcc695561df4ff0e09248e0ce3a2d58f5244a9f61421
+
+build:
+    number: 0
+    entry_points:
+        - pt2to3 = tables.scripts.pt2to3:main
+        - ptdump = tables.scripts.ptdump:main
+        - ptrepack = tables.scripts.ptrepack:main
+        - pttree = tables.scripts.pttree:main
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - cython
+        - numpy x.x
+        - zlib 1.2.*
+        - lzo 2.06
+        - bzip2 1.0.*
+        - hdf5 1.8.17|1.8.17.*
+        - numexpr
+        # Building blosc is done internally. The version is up-to-date.
+        # - blosc
+    run:
+        - python
+        - six
+        - numpy x.x
+        - numexpr
+        - hdf5 1.8.17|1.8.17.*
+        - zlib 1.2.*
+        # building blosc is done internally. The version is up-to-date.
+        # - blosc
+
+test:
+    requires:
+        - setuptools
+    commands:
+        - pt2to3 -h
+        - ptdump -h
+        - ptrepack -h
+        - pttree -h
+        # the current conda-build fails on inspect.
+        # - conda inspect linkages -n _test pytables  # [not win]
+        # - conda inspect objects -n _test pytables  # [osx]
+
+about:
+    home: http://www.pytables.org
+    license: BSD 3-Clause
+    license_file: LICENSE.txt
+    summary: 'Brings together Python, HDF5 and NumPy to easily handle large amounts of data.'
+    description: |
+      PyTables is a package for managing hierarchical datasets and designed to
+      efficiently and easily cope with extremely large amounts of data. PyTables
+      is built on top of the HDF5 library, using the Python language and the
+      NumPy package.
+    doc_url: http://www.pytables.org/
+    dev_url: https://github.com/PyTables
