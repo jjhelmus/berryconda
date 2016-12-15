@@ -1,0 +1,53 @@
+# Full credit goes to https://github.com/conda/conda-recipes for providing this recipe.
+# It has been subsequently adapted for automated building with conda-forge.
+
+{% set version = "1.5.3" %}
+
+package:
+  name: matplotlib
+  version: {{ version }}
+
+source:
+  fn: matplotlib-{{ version }}.tar.gz
+  url: https://github.com/matplotlib/matplotlib/archive/v{{ version }}.tar.gz
+  sha256: c72276afc11f0b77cee736a783861039c0284d2e4739de8ca09d2dd1407745aa
+
+build:
+    number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy x.x
+    - python-dateutil
+    - freetype 2.7.*
+    - cycler
+    - nose
+    - pyparsing
+    - pytz
+    - libpng >=1.6.23,<1.7
+    - tk 8.6.*
+  run:
+    - python
+    - numpy x.x
+    - cycler
+    - python-dateutil
+    - freetype 2.7.*
+    - pytz
+    - pyparsing
+    - libpng >=1.6.23,<1.7
+    - tk 8.6.*
+    - functools32  # [py2k]
+    - setuptools
+
+test:
+    imports:
+        - matplotlib
+        - matplotlib.pyplot
+        - mpl_toolkits
+
+about:
+  home: http://matplotlib.org/
+  license: PSF-based (http://matplotlib.org/users/license.html)
+  summary: Publication quality figures in Python
