@@ -1,0 +1,30 @@
+{% set version = "2.7" %}
+
+package:
+  name: freetype
+  version: {{ version }}
+
+source:
+  fn: freetype-{{ version }}.tar.bz2
+  url: http://download.savannah.gnu.org/releases/freetype/freetype-{{ version }}.tar.bz2
+  sha256: d6a451f5b754857d2aa3964fd4473f8bc5c64e879b24516d780fb26bec7f7d48
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - zlib 1.2.*
+    - libpng >=1.6.23,<1.7
+  run:
+    - zlib 1.2.*
+    - libpng >=1.6.23,<1.7
+
+test:
+  commands:
+    - freetype-config --version
+
+about:
+  home: https://www.freetype.org/
+  license: GPL-2.0 and FreeType (http://freetype.sourceforge.net/FTL.TXT)
+  summary: 'A TrueType Font Library.'
