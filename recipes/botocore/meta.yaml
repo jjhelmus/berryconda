@@ -1,0 +1,54 @@
+{%set name = "botocore" %}
+{%set version = "1.4.81" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "e8e0e462a45c4b34fd1f018564459b739ec0bb7fbb3358a0e2d8f27b7bf7341f" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash_val }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - jmespath >=0.7.1,<1.0.0
+    - python-dateutil >=2.1,<3.0.0
+    - docutils >=0.10
+    - ordereddict ==1.1  # [py26]
+    - simplejson ==3.3.0  # [py26]
+
+test:
+  imports:
+    - botocore
+    - botocore.docs
+    - botocore.docs.bcdoc
+    - botocore.vendored
+    - botocore.vendored.requests
+    - botocore.vendored.requests.packages
+    - botocore.vendored.requests.packages.chardet
+    - botocore.vendored.requests.packages.urllib3
+    - botocore.vendored.requests.packages.urllib3.contrib
+    - botocore.vendored.requests.packages.urllib3.packages
+    - botocore.vendored.requests.packages.urllib3.packages.ssl_match_hostname
+    - botocore.vendored.requests.packages.urllib3.util
+
+about:
+  home: https://github.com/boto/botocore
+  license: Apache 2.0
+  license_file: LICENSE.txt
+  license_family: Apache
+  summary: 'Low-level, data-driven core of boto 3.'
+  dev_url: https://github.com/boto/botocore
+  doc_url: https://botocore.readthedocs.io/en/latest/
