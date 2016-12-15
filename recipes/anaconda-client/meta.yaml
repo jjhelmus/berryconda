@@ -1,6 +1,6 @@
 {% set name = "anaconda-client" %}
-{% set version = "1.5.1" %}
-{% set checksum = "011ef0562f36edb0775a2c67d1abb63814ecd95bcb78c8ae60975e5c5200b17c" %}
+{% set version = "1.5.3" %}
+{% set checksum = "1a7dc39661b606443134a76bebe0e062a262aa774387daa72a38d066da6a3fbe" %}
 
 package:
   name: {{ name }}
@@ -32,6 +32,7 @@ requirements:
   run:
     - python
     - clyent
+    - conda
     - requests >=2.0
     - pyyaml
     - python-dateutil
