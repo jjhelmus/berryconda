@@ -1,0 +1,32 @@
+{% set version = "0.3.1" %}
+
+package:
+    name: h5netcdf
+    version: {{ version }}
+
+source:
+    fn: h5netcdf-{{ version }}.tar.gz
+    url: https://github.com/shoyer/h5netcdf/archive/v{{ version }}.tar.gz
+    sha256: 8fdc52d63ce1e6cc18c5badcd67804146fc23d3ff3f678590e8f6a1920a46754
+
+build:
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - h5py
+    run:
+        - python
+        - h5py
+
+test:
+    imports:
+        - h5netcdf
+
+about:
+    home: https://github.com/shoyer/h5netcdf
+    license: BSD 3-Clause
+    summary: 'netCDF4 via h5py.'
