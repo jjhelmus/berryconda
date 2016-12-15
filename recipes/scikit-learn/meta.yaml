@@ -1,0 +1,44 @@
+{% set version = "0.18" %}
+
+package:
+  name: scikit-learn
+  version: {{ version }}
+
+source:
+  fn: scikit-learn-{{ version }}.tar.gz
+  url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
+  sha256: 6f871ab07657becb3cca158dc4af96a1a14c0a360add04664fba325da43537fa
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cython
+    - python
+    - setuptools
+    - openblas 0.2.19|0.2.19.*
+    - numpy x.x
+    - scipy
+    - nose
+
+  run:
+    - python
+    - openblas 0.2.19|0.2.19.*
+    - numpy x.x
+    - scipy
+
+test:
+  requires:
+    - nose
+
+  imports:
+    - sklearn
+
+  commands:
+    - nosetests sklearn --exe
+
+about:
+  home: http://scikit-learn.org/
+  license: BSD 3-Clause
+  summary: A set of python modules for machine learning and data mining
