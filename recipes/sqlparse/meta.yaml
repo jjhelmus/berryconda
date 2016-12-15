@@ -1,0 +1,38 @@
+{% set version = "0.2.2" %}
+
+package:
+  name: sqlparse
+  version: {{ version }}
+
+source:
+  fn: sqlparse-{{ version }}.tar.gz
+  url: https://github.com/andialbrecht/sqlparse/archive/{{ version }}.tar.gz
+  sha256: 33cec505e752a237efcc2466763d3aef5f2dcbe1af301f607a39fe7b427a1513
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+  entry_points:
+    - sqlformat = sqlparse.__main__:main
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - sqlparse
+
+about:
+  home: https://github.com/andialbrecht/sqlparse
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: 'A non-validating SQL parser module for Python.'
+  description: |
+    sqlparse is a non-validating SQL parser for Python. It provides support
+    for parsing, splitting and formatting SQL statements.
+  doc_url: https://sqlparse.readthedocs.org
+  dev_url: https://github.com/andialbrecht/sqlparse
