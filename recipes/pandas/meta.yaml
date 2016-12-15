@@ -1,0 +1,35 @@
+{% set version="0.19.1" %}
+
+package:
+    name: pandas
+    version: {{ version }}
+
+source:
+    fn: pandas-{{ version }}.tar.gz
+    url: https://github.com/pydata/pandas/archive/v{{ version }}.tar.gz
+    sha256: 8a97e2992e2ea2dee1457691c343c9862dd67c90daf1e6527da0023992db5548
+
+build:
+    number: 0
+    script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+    build:
+        - python
+        - setuptools
+        - cython
+        - numpy  x.x
+    run:
+        - python
+        - numpy  x.x
+        - python-dateutil
+        - pytz
+
+test:
+    imports:
+        - pandas
+
+about:
+    home: http://pandas.pydata.org
+    license: BSD 3-clause
+    summary: high-performance, easy-to-use data structures and data analysis tools.
