@@ -1,0 +1,40 @@
+{% set version = "4.5.2" %}
+
+package:
+  name: ipykernel
+  version: {{ version }}
+
+source:
+  fn: ipykernel-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/i/ipykernel/ipykernel-{{ version }}.tar.gz
+  sha256: 5a54f25f0e6c8ee74c362c23f9a95e10e74c6b7f5ef42059c861ff6f26d89462
+
+build:
+  number: 0
+  script:
+    - pip install --no-deps .
+    - python -m ipykernel install --prefix $PREFIX
+
+requirements:
+  build:
+    - pip
+    - python
+    - jupyter_client
+    - ipython >=4.0
+    - tornado >=4.0
+  run:
+    - python
+    - ipython >=4.0
+    - traitlets
+    - jupyter_client
+    - tornado >=4.0
+
+test:
+  imports:
+    - ipykernel
+
+about:
+  home: http://ipython.org
+  license: BSD 3-clause
+  license_file: COPYING.md
+  summary: IPython Kernel for Jupyter
