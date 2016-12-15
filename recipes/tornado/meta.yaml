@@ -1,0 +1,39 @@
+{% set version = "4.4.2" %}
+
+package:
+  name: tornado
+  version: {{ version }}
+
+source:
+  fn: tornado-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/t/tornado/tornado-{{ version }}.tar.gz
+  sha256: 2898f992f898cd41eeb8d53b6df75495f2f423b6672890aadaf196ea1448edcc
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - ordereddict          # [py<27]
+    - ssl_match_hostname   # [py2k]
+    - singledispatch       # [py<34]
+    - certifi              # [py<34]
+    - backports_abc >=0.4  # [py<35]
+
+test:
+  imports:
+    - tornado
+    - tornado.platform
+    - tornado.test
+    - tornado.gen
+    - tornado.netutil
+
+about:
+  home: http://www.tornadoweb.org/
+  license: Apache Software License
+  summary: 'Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed.'
