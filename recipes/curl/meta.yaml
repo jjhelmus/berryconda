@@ -1,0 +1,38 @@
+{% set version = "7.49.1" %}
+
+package:
+  name: curl
+  version: {{ version }}
+
+source:
+  fn: curl-{{ version }}.tar.bz2
+  url: http://curl.haxx.se/download/curl-{{ version }}.tar.bz2
+  sha256: eb63cec4bef692eab9db459033f409533e6d10e20942f4b060b32819e81885f1
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - openssl 1.0.*
+    - zlib 1.2.*
+  run:
+    - openssl 1.0.*
+    - zlib 1.2.*
+
+test:
+
+  commands:
+    - curl --help
+    - curl-config --features
+    - curl-config --protocols
+
+    # Try downloading something from https to make sure the certs are used correctly.
+    - curl https://raw.githubusercontent.com/conda-forge/curl-feedstock/master/LICENSE
+
+about:
+  home: http://curl.haxx.se/
+  license: MIT/X derivate (http://curl.haxx.se/docs/copyright.html)
+  license_family: MIT
+  license_file: COPYING
+  summary: tool and library for transferring data with URL syntax
