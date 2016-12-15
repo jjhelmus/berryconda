@@ -1,0 +1,18 @@
+package:
+  name: lzo
+  version: 2.06
+
+source:
+  fn: lzo-2.06.tar.gz
+  url: http://www.oberhumer.com/opensource/lzo/download/lzo-2.06.tar.gz
+  md5: 95380bd4081f85ef08c5209f4107e9f8
+
+about:
+  home: http://www.oberhumer.com/opensource/lzo/
+  license: GPL
+  license_family: GPL2
+  license_file: COPYING
+  summary: A portable lossless data compression library written in ANSI C.
+  description: |
+    LZO offers pretty fast compression and extremely fast decompression.
+    MiniLZO is a very lightweight subset of the LZO library.
