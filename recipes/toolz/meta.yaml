@@ -1,0 +1,33 @@
+{% set version = "0.8.2" %}
+
+package:
+  name: toolz
+  version: {{ version }}
+
+source:
+  fn: toolz-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/t/toolz/toolz-{{ version }}.tar.gz
+  sha256: 4a13c90c426001d6299c5568cf5b98e095df9c985df194008a67f84ef4fc6c50
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - setuptools
+    - python
+
+  run:
+    - python
+
+test:
+  imports:
+    - toolz
+    - toolz.curried
+    - toolz.sandbox
+
+about:
+  home: http://toolz.readthedocs.org/
+  license: BSD 3-Clause
+  summary: A functional standard library for Python.
