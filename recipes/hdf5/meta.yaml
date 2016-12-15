@@ -1,0 +1,92 @@
+{% set version = "1.8.17" %}
+
+package:
+  name: hdf5
+  version: {{ version }}
+
+source:
+  fn: hdf5-{{version}}.tar.gz
+  url: https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-{{ version }}/src/hdf5-{{ version }}.tar.gz
+  md5: 7d572f8f3b798a628b8245af0391a0ca
+  patches:
+    # Patches the test suite to skip the `cache` test.
+    # This test has been found to rather resource intensive.
+    # In particular, it caused Travis CI's Mac builds to hang.
+    # Given that we simply skip the test on all platforms.
+    # For more details, see the PR where this was proposed.
+    #
+    # https://github.com/conda-forge/staged-recipes/pull/199
+    #
+    - test_Makefile.in.patch
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - zlib 1.2.*
+    - libgfortran
+  run:
+    - zlib 1.2.*
+    - libgfortran
+
+test:
+
+  files:
+    - h5_cmprss.c
+    - h5tutr_cmprss.cpp
+    - h5_cmprss.f90
+    - compound_fortran2003.f90
+
+  commands:
+    # Verify UNIX CLI tools.
+    {% set hdf5_unix_cmds = [
+        "h5c++",
+        "h5cc",
+        "h5perf_serial",
+        "h5redeploy",
+        "h5fc"
+    ] %}
+    {% for each_hdf5_unix_cmd in hdf5_unix_cmds %}
+    - command -v {{ each_hdf5_unix_cmd }}   # [unix]
+    {% endfor %}
+
+    # Verify CLI tools.
+    {% set hdf5_cmds = [
+        "gif2h5",
+        "h52gif",
+        "h5copy",
+        "h5debug",
+        "h5diff",
+        "h5dump",
+        "h5import",
+        "h5jam",
+        "h5ls",
+        "h5mkgrp",
+        "h5repack",
+        "h5repart",
+        "h5stat",
+        "h5unjam"
+    ] %}
+    {% for each_hdf5_cmd in hdf5_cmds %}
+    - command -v {{ each_hdf5_cmd }}
+    {% endfor %}
+
+    # Verify libraries.
+    {% set hdf5_libs = [
+        "hdf5",
+        "hdf5_cpp",
+        "hdf5_hl",
+        "hdf5_hl_cpp"
+    ] %}
+    {% for each_hdf5_lib in hdf5_libs %}
+    - test -f $PREFIX/lib/lib{{ each_hdf5_lib }}.a
+    - test -f $PREFIX/lib/lib{{ each_hdf5_lib }}.so
+    {% endfor %}
+
+about:
+  home: http://www.hdfgroup.org/HDF5/
+  license: HDF5
+  license_family: BSD
+  license_file: COPYING
+  summary: HDF5 is a data model, library, and file format for storing and managing data
