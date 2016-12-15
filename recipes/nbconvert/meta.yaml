@@ -1,0 +1,49 @@
+{% set version = "4.2.0" %}
+
+package:
+  name: nbconvert
+  version: {{ version }}
+
+source:
+  fn: nbconvert-{{ version }}.tar.gz
+  url: https://github.com/jupyter/nbconvert/archive/{{ version }}.tar.gz
+  sha256: 32394be5a20f39f99fabfb9b2f2625df17f1c2a6699182ca41598e98e7cc9610
+
+build:
+  number: 0
+  script: python setup.py install
+  entry_points:
+    - jupyter-nbconvert = nbconvert.nbconvertapp:main
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+    - mistune >0.6
+    - jinja2
+    - pygments
+    - traitlets
+    - jupyter_core
+    - nbformat
+    - entrypoints
+
+test:
+  imports:
+    - nbconvert
+    - nbconvert.exporters
+    - nbconvert.filters
+    - nbconvert.postprocessors
+    - nbconvert.preprocessors
+    - nbconvert.resources
+    - nbconvert.tests
+    - nbconvert.utils
+    - nbconvert.writers
+
+  commands:
+    - jupyter-nbconvert --help
+
+about:
+  home: http://jupyter.org
+  license: BSD 3-Clause
+  summary: 'Converting Jupyter Notebooks'
