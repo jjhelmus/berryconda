@@ -1,0 +1,33 @@
+{% set version = "0.0.7" %}
+
+package:
+  name: s3fs
+  version: "{{ version }}"
+
+source:
+  fn: s3fs-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/s/s3fs/s3fs-{{ version }}.tar.gz
+  md5: 0251e746353579d908b0f477afe7750b
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - boto3
+
+  run:
+    - python
+    - boto3
+
+test:
+  imports:
+    - s3fs
+
+about:
+  home: http://s3fs.readthedocs.io/en/latest/
+  license: BSD 3-Clause
+  summary: 'Convenient Filesystem interface over S3'
