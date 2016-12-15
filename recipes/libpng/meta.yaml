@@ -1,0 +1,31 @@
+{% set version = "1.6.26" %}
+
+package:
+  name: libpng
+  version: {{ version }}
+
+source:
+  fn: libpng-{{ version }}.tar.gz
+  url: ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-{{ version }}.tar.gz
+  sha256: 81bfc8f16ed125622c0c5ad44eeffda19e7a7c7e32f47e43c8932bf32deae7cc
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - zlib 1.2.*
+  run:
+    - zlib 1.2.*
+
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libpng.a
+    - test -f ${PREFIX}/lib/libpng.so
+    - libpng-config --version
+
+about:
+  home: http://www.libpng.org/pub/png/libpng.html
+  license: zlib/libpng
+  summary: 'PNG reference library.'
+  license_file: LICENSE
