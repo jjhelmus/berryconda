@@ -1,0 +1,35 @@
+{% set version = "0.3.6" %}
+
+package:
+  name: partd
+  version: {{ version }}
+
+source:
+  fn: partd-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/p/partd/partd-{{ version }}.tar.gz
+  md5: 4fe19796e22c85f7917e40f618f349fb
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - locket
+    - toolz
+
+  run:
+    - python
+    - locket
+    - toolz
+
+test:
+  imports:
+    - partd
+
+about:
+  home: https://github.com/dask/partd
+  license: BSD 3-Clause
+  summary: Concurrent appendable key-value storage
