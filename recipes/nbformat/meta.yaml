@@ -1,0 +1,39 @@
+{% set version = "4.2.0" %}
+
+package:
+  name: nbformat
+  version: {{ version }}
+
+source:
+  fn: nbformat-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/n/nbformat/nbformat-{{ version }}.tar.gz
+  sha256: 389a5b630a30539074f238a48fb9864592f63d611baccfa2ffaf14ffe239de06
+
+build:
+  number: 0
+  script: pip install --no-deps .
+  # fixme: remove redundant conda entrypoints when we can
+  entry_points:
+    - jupyter-trust = nbformat.sign:TrustNotebookApp.launch_instance
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - ipython_genutils
+    - traitlets >=4.1
+    - jsonschema >=2.4,!=2.5.0
+    - jupyter_core
+
+test:
+  commands:
+    - jupyter-trust -h
+  imports:
+    - nbformat
+
+about:
+  home: http://jupyter.org
+  license: BSD 3-clause
+  summary: the base implementation of the Jupyter Notebook format
