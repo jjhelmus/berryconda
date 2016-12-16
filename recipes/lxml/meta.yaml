@@ -1,0 +1,49 @@
+{% set version = "3.6.4" %}
+
+package:
+  name: lxml
+  version: {{ version }}
+
+source:
+  fn: lxml-{{ version }}.tar.gz
+  url: https://github.com/lxml/lxml/archive/lxml-{{ version }}.tar.gz
+  sha256: f99ddce1221b93140a0488e71279b1d3076410ac7078fb3c3e9af11a7441286d
+
+build:
+  number: 0
+  script:
+    - python setup.py install --single-version-externally-managed --record record.txt --with-xslt-config=$PREFIX/bin/xslt-config
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - cython
+    # https://mailman-mail5.webfaction.com/pipermail/lxml/2016-September/007759.html
+    - libxml2
+    - libxslt
+  run:
+    - python
+    - libxml2
+    - libxslt
+
+test:
+  imports:
+    - lxml
+    - lxml.etree
+    - lxml.objectify
+  commands:
+    - conda inspect linkages -p $PREFIX lxml
+
+about:
+  home: http://lxml.de/
+  license: BSD 3-Clause, GPL-2.0, ZPL-2.0, and ElementTree
+  license_file: LICENSES.txt
+  summary: 'Pythonic binding for the C libraries libxml2 and libxslt.'
+  description: |
+    The lxml XML toolkit is a Pythonic binding for the C libraries libxml2 and
+    libxslt. It is unique in that it combines the speed and XML feature
+    completeness of these libraries with the simplicity of a native Python API,
+    mostly compatible but superior to the well-known ElementTree API.
+  doc_url: 'http://lxml.de/index.html#documentation'
+  dev_url: https://github.com/lxml/lxml
