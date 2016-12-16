@@ -1,0 +1,50 @@
+{% set version = "2.7.12" %}
+{% set sha256 = "3cb522d17463dfa69a155ab18cffa399b358c966c0363d6c8b5b3bf1384da4b6" %}
+
+package:
+  name: python
+  version: {{ version }}
+
+source:
+  fn: Python-{{ version }}.tgz
+  url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  no_link:
+    - bin/python2.7
+  script_env:
+    - python_branding
+  skip_compile_pyc:
+    - lib/python2.7/test/*bad*.py
+  ignore_prefix_files:
+    - lib/libpython2.7.so.1.0
+    - lib/python2.7/lib-dynload/*.so
+
+requirements:
+  build:
+    - bzip2 1.0.*
+    - openssl 1.0.*
+    - readline 6.3*
+    - sqlite 3.15.*
+    - tk 8.6.*
+    - zlib 1.2.*
+  run:
+    - openssl 1.0.*
+    - readline 6.3*
+    - sqlite 3.15.*
+    - tk 8.6.*
+    - zlib 1.2.*
+
+test:
+  commands:
+    - python -V
+    - pydoc -h
+    - python-config --help
+    - idle -h
+
+about:
+  home: http://www.python.org/
+  license: PSF
+  summary: General purpose programming language
