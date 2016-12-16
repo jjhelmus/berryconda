@@ -1,0 +1,16 @@
+package:
+  name: libgfortran
+  version: "3.0.0"
+
+build:
+  number: 0
+
+about:
+  home: https://gcc.gnu.org/fortran/
+  license: GPL3
+  summary: GNU Fortran runtime library
+  description: |
+    The purpose of the GNU Fortran (GFortran) project is to develop the Fortran
+    compiler front end and run-time libraries for GCC, the GNU Compiler
+    Collection.
+  doc_url: https://gcc.gnu.org/wiki/GFortran
