@@ -1,0 +1,31 @@
+{% set version="0.5" %}
+
+package:
+  name: backports_abc
+  version: {{ version }}
+
+source:
+  fn: backports_abc-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/b/backports_abc/backports_abc-{{ version }}.tar.gz
+  sha256: 033be54514a03e255df75c5aee8f9e672f663f93abb723444caec8fe43437bde
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+    - backports_abc
+
+about:
+  home: https://github.com/cython/backports_abc
+  license: PSF 2
+  summary: A backport of recent additions to the `collections.abc` module.
