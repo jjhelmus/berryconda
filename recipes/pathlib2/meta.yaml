@@ -1,0 +1,26 @@
+package:
+  name: pathlib2
+  version: 2.1.0
+
+source:
+  fn: pathlib2-2.1.0.tar.gz
+  url: https://pypi.python.org/packages/c9/27/8448b10d8440c08efeff0794adf7d0ed27adb98372c70c7b38f3947d4749/pathlib2-2.1.0.tar.gz
+  md5: 38e4f58b4d69dfcb9edb49a54a8b28d2
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - six
+  run:
+    - python
+    - six
+
+test:
+  imports:
+    - pathlib2
+
+about:
+  home: https://pypi.python.org/pypi/pathlib2/
+  license: MIT
+  summary: object-oriented filesystem paths
