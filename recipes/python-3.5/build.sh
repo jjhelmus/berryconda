@@ -13,7 +13,7 @@ rm -rf Lib/ensurepip
     CPPFLAGS="-I$PREFIX/include" \
     LDFLAGS="-L$PREFIX/lib -Wl,-rpath=$PREFIX/lib,--no-as-needed"
 
-make -j4
+make -j$CPU_COUNT
 make install
 ln -s $PREFIX/bin/python3.5 $PREFIX/bin/python
 ln -s $PREFIX/bin/pydoc3.5 $PREFIX/bin/pydoc

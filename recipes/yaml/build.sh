@@ -1,6 +1,6 @@
 #!/bin/bash
 
 ./configure --prefix="${PREFIX}"
-make -j4
+make -j$CPU_COUNT
 make check
 make install

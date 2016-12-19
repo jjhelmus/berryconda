@@ -16,7 +16,7 @@ cd $SRC_DIR/tcl${VER}/unix
 	--prefix="${PREFIX}" \
 	$ARCH_FLAG \
 
-make -j4
+make -j$CPU_COUNT
 make install
 
 cd $SRC_DIR/tk${VER}/unix
@@ -26,7 +26,7 @@ cd $SRC_DIR/tk${VER}/unix
 	--with-tcl="${PREFIX}/lib" \
 	--enable-aqua=yes \
 
-make -j4
+make -j$CPU_COUNT
 make install
 
 cd $PREFIX

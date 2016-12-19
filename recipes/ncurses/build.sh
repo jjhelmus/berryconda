@@ -20,7 +20,7 @@ do
 	    --enable-termcap \
 	    --with-termlib \
 	    $WIDEC_OPT
-    make -j4
+    make -j$CPU_COUNT
     make install
     make clean
     make distclean

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 ./config shared --prefix=$PREFIX
-make -j4
+make -j$CPU_COUNT
 make test
 make install

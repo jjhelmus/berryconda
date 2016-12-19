@@ -6,6 +6,9 @@ fi
 if [ `uname -m` == armv7l ]; then
     B="--build=armv7l-linux"
 fi
+if [ `uname -m` == armv6l ]; then
+    B="--build=armv6l-linux"
+fi
 
 ./configure $B --enable-threadsafe \
             --enable-tempstore \
