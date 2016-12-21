@@ -4,6 +4,9 @@ case `uname -m` in
   'armv7l' )
     TARGET=ARMV7
     ;;
+  'armv6l' )
+    TARGET=ARMV6
+    ;;
   * )
     TARGET=NEHALEM
     ;;
