@@ -17,7 +17,7 @@ requirements:
         - python
     run:
         - python
-        - configparser  # [not py35]
+        - configparser  # [py<35]
 
 test:
     imports:
