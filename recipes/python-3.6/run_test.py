@@ -92,13 +92,13 @@ if sys.platform != 'win32':
         value = sysconfig.get_config_var(var_name)
         assert value.split()[0] == 'g++', value
 
-if not (armv6l or ppc64le or osx105):
+if not (ppc64le or osx105):
     import tkinter
     import turtle
     import _tkinter
     print('TK_VERSION: %s' % _tkinter.TK_VERSION)
     print('TCL_VERSION: %s' % _tkinter.TCL_VERSION)
-    TCLTK_VER = '8.6' if (sys.platform == 'win32' or armv7l) else '8.5'
+    TCLTK_VER = '8.6' if (sys.platform == 'win32' or armv6l or armv7l) else '8.5'
     assert _tkinter.TK_VERSION == _tkinter.TCL_VERSION == TCLTK_VER
 
 import ssl
