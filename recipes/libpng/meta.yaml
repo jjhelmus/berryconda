@@ -1,4 +1,4 @@
-{% set version = "1.6.26" %}
+{% set version = "1.6.28" %}
 
 package:
   name: libpng
@@ -7,7 +7,7 @@ package:
 source:
   fn: libpng-{{ version }}.tar.gz
   url: ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-{{ version }}.tar.gz
-  sha256: 81bfc8f16ed125622c0c5ad44eeffda19e7a7c7e32f47e43c8932bf32deae7cc
+  sha256: b6cec903e74e9fdd7b5bbcde0ab2415dd12f2f9e84d9e4d9ddd2ba26a41623b2
 
 build:
   number: 0
