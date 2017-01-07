@@ -1,4 +1,4 @@
-{% set version = "4.1.5" %}
+{% set version = "4.1.6" %}
 {% set ver_maj_min_str = "-".join(version.split(".")[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 source:
   fn: zeromq-{{ version }}.tar.gz
   url: https://github.com/zeromq/zeromq{{ ver_maj_min_str }}/releases/download/v{{ version }}/zeromq-{{ version }}.tar.gz
-  sha1: 2b7490b77860be3060b1b1f92cd73184d309ca69
+  sha1: b956df8c6f77c174683b51fbee67f99c94945651
   patches:
     # Patch to avoid a failing test on Linux. See issue for details.
     # https://github.com/zeromq/libzmq/issues/1462
