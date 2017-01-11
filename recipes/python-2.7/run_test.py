@@ -16,6 +16,7 @@ from pprint import pprint
 subprocess.check_call([join(sys.prefix,
       'Scripts/2to3.exe' if sys.platform == 'win32' else 'bin/2to3'), '-h'])
 
+armv6l = bool(platform.machine() == 'armv6l')
 armv7l = bool(platform.machine() == 'armv7l')
 ppc64le = bool(platform.machine() == 'ppc64le')
 debug = int(os.getenv('DEBUG', 0))
@@ -97,7 +98,7 @@ with open('x.gz', 'rb') as fi:
     assert len(fi.read()) == 29
 
 if sys.platform != 'win32':
-    if not (ppc64le or armv7l):
+    if not ppc64le:
         import _curses
         import _curses_panel
     import crypt
@@ -117,13 +118,14 @@ if sys.platform != 'win32':
     assert value.split()[0] == 'g++', value
     readline.clear_history()
 
-if not (armv7l or ppc64le):
+if not ppc64le:
     import _tkinter
     import Tkinter
     import turtle
     print('TK_VERSION:', _tkinter.TK_VERSION)
     print('TCL_VERSION:', _tkinter.TCL_VERSION)
-    assert _tkinter.TK_VERSION == _tkinter.TCL_VERSION == '8.5'
+    TCLTK_VER = '8.6' if (sys.platform == 'win32' or armv6l or armv7l) else '8.5'
+    assert _tkinter.TK_VERSION == _tkinter.TCL_VERSION == TCLTK_VER
 
 print('OPENSSL_VERSION:', ssl.OPENSSL_VERSION)
 if sys.platform != 'win32':
