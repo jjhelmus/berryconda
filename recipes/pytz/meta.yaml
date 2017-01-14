@@ -1,4 +1,4 @@
-{% set version="2016.7" %}
+{% set version="2016.10" %}
 
 package:
   name: pytz
@@ -7,7 +7,7 @@ package:
 source:
   fn: pytz-{{ version }}.tar.bz2
   url: https://pypi.io/packages/source/p/pytz/pytz-{{ version }}.tar.bz2
-  sha256: 6eab31709e3a4aea748457707da45e805b650cbb352583805d2417de2a1dd71e
+  sha256: 7016b2c4fa075c564b81c37a252a5fccf60d8964aa31b7f5eae59aeb594ae02b
 
 build:
   number: 0
