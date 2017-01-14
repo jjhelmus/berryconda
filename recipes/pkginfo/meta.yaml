@@ -1,4 +1,4 @@
-{% set version = "1.2.1" %}
+{% set version = "1.4.1" %}
 
 package:
   name: pkginfo
@@ -7,7 +7,7 @@ package:
 source:
   fn: pkginfo-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/pkginfo/pkginfo-{{ version }}.tar.gz
-  md5: 4489be0244c003744ca18758fa12e468
+  md5: 3d093d5b51c7902e7dd1736100e0ce87
 
 build:
   number: 0
