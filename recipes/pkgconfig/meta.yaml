@@ -1,6 +1,6 @@
 {% set name = "pkgconfig" %}
-{% set version = "1.1.0" %}
-{% set sha256 = "4de443a62f4b83d883a7b3895d4d4d3ca1934383ebdbeb0f2e6ab126085d812a" %}
+{% set version = "1.2.2" %}
+{% set sha256 = "3685ba02a9b72654a764b728b559f327e1dbd7dc6ebc310a1bd429666ee202aa" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/matze/{{ name }}/archive/v{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
