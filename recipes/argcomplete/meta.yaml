@@ -1,14 +1,18 @@
+{%set name = "argcomplete" %}
+{%set version = "1.7.0" %}
+
 package:
-  name: argcomplete
-  version: 1.0.0
+  name: {{ name }}
+  version: {{ version }}
 
 source:
-  fn: argcomplete-1.0.0.tar.gz
-  url: https://pypi.python.org/packages/source/a/argcomplete/argcomplete-1.0.0.tar.gz
-  md5: 7cdf147b498e7e4d6ab71036292939a3
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  md5: 0b2d29bf937e9e51cec0479f9f44df93
 
 build:
   number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
   build:
