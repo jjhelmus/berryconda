@@ -1,15 +1,15 @@
 {%set name = "nltk" %}
-{%set version = "3.2.1" %}
+{%set version = "3.2.2" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "793ead6ef526a1e4c747e9635dc2d3753f4a410f18e8fa13f830dfcc0350727d" %}
+{%set hash_val = "1b37db344770021c9be3d68f48d1667a8dae6eeff0e502b7bfb01638d288a88e" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.zip
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   {{ hash_type }}: {{ hash_val }}
 
 build:
@@ -23,6 +23,7 @@ requirements:
 
   run:
     - python
+    - six
 
 test:
   imports:
