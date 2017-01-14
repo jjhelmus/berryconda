@@ -1,7 +1,7 @@
 {%set name = "docutils" %}
-{%set version = "0.12" %}
+{%set version = "0.13.1" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "c7db717810ab6965f66c8cf0398a98c9d8df982da39b4cd7f162911eb89596fa" %}
+{%set hash_val = "718c0f5fb677be0f34b781e04241c4067cbd9327b66bdd8e763201130f5175be" %}
 
 package:
   name: {{ name }}
