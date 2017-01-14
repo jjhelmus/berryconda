@@ -1,7 +1,7 @@
 {%set name = "pyflakes" %}
-{%set version = "1.3.0" %}
+{%set version = "1.5.0" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "a4f93317c97a9d9ed71d6ecfe08b68e3de9fea3f4d94dcd1d9d83ccbf929bc31" %}
+{%set hash_val = "aa0d4dff45c0cc2214ba158d29280f8fa1129f3e87858ef825930845146337f4" %}
 
 package:
   name: {{ name }}
