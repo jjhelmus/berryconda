@@ -1,0 +1,33 @@
+{% set name = "gitdb" %}
+{% set version = "0.6.4" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: a3ebbc27be035a2e874ed904df516e35f4a29a778a764385de09de9e0f139658
+
+build:
+  number: 0
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+
+  run:
+    - python
+    - smmap >=0.8.3
+
+test:
+  imports:
+    - gitdb
+    - gitdb.db
+
+about:
+  home: https://github.com/gitpython-developers/gitdb
+  license: BSD 3-Clause
+  summary: 'Git Object Database'
