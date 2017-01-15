@@ -1,0 +1,31 @@
+{% set version = "1.4" %}
+{% set sha256 = "ada8d3ddc82fd168b3f46feb393d37c722ed0553a10a3ce5426ddc5ec17d597a" %}
+
+package:
+  name: scandir
+  version: {{ version }}
+
+source:
+  fn: scandir-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/s/scandir/scandir-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - scandir
+
+about:
+  home: https://github.com/benhoyt/scandir
+  license: BSD 3-Clause
+  license_file: LICENSE.txt
+  summary: 'scandir, a better directory iterator and faster os.walk()'
