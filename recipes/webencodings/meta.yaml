@@ -1,0 +1,31 @@
+{% set name = "webencodings" %}
+{% set version = "0.5" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: a5c55ee93b24e740fe951c37b5c228dccc1f171450e188555a775261cce1b904
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - webencodings
+
+about:
+  home: https://github.com/SimonSapin/python-webencodings
+  license: BSD 3-Clause
+  summary: Character encoding aliases for legacy web content 
