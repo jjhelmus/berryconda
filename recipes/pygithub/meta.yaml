@@ -1,0 +1,32 @@
+{% set name = "PyGithub" %}
+{% set version = "1.29" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 5176f9f9742ffdc6f3639dcf409a8f0e3f1bceab8f52bdb9e16d1d82a6c50a7f
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - github
+    - github.tests
+
+about:
+  home: http://pygithub.github.io/PyGithub/v1/
+  license: LGPL-3.0
+  summary: Python library implementing the GitHub API v3
