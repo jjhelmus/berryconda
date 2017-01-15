@@ -1,13 +1,14 @@
-{% set version = "0.18" %}
+{% set name = "scikit-learn" %}
+{% set version = "0.18.1" %}
 
 package:
-  name: scikit-learn
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: scikit-learn-{{ version }}.tar.gz
-  url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 6f871ab07657becb3cca158dc4af96a1a14c0a360add04664fba325da43537fa
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 1eddfc27bb37597a5d514de1299981758e660e0af56981c0bfdf462c9568a60c
 
 build:
   number: 0
