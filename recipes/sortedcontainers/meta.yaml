@@ -1,0 +1,34 @@
+{% set name = "sortedcontainers" %}
+{% set version = "1.5.7" %}
+{% set sha256 = "0ff0442865e492bc50476b18000fb8400cf2472d14d21a92b27cd7c5184550ea" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+
+test:
+  imports:
+    - sortedcontainers
+
+about:
+  home: http://www.grantjenks.com/docs/sortedcontainers/
+  license: Apache 2.0
+  summary: 'Python Sorted Container Types: SortedList, SortedDict, and SortedSet'
