@@ -1,0 +1,32 @@
+{% set name = "smmap" %}
+{% set version = "0.9.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 0e2b62b497bd5f0afebc002eda4d90df9d209c30ef257e8673c90a6b5c119d62
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - smmap
+    - smmap.test
+
+about:
+  home: https://github.com/gitpython-developers/smmap
+  license: BSD 3-Clause
+  summary: 'A pure git implementation of a sliding window memory map manager.'
