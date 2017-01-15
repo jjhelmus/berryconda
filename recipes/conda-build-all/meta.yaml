@@ -1,0 +1,40 @@
+{% set version = "1.0.1" %}
+
+package:
+  name: conda-build-all
+  version: {{ version }}
+
+source:
+    fn: conda-build-all_v{{ version }}.tar.gz
+    url: https://github.com/SciTools/conda-build-all/archive/v{{version}}.tar.gz
+    sha256: 1e34102f9055ce99500ce8ec87933d46a482cd20b865a180f2b064b4baf345f0
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+  entry_points:
+    - conda-build-all = conda_build_all.cli:main
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - gitpython
+    - conda >4
+    - conda-build >=1.21.7
+    - anaconda-client
+    - mock
+
+test:
+  imports:
+    - conda_build_all
+  commands:
+    - conda build-all --version
+
+about:
+  license: BSD 3-clause
+  home: https://github.com/scitools/conda-build-all
+  summary: conda build-all is a conda subcommand which allows multiple distributions to be built (and uploaded) in a single command
