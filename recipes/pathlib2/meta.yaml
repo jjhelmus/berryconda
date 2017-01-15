@@ -1,11 +1,14 @@
+{%set name = "pathlib2" %}
+{%set version = "2.2.0" %}
+
 package:
-  name: pathlib2
-  version: 2.1.0
+  name: {{ name }}
+  version: {{ version }}
 
 source:
-  fn: pathlib2-2.1.0.tar.gz
-  url: https://pypi.python.org/packages/c9/27/8448b10d8440c08efeff0794adf7d0ed27adb98372c70c7b38f3947d4749/pathlib2-2.1.0.tar.gz
-  md5: 38e4f58b4d69dfcb9edb49a54a8b28d2
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  md5: c2e73a9a560e8b86233923af6a37faa2
 
 requirements:
   build:
@@ -15,6 +18,7 @@ requirements:
   run:
     - python
     - six
+    - scandir  # [py<35]
 
 test:
   imports:
