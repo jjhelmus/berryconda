@@ -1,0 +1,49 @@
+{% set version = "2.0.0" %}
+
+package:
+  name: conda-smithy
+  version: {{ version }}
+
+source:
+  fn: conda-smithy-v{{ version }}.tar.gz
+  url: https://github.com/conda-forge/conda-smithy/archive/v{{ version }}.tar.gz
+  sha256: 266c2a072e8fc5af9f0ef30de91a45a756459e1395555b3464a261b52088454d
+
+build:
+  number: 0
+  skip: true  # [py==36]
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+  entry_points:
+    - feedstocks = conda_smithy.feedstocks:main
+    - conda-smithy = conda_smithy.cli:main
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - conda-build-all
+    - conda
+    - conda-build >=1.21.12,!=2.0.9
+    - jinja2
+    - requests
+    - pycrypto
+    - gitpython
+    - pygithub <2
+    - ruamel_yaml
+
+test:
+  imports:
+    - conda_smithy
+    - conda_smithy.ci_register
+    - conda_smithy.configure_feedstock
+  commands:
+    - conda smithy --help
+
+about:
+  home: https://github.com/conda-forge/conda-smithy
+  license: BSD 3-clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: The tool for managing conda-forge feedstocks
