@@ -1,13 +1,14 @@
-{% set version="0.19.1" %}
+{% set name = "pandas" %}
+{% set version = "0.19.2" %}
 
 package:
-    name: pandas
+    name: {{ name }}
     version: {{ version }}
 
 source:
-    fn: pandas-{{ version }}.tar.gz
-    url: https://github.com/pydata/pandas/archive/v{{ version }}.tar.gz
-    sha256: 8a97e2992e2ea2dee1457691c343c9862dd67c90daf1e6527da0023992db5548
+    fn: {{ name }}-{{ version }}.tar.gz
+    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: 6f0f4f598c2b16746803c8bafef7c721c57e4844da752d36240c0acf97658014
 
 build:
     number: 0
