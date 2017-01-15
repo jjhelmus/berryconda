@@ -1,13 +1,14 @@
-{% set version = "1.11.2" %}
+{% set name = "numpy" %}
+{% set version = "1.11.3" %}
 
 package:
-  name: numpy
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: numpy-{{ version }}.tar.gz
-  url: https://github.com/numpy/numpy/archive/v{{ version }}.tar.gz
-  sha256: fa2de4dc19e8ce4342a66c044d5ac90a805f8dd842435e638039250427a874a2
+  fn: {{ name }}-{{ version }}.zip
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  sha256: 2e0fc5248246a64628656fe14fcab0a959741a2820e003bd15538226501b82f7
 
 build:
   number: 0
