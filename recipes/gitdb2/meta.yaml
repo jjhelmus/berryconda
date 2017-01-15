@@ -1,0 +1,34 @@
+{% set name = "gitdb2" %}
+{% set version = "2.0.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: b9f3209b401b8b4da5f94966c9c17650e66b7474ee5cd2dde5d983d1fba3ab66
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - smmap2
+
+test:
+  imports:
+    - gitdb
+    - gitdb.db
+
+about:
+  home: https://github.com/gitpython-developers/gitdb
+  license: BSD 3-Clause
+  summary: 'Git Object Database'
