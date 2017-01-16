@@ -26,7 +26,7 @@ Python 2.7, and Berryconda3 installs Python 3.5. Choose the version you want ins
 ### armv6l installers (Raspberry Pi 1 or Zero)
 
 * [Berryconda3-1.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda3-1.0.0-Linux-armv6l.sh)
-* [Berryconda2-1.0.0-Linux-armv6l.sh]() -- comming soon
+* [Berryconda2-1.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda2-1.0.0-Linux-armv6l.sh)
 
 Once this file is downloaded on your Raspberry Pi, make the file executable
 using `chmod` and the execuate the installer.  For example, to install
