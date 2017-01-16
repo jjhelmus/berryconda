@@ -20,13 +20,13 @@ Python 2.7, and Berryconda3 installs Python 3.5. Choose the version you want ins
 
 ### armv7l installers (Raspberry Pi 2 or 3)
 
-* [Berryconda3-1.0.0-Linux-armv7l.sh]()
-* [Berryconda2-1.0.0-Linux-armv7l.sh]()
+* [Berryconda3-1.0.0-Linux-armv7l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda3-1.0.0-Linux-armv7l.sh)
+* [Berryconda2-1.0.0-Linux-armv7l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda2-1.0.0-Linux-armv7l.sh)
 
 ### armv6l installers (Raspberry Pi 1 or Zero)
 
-* [Berryconda3-1.0.0-Linux-armv6l.sh]()
-* [Berryconda2-1.0.0-Linux-armv6l.sh]()
+* [Berryconda3-1.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda3-1.0.0-Linux-armv6l.sh)
+* [Berryconda2-1.0.0-Linux-armv6l.sh]() -- comming soon
 
 Once this file is downloaded on your Raspberry Pi, make the file executable
 using `chmod` and the execuate the installer.  For example, to install
@@ -58,9 +58,10 @@ Raspberry Pi Zero.
 ## Issues and package requests
 
 Please report any problems with Berryconda or the packages in the rpi channel
-by submitting an [issue](). Also, use this link to request new packages.
+by submitting an [issue](https://github.com/jjhelmus/berryconda/issues).
+Also, use this link to request new packages.
 
-## Acknolegements
+## Acknowlegements
 
 The majority of the packages used in Berryconda were adapted from
 [conda-forge](http://conda-forge.github.io/) recipes. A big thanks to
