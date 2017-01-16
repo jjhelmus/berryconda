@@ -1,0 +1,14 @@
+name: Berryconda3
+version: 1.0.0
+
+channels:
+  - http://conda.anaconda.org/rpi
+  
+conda_default_channels: 
+  - rpi
+
+license_file: ../installer_license.txt
+
+specs:
+  - python 3.5*
+  - conda
