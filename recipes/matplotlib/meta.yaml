@@ -1,7 +1,7 @@
 # Full credit goes to https://github.com/conda/conda-recipes for providing this recipe.
 # It has been subsequently adapted for automated building with conda-forge.
 
-{% set version = "1.5.3" %}
+{% set version = "2.0.0" %}
 
 package:
   name: matplotlib
@@ -10,7 +10,7 @@ package:
 source:
   fn: matplotlib-{{ version }}.tar.gz
   url: https://github.com/matplotlib/matplotlib/archive/v{{ version }}.tar.gz
-  sha256: c72276afc11f0b77cee736a783861039c0284d2e4739de8ca09d2dd1407745aa
+  sha256: 966a0807bc961726a68e5b60b6e97c91eed6ba20e0d50dfd699a8f854b2d7370
 
 build:
     number: 0
@@ -22,16 +22,18 @@ requirements:
     - numpy x.x
     - python-dateutil
     - freetype 2.7.*
-    - cycler
+    - cycler >=0.10
     - nose
     - pyparsing
     - pytz
     - libpng >=1.6.23,<1.7
     - tk 8.6.*
+    - functools32  # [py27]
+    - subprocess32 # [py27]
   run:
     - python
     - numpy x.x
-    - cycler
+    - cycler >=0.10
     - python-dateutil
     - freetype 2.7.*
     - pytz
@@ -39,6 +41,7 @@ requirements:
     - libpng >=1.6.23,<1.7
     - tk 8.6.*
     - functools32  # [py2k]
+    - subprocess32 # [py27]
     - setuptools
 
 test:
