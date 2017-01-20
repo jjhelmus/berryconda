@@ -1,14 +1,19 @@
+{% set name = "decorator" %}
+{% set version = "4.0.11" %}
+{% set sha256 = "953d6bf082b100f43229cf547f4f97f97e970f5ad645ee7601d55ff87afdfe76" %}
+
 package:
-  name: decorator
-  version: 4.0.10
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  fn: decorator-4.0.10.tar.gz
-  url: https://pypi.python.org/packages/13/8a/4eed41e338e8dcc13ca41c94b142d4d20c0de684ee5065523fee406ce76f/decorator-4.0.10.tar.gz
-  md5: 434b57fdc3230c500716c5aff8896100
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
   number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
   build:
