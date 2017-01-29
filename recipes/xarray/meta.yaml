@@ -1,4 +1,4 @@
-{% set version = "0.8.2" %}
+{% set version = "0.9.0" %}
 
 package:
     name: xarray
@@ -7,7 +7,7 @@ package:
 source:
     fn: xarray-{{ version }}.tar.gz
     url: https://github.com/pydata/xarray/archive/v{{ version }}.tar.gz
-    sha256: d8766ea5a7d2349142b08a384552fd2b470126a2de70aa31a183e98b52c354f4
+    sha256: 05a1ee48cd887ff738c8451fcfb9408103f714df94f16cc944b1c160b4064f95
 
 build:
     number: 0
@@ -33,7 +33,9 @@ test:
         - xarray
         - xarray.backends
         - xarray.core
-        - xarray.test
+        - xarray.tests
+    requires:
+        - pytest
 
 about:
     home: https://github.com/pydata/xarray
