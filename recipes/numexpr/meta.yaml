@@ -1,4 +1,4 @@
-{% set version="2.6.1" %}
+{% set version="2.6.2" %}
 
 package:
     name: numexpr
@@ -7,7 +7,7 @@ package:
 source:
     fn: numexpr-{{ version }}.tar.gz
     url: https://github.com/pydata/numexpr/archive/v{{ version }}.tar.gz
-    sha256: e92c83d066fa8da63864d69b5f218287cc31437ae844db77390f2183123aab22
+    sha256: 8c57759bbd64fb81d985e54772191b71e8b63d58843d64933009521d2dddfd2f
 
 build:
     number: 0
