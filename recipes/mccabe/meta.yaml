@@ -1,7 +1,7 @@
 {%set name = "mccabe" %}
-{%set version = "0.5.3" %}
+{%set version = "0.6.1" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "16293af41e7242031afd73896fef6458f4cad38201d21e28f344fff50ae1c25e" %}
+{%set hash_val = "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f" %}
 
 package:
   name: {{ name }}
