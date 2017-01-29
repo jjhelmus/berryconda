@@ -1,6 +1,6 @@
 {% set name = "pytest" %}
-{% set version = "3.0.5" %}
-{% set sha256 = "4a003aa956f023ce91aa6e166b555e6f02a4b0aeb459ac61e14f64c0d39037fd" %}
+{% set version = "3.0.6" %}
+{% set sha256 = "643434a9f1a188271da35e20064cb8b6c5440976c5bb541dc7b5b0e3cf75d940" %}
 
 package:
   name: {{ name|lower }}
