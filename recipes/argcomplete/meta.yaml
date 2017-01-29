@@ -1,5 +1,5 @@
 {%set name = "argcomplete" %}
-{%set version = "1.8.0" %}
+{%set version = "1.8.2" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  md5: 1236b313174f12cd7127edc41c383c0d
+  md5: 1234c0e0db38c5181d8062177361cc4b
 
 build:
   number: 0
