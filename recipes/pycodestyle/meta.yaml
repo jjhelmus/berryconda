@@ -1,8 +1,8 @@
 {% set name = "pycodestyle" %}
-{% set version = "2.3.0" %}
+{% set version = "2.3.1" %}
 {%set compress_type = "tar.gz" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "a5910db118cf7e66ff92fb281a203c19ca2b5134620dd2538a794e636253863b" %}
+{%set hash_val = "682256a5b318149ca0d2a9185d365d8864a768a28db66a84a2ea946bcc426766" %}
 {%set build_num = "0" %}
 
 package:
