@@ -1,0 +1,39 @@
+{% set name = "packaging" %}
+{% set version = "16.8" %}
+{% set hash_type = "sha256" %}
+{% set hash = "5d50835fdf0a7edf0b55e311b7c887786504efea1177abd7e69329a8e5ea619e" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - pyparsing
+    - six
+
+  run:
+    - python
+    - pyparsing
+    - six
+
+test:
+  imports:
+    - packaging
+
+about:
+  home: https://github.com/pypa/packaging
+  license: Apache 2.0 or BSD 2-Clause
+  license_file: LICENSE
+  summary: Core utilities for Python packages
