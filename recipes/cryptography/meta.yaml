@@ -1,0 +1,54 @@
+{%set name = "cryptography" %}
+{%set version = "1.7.2" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "878cb68b3da3d493ffd68f36db11c29deee623671d3287c3f8d685117ffda9a9" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash_val }}
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - cffi >=1.4.1
+    - enum34           # [py27]
+    - idna >=2.0
+    - ipaddress        # [py27]
+    - openssl 1.0.2*
+    - pyasn1 >=0.1.8
+    - setuptools
+    - six >=1.4.1
+  run:
+    - python
+    - cffi >=1.4.1
+    - enum34           # [py27]
+    - idna >=2.0
+    - ipaddress        # [py27]
+    - openssl 1.0.2*
+    - pyasn1 >=0.1.8
+    - setuptools
+    - six >=1.4.1
+
+test:
+  imports:
+    - cryptography
+    - cryptography.fernet
+
+about:
+  home: https://cryptography.io
+  license: Apache
+  license_file: LICENSE
+  summary: Provides cryptographic recipes and primitives to Python developers
+  description: |
+    Cryptography is a Python library which exposes cryptographic recipes and
+    primitives. The goal is for it to be your "cryptographic standard library".
+  doc_url: https://cryptography.io
+  dev_url: https://github.com/pyca/cryptography
