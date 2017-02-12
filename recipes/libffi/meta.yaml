@@ -1,0 +1,28 @@
+{% set name = "libffi" %}
+{% set version = "3.2.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: ftp://sourceware.org/pub/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha1: 280c265b789e041c02e5c97815793dfc283fb1e6
+  patches:
+    - configure_includedir_option.patch
+
+build:
+  number: 0
+
+test:
+  commands:
+    - test -e $PREFIX/lib/libffi.so  # [linux]
+    - test -e $PREFIX/lib/libffi.a  # [unix]
+    - test -e $PREFIX/include/ffi.h
+    - test -e $PREFIX/include/ffitarget.h
+
+about:
+  home: https://sourceware.org/libffi/
+  license: Custom
+  summary: A Portable Foreign Function Interface Library.
