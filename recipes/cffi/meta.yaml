@@ -1,7 +1,7 @@
 {% set name = "cffi" %}
-{% set version = "1.7.0" %}
+{% set version = "1.9.1" %}
 {% set hash_type = "sha256" %}
-{% set hash = "6ed5dd6afd8361f34819c68aaebf9e8fc12b5a5893f91f50c9e50c8886bb60df" %}
+{% set hash = "563e0bd53fda03c151573217b3a49b3abad8813de9dd0632e10090f6190fdaf8" %}
 
 package:
   name: {{ name|lower }}
