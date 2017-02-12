@@ -1,7 +1,7 @@
 {%set name = "pyasn1" %}
-{%set version = "0.1.9" %}
+{%set version = "0.2.2" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "853cacd96d1f701ddd67aa03ecc05f51890135b7262e922710112f12a2ed2a7f" %}
+{%set hash_val = "6b42f96b942406712e0be5ea2bbbc57d8f30c7835a4904c9c195cc669736d435" %}
 
 package:
   name: {{ name }}
@@ -37,7 +37,6 @@ test:
 about:
   home: http://sourceforge.net/projects/pyasn1/
   license: BSD 2-Clause
-  license_file: LICENSE.txt
   summary: 'ASN.1 types and codecs'
   license_family: BSD
   doc_url: http://pyasn1.sourceforge.net/
