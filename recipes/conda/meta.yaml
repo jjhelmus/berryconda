@@ -1,6 +1,6 @@
 {% set name = "conda" %}
-{% set version = "4.2.13" %}
-{% set checksum = "4a04bbf21dc4274f7623793d2746527c614fea8ca533a8efb252a10c42c34d5d" %}
+{% set version = "4.3.11" %}
+{% set checksum = "301bc86c1b6f16c2fd0a0a9e613b83c3c8eead08182f423e25b87c157a69c42f" %}
 
 package:
   name: conda
@@ -10,9 +10,6 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
   sha256: {{ checksum }}
-  patches:
-    # add back in the armv6l and armv7l platforms
-    - constants.py-add_arm_platforms.patch
 
 build:
   number: 0
@@ -32,8 +29,9 @@ requirements:
     - conda-env >=2.6
     - enum34                 # [py<34]
     - pycosat >=0.6.1
-    - requests >=2.5.3
+    - requests >=2.12.4
     - ruamel_yaml >=0.11.14
+    - pyopenssl >=16.2
 
 test:
   imports:

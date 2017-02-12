@@ -10,7 +10,7 @@ export CONDA_DEFAULT_ENV=''
 echo "${PKG_VERSION}" > conda/.version
 
 # Install the Python code
-$PYTHON setup.py install
+$PYTHON conda.recipe/setup.py install
 
 # Install the fish activation script.
 mkdir -p $PREFIX/etc/fish/conf.d/
