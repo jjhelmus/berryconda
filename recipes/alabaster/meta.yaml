@@ -1,4 +1,4 @@
-{% set version = "0.7.9" %}
+{% set version = "0.7.10" %}
 
 package:
   name: alabaster
@@ -7,7 +7,7 @@ package:
 source:
   fn: alabaster-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/a/alabaster/alabaster-{{ version }}.tar.gz
-  md5: b29646a8bbe7aa52830375b7d17b5d7a
+  md5: 7934dccf38801faa105f6e7b4784f493
 
 build:
   number: 0
