@@ -1,4 +1,4 @@
-{% set version = "4.4.0" %}
+{% set version = "5.0.0" %}
 
 package:
   name: jupyter_client
@@ -7,13 +7,14 @@ package:
 source:
   fn: jupyter_client-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/j/jupyter_client/jupyter_client-{{ version }}.tar.gz
-  sha256: c99a52fac2e5b7a3b714e9252ebf72cbf97536d556ae2b5082baccc3e5cd52ee
+  sha256: 2766f9c2deb9ae826e65d53a56a36d69b184f63d0dcb7710835273327126bc5b
 
 build:
   number: 0
   script: pip install --no-deps .
   entry_points:
     - jupyter-kernelspec = jupyter_client.kernelspecapp:KernelSpecApp.launch_instance
+    - jupyter-run = jupyter_client.runapp:main
 
 requirements:
   build:
@@ -23,11 +24,13 @@ requirements:
     - python
     - traitlets
     - jupyter_core
+    - python-dateutil >=2.1
     - pyzmq >=13
 
 test:
   commands:
     - jupyter kernelspec -h
+    - jupyter run -h
   imports:
     - jupyter_client
 
