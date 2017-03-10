@@ -1,6 +1,6 @@
 {% set name = "bleach" %}
-{% set version = "1.5.0" %}
-{% set sha256 = "978e758599b54cd3caa2e160d74102879b230ea8dc93871d0783721eef58bc65" %}
+{% set version = "2.0.0" %}
+{% set sha256 = "b9522130003e4caedf4f00a39c120a906dcd4242329c1c8f621f5370203cbc30" %}
 
 package:
   name: {{ name }}
@@ -21,7 +21,7 @@ requirements:
     - pip
   run:
     - python
-    - html5lib >=0.999,!=0.9999,!=0.99999,<0.99999999
+    - html5lib >=0.99999999
     - six
 
 test:
