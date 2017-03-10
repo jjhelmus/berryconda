@@ -1,6 +1,6 @@
 {% set name = "pbr" %}
-{% set version = "1.10.0" %}
-{% set checksum = "186428c270309e6fdfe2d5ab0949ab21ae5f7dea831eab96701b86bd666af39c" %}
+{% set version = "2.0.0" %}
+{% set sha256 = "0ccd2db529afd070df815b1521f01401d43de03941170f8a800e7531faba265d" %}
 
 package:
   name: {{ name }}
@@ -9,7 +9,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ checksum }}
+  sha256: {{ sha256 }}
 
 build:
   number: 0
