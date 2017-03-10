@@ -1,7 +1,7 @@
 {%set name = "pyasn1" %}
-{%set version = "0.2.2" %}
+{%set version = "0.2.3" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "6b42f96b942406712e0be5ea2bbbc57d8f30c7835a4904c9c195cc669736d435" %}
+{%set hash_val = "738c4ebd88a718e700ee35c8d129acce2286542daa80a82823a7073644f706ad" %}
 
 package:
   name: {{ name }}
