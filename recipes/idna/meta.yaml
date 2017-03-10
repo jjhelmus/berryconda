@@ -1,7 +1,7 @@
 {% set name = "idna" %}
-{% set version = "2.2" %}
+{% set version = "2.5" %}
 {% set hash_type = "sha256" %}
-{% set hash = "0ac27740937d86850010e035c6a10a564158a5accddf1aa24df89b0309252426" %}
+{% set hash = "3cb5ce08046c4e3a560fc02f138d0ac63e00f8ce5901a56b32ec8b7994082aab" %}
 
 package:
   name: {{ name|lower }}
