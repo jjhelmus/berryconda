@@ -1,7 +1,7 @@
 {%set name = "cryptography" %}
-{%set version = "1.7.2" %}
+{%set version = "1.8.1" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "878cb68b3da3d493ffd68f36db11c29deee623671d3287c3f8d685117ffda9a9" %}
+{%set hash_val = "323524312bb467565ebca7e50c8ae5e9674e544951d28a2904a50012a8828190" %}
 
 package:
   name: {{ name }}
@@ -18,23 +18,25 @@ build:
 requirements:
   build:
     - python
+    - asn1crypto >=0.21.0
     - cffi >=1.4.1
     - enum34           # [py27]
-    - idna >=2.0
+    - idna >=2.1
     - ipaddress        # [py27]
     - openssl 1.0.2*
-    - pyasn1 >=0.1.8
-    - setuptools
+    - packaging
+    - setuptools >=11.3
     - six >=1.4.1
   run:
     - python
+    - asn1crypto >=0.21.0
     - cffi >=1.4.1
     - enum34           # [py27]
-    - idna >=2.0
+    - idna >=2.1
     - ipaddress        # [py27]
     - openssl 1.0.2*
-    - pyasn1 >=0.1.8
-    - setuptools
+    - packaging
+    - setuptools >=11.3
     - six >=1.4.1
 
 test:
