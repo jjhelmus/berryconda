@@ -1,4 +1,4 @@
-{% set version="2.1.10" %}
+{% set version = "2.2.0" %}
 
 package:
   name: pyparsing
@@ -7,16 +7,15 @@ package:
 source:
   fn: pyparsing-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/pyparsing/pyparsing-{{ version }}.tar.gz
-  sha256: 811c3e7b0031021137fc83e051795025fcb98674d07eb8fe922ba4de53d39188
+  sha256: 0832bcf47acd283788593e7a0f542407bd9550a55a8a8435214a1960e04bcb04
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python setup.py install
 
 requirements:
   build:
     - python
-    - setuptools
   run:
     - python
 
