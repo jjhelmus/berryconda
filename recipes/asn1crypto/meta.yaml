@@ -1,7 +1,7 @@
 {%set name = "asn1crypto" %}
-{%set version = "0.21.1" %}
+{%set version = "0.22.0" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "4e6d7b22814d680114a439faafeccb9402a78095fb23bf0b25f9404c6938a017" %}
+{%set hash_val = "cbbadd640d3165ab24b06ef25d1dca09a3441611ac15f6a6b452474fdf0aed1a" %}
 
 package:
   name: {{ name }}
@@ -14,6 +14,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
