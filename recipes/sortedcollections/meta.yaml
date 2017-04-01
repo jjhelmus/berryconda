@@ -1,6 +1,6 @@
 {% set name = "sortedcollections" %}
-{% set version = "0.4.2" %}
-{% set sha256 = "8aefd6cf0bb0a89888f192859c3dbf997b906b33cd4ce175d568fb972cfdb489" %}
+{% set version = "0.5.3" %}
+{% set sha256 = "d56d6708e36aec959b08e64c3e5a0e01df518d6e6693d0f5b5c89529288edde6" %}
 
 package:
   name: {{ name|lower }}
@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
