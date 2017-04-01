@@ -1,4 +1,4 @@
-{% set version = "0.1.0" %}
+{% set version = "0.2.0" %}
 
 package:
   name: ipython_genutils
@@ -7,10 +7,11 @@ package:
 source:
   fn: ipython_genutils-{{ version }}.tar.gz
   url: https://github.com/ipython/ipython_genutils/archive/{{ version }}.tar.gz
-  md5: 2016819d42d8b186aad1eaed2d11b4d2
+  md5: 477e596a0e6e2f74ec08ec09687eeb6c
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install
 
 requirements:
