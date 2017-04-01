@@ -1,4 +1,4 @@
-{% set version = "1.16.0" %}
+{% set version = "1.16.1" %}
 
 package:
   name: distributed
@@ -7,16 +7,17 @@ package:
 source:
   fn: distributed-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/d/distributed/distributed-{{ version }}.tar.gz
-  sha256: 59a712463d91c8c724e9b54239f33624d4fc514f3328b0eb17f82a78d518c5dc
+  sha256: fdeb2883e5539adbbf1f4853033e209322ecd6f3a8ec43310f4bd196f0684b6d
 
 build:
   number: 0
+  noarch: python
   entry_points:
-    - dask-scheduler=distributed.cli.dask_scheduler:go
-    - dask-ssh=distributed.cli.dask_ssh:go
-    - dask-worker=distributed.cli.dask_worker:go
-    - dask-remote=distributed.cli.dask_remote:go
-    - dask-submit=distributed.cli.dask_submit:go
+    - dask-scheduler = distributed.cli.dask_scheduler:go
+    - dask-ssh = distributed.cli.dask_ssh:go
+    - dask-worker = distributed.cli.dask_worker:go
+    - dask-remote = distributed.cli.dask_remote:go
+    - dask-submit = distributed.cli.dask_submit:go
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -26,11 +27,15 @@ requirements:
 
   run:
     - python
+    - bokeh >=0.12.3
+    - boto3
     - click >=6.6
-    - cloudpickle >=0.2.1
-    - dask >=0.12.0
+    - cloudpickle >=0.2.2
+    - dask >=0.14.0
+    - locket
     - msgpack-python
     - psutil
+    - s3fs
     - six
     - sortedcollections
     - tblib
