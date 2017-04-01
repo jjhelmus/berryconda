@@ -1,6 +1,6 @@
 {% set name = "conda" %}
-{% set version = "4.3.14" %}
-{% set checksum = "1b67ad6f7eaa8d3eafa89686d8a832129fb94fc95fc437226d4e257ea063fef6" %}
+{% set version = "4.3.15" %}
+{% set checksum = "bf5e57686a8902071556d2e225ab14aab7fd383f542c7316a1d6701f01205394" %}
 
 package:
   name: conda
