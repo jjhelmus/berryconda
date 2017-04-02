@@ -1,0 +1,35 @@
+{% set version = "2.1.2" %}
+{% set sha256 = "89d7692d9f513aa21665af7de94948bc1ef110d812fa66c34bfd486590d986bb" %}
+
+package:
+  name: imageio
+  version: {{ version }}
+
+source:
+  fn: imageio-{{ version }}.zip
+  url: https://pypi.io/packages/source/i/imageio/imageio-{{ version }}.zip
+  sha256: {{ sha256 }}
+
+build:
+  script: python setup.py install
+  number: 0
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+    - numpy
+    - pillow
+
+test:
+  imports:
+    - imageio
+
+about:
+  home: http://imageio.github.io
+  doc_url: http://imageio.readthedocs.io
+  dev_url: https://github.com/imageio/imageio
+  summary: a Python library for reading and writing image data
+  license: BSD 2-Clause
+  license_file: LICENSE
