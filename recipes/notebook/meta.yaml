@@ -1,4 +1,4 @@
-{% set version = "4.4.1" %}
+{% set version = "5.0.0" %}
 
 package:
   name: notebook
@@ -7,12 +7,13 @@ package:
 source:
   fn: notebook-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/n/notebook/notebook-{{ version }}.tar.gz
-  sha256: dfadef2babd7c04c6c257df7d07d7ba587e503dbb4e4c95305f9a95b8d3a9765
+  sha256: 1cea3bbbd03c8e5842a1403347a8cc8134486b3ce081a2e5b1952a00ea66ed54
 
 
 build:
   script: pip install --no-deps .
   number: 0
+  noarch: python
   entry_points:
     - jupyter-notebook = notebook.notebookapp:main
     - jupyter-nbextension = notebook.nbextensions:main
@@ -33,7 +34,7 @@ requirements:
     - python
     - terminado
     - tornado >=4
-    - traitlets
+    - traitlets >=4.3
 
 test:
   commands:
