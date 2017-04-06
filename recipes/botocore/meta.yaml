@@ -1,7 +1,7 @@
 {%set name = "botocore" %}
-{%set version = "1.5.33" %}
+{%set version = "1.5.36" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "b24bfa4d7fdb74342818b958e03aa228eb0b9a61f6b73464d5c2076d2134f28a" %}
+{%set hash_val = "5138c77c48671b3c5690d8004e93a205afabaaa6c4a05c1b39018b5c89578320" %}
 
 package:
   name: {{ name }}
@@ -14,6 +14,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -26,8 +27,6 @@ requirements:
     - jmespath >=0.7.1,<1.0.0
     - python-dateutil >=2.1,<3.0.0
     - docutils >=0.10
-    - ordereddict ==1.1  # [py26]
-    - simplejson ==3.3.0  # [py26]
 
 test:
   imports:
