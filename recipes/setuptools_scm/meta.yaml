@@ -1,4 +1,4 @@
-{% set version = "1.15.0" %}
+{% set version = "1.15.5" %}
 
 package:
   name: setuptools_scm
@@ -7,10 +7,11 @@ package:
 source:
   fn: setuptools_scm-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/s/setuptools_scm/setuptools_scm-{{ version }}.tar.gz
-  sha256: daf12d05aa2155a46aa357453757ffdc47d87f839e62114f042bceac6a619e2f
+  sha256: 145b2a8a609e0fd66108a92a06fe62d0fb329c0eb944f2d5c7ae3ca24222f29e
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
