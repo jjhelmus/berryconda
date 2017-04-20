@@ -2,6 +2,7 @@ import platform
 import sys
 import subprocess
 
+aarch64 = bool(platform.machine() == 'aarch64')
 armv6l = bool(platform.machine() == 'armv6l')
 armv7l = bool(platform.machine() == 'armv7l')
 ppc64le = bool(platform.machine() == 'ppc64le')
@@ -98,7 +99,10 @@ if not (ppc64le or osx105):
     import _tkinter
     print('TK_VERSION: %s' % _tkinter.TK_VERSION)
     print('TCL_VERSION: %s' % _tkinter.TCL_VERSION)
-    TCLTK_VER = '8.6' if (sys.platform == 'win32' or armv6l or armv7l) else '8.5'
+    if sys.platform == 'win32' or armv6l or armv7l or aarch64:
+        TCLTK_VER = '8.6'
+    else:
+        TCLTK_VER = '8.5'
     assert _tkinter.TK_VERSION == _tkinter.TCL_VERSION == TCLTK_VER
 
 import ssl

@@ -1,5 +1,5 @@
-{% set version = "3.6.0" %}
-{% set sha256 = "aa472515800d25a3739833f76ca3735d9f4b2fe77c3cb21f69275e0cce30cb2b" %}
+{% set version = "3.6.1" %}
+{% set sha256 = "aa50b0143df7c89ce91be020fe41382613a817354b33acdc6641b44f8ced3828" %}
 
 package:
   name: python
@@ -7,7 +7,7 @@ package:
 
 source:
   fn: Python-{{ version }}.tgz
-  url: https://www.python.org/ftp/python/3.6.0/Python-{{ version }}.tgz
+  url: https://www.python.org/ftp/python/3.6.1/Python-{{ version }}.tgz
   sha256: {{ sha256 }}
 
 build:
