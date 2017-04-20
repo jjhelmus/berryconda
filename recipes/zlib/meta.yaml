@@ -1,4 +1,4 @@
-{% set version = "1.2.8" %}
+{% set version = "1.2.11" %}
 
 package:
     name: zlib
@@ -7,7 +7,7 @@ package:
 source:
     fn: zlib-{{ version }}.tar.gz
     url: http://zlib.net/zlib-{{ version }}.tar.gz
-    sha256: 2a0dd0894c35b8736ff2bee925aab35b473a6c6b432b25e56442bacb0e72bc3a
+    sha256: c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1
 
 build:
     number: 0
@@ -15,7 +15,6 @@ build:
 test:
     commands:
         - test -f ${PREFIX}/lib/libz.a
-        - conda inspect linkages -n _test zlib
 
 about:
     home: http://zlib.net/
