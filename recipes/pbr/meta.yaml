@@ -1,6 +1,6 @@
 {% set name = "pbr" %}
-{% set version = "2.1.0" %}
-{% set sha256 = "f71359a7e2de2f5ea1eceea7c1e3222f2560ee48e21eef6f96957bb5c2ebb94a" %}
+{% set version = "3.0.0" %}
+{% set sha256 = "568f988af109114fbfa0525dcb6836b069838360d11732736ecc82e4c15d5c12" %}
 
 package:
   name: {{ name }}
