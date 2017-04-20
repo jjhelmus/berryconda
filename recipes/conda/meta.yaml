@@ -1,6 +1,6 @@
 {% set name = "conda" %}
-{% set version = "4.3.15" %}
-{% set checksum = "bf5e57686a8902071556d2e225ab14aab7fd383f542c7316a1d6701f01205394" %}
+{% set version = "4.3.16" %}
+{% set checksum = "bb85e9ac0076dee71a5ff7ef741c925e0043fc32daf04d9c2eebdac2b28708cb" %}
 
 package:
   name: conda
@@ -10,6 +10,8 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
   sha256: {{ checksum }}
+  patches:
+    - 0001-add-support-for-aarch64.patch
 
 build:
   number: 0
