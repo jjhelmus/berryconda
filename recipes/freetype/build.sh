@@ -9,6 +9,6 @@ export CPPFLAGS="-I$PREFIX/include $CPPFLAGS"
             --without-harfbuzz \
             --with-bzip2=no \
 
-make
+make -j ${CPU_COUNT}
 make check
 make install
