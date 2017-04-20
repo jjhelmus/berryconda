@@ -1,6 +1,6 @@
 {% set name = "chardet" %}
-{% set version = "2.3.0" %}
-{% set sha256 = "e53e38b3a4afe6d1132de62b7400a4ac363452dc5dfcf8d88e8e0cce663c68aa" %}
+{% set version = "3.0.2" %}
+{% set sha256 = "4f7832e7c583348a9eddd927ee8514b3bf717c061f57b21dbe7697211454d9bb" %}
 
 package:
   name: {{ name }}
@@ -13,14 +13,16 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
   entry_points:
-    - chardetect = chardet.chardetect:main
+    - chardetect = chardet.cli.chardetect:main
 
 requirements:
   build:
     - python
     - setuptools
+    - pytest-runner
   run:
     - python
 
