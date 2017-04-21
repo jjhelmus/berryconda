@@ -1,0 +1,15 @@
+name: gboxconda
+version: 1.0.0
+
+channels:
+  - http://conda.anaconda.org/aarch64_gbox
+  
+conda_default_channels: 
+  - aarch64_gbox
+
+license_file: ../installer_license.txt
+
+specs:
+  - python 3.6*
+  - conda
+  - pip
