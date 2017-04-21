@@ -1,6 +1,9 @@
 #!/bin/bash
 
 case `uname -m` in
+  'aarch64' )
+    TARGET=ARMV8
+    ;;
   'armv7l' )
     TARGET=ARMV7
     ;;

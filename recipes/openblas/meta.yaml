@@ -10,8 +10,8 @@ build:
   number: 0
 
 requirements:
-  run:
-    - libgfortran
+  #  run:
+  #  - libgfortran
 
 about:
   home: http://www.openblas.net/
