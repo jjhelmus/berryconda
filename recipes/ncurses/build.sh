@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# ncurses needs a non-standard autoconf
+# to regenerate the configure script, see:
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=580190
+# Instead of depending on this copy in newer config.guess and config.sub files
+# from a recent automake release
+cp $RECIPE_DIR/config.guess .
+cp $RECIPE_DIR/config.sub .
 
 for USE_WIDEC in false true;
 do
