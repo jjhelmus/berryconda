@@ -1,4 +1,4 @@
-{% set version = "5.3.0" %}
+{% set version = "6.0.0" %}
 
 package:
   name: ipython
@@ -7,15 +7,15 @@ package:
 source:
   fn: ipython-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/i/ipython/ipython-{{ version }}.tar.gz
-  sha256: bf5e615e7d96dac5a61fbf98d9e2926d98aa55582681bea7e9382992a3f43c1d
+  sha256: f429b82b8d9807068da734b15965768bd21b15d0b706340b6d1b4d6f6f5b98a4
 
 build:
   number: 0
   script: python -m pip install --no-deps .
+  skip: True  # [py2k]
   entry_points:
     - ipython = IPython:start_ipython
-    - ipython2 = IPython:start_ipython  # [py2k]
-    - ipython3 = IPython:start_ipython  # [py3k]
+    - ipython3 = IPython:start_ipython
 
 requirements:
   build:
@@ -30,14 +30,11 @@ requirements:
     - decorator
     - traitlets
     - pexpect
-    - backports.shutil_get_terminal_size
-    - pathlib2  # [py2k]
 
 test:
   commands:
     - ipython -h
-    - ipython2 -h          # [py2k]
-    - ipython3 -h          # [py3k]
+    - ipython3 -h
   imports:
     - IPython
 
