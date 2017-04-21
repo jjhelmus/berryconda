@@ -12,8 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  noarch: python
+  number: 1
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
@@ -23,6 +22,9 @@ requirements:
     - six
     - lazy-object-proxy
     - wrapt
+    - enum34  # [py27]
+    - singledispatch  # [py27]
+    - backports.functools_lru_cache  # [py27]
 
   run:
     - python
@@ -30,6 +32,9 @@ requirements:
     - six
     - lazy-object-proxy
     - wrapt
+    - enum34  # [py27]
+    - singledispatch  # [py27]
+    - backports.functools_lru_cache  # [py27]
 
 test:
   imports:
