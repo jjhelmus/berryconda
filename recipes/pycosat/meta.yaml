@@ -21,6 +21,9 @@ requirements:
     - python
 
 test:
+  source_files:
+    - "*"
+
   imports:
     - pycosat
 
