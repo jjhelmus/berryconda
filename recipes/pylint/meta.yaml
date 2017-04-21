@@ -1,6 +1,6 @@
 {% set name = "pylint" %}
-{% set version = "1.6.5" %}
-{% set sha256 = "a673984a8dd78e4a8b8cfdee5359a1309d833cf38405008f4a249994a8456719" %}
+{% set version = "1.7.1" %}
+{% set sha256 = "8b4a7ab6cf5062e40e2763c0b4a596020abada1d7304e369578b522e46a6264a" %}
 
 package:
   name: {{ name|lower }}
@@ -26,12 +26,14 @@ requirements:
   build:
     - python
     - setuptools
+    - pytest-runner
 
   run:
     - python
-    - astroid >=1.4.5,<1.5.0
+    - astroid >=1.5.1
     - backports.functools_lru_cache  # [py27]
     - configparser                   # [py27]
+    - singledispatch                 # [py27]
     - six
     - isort >=4.2.5
     - mccabe
