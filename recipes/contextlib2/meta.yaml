@@ -1,7 +1,7 @@
 {%set name = "contextlib2" %}
-{% set version = "0.5.4" %}
+{% set version = "0.5.5" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "710626cde569f51a87f216ff757fe60f5cd13ae8f8114706590510cd5649ce88" %}
+{%set hash_val = "509f9419ee91cdd00ba34443217d5ca51f5a364a404e1dce9e8979cea969ca48" %}
 
 package:
   name: {{ name }}
@@ -13,7 +13,7 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  script: python setup.py install
+  script: python setup.py install --single-version-externally-managed --record record.txt
   number: 0
 
 requirements:
