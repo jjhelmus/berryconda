@@ -1,7 +1,7 @@
 {%set name = "botocore" %}
-{%set version = "1.5.42" %}
+{%set version = "1.5.45" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "c99c7b753d83750ddfdf32a1f7edb008b9fe8c55b5127086ba5b9e580f8a9c45" %}
+{%set hash_val = "d7e8aa20d56ecb323a5d89685110d037b8ec93276f5d6b1322a0139b6b912516" %}
 
 package:
   name: {{ name }}
