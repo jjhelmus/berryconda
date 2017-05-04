@@ -1,4 +1,4 @@
-{% set version = "0.3.7" %}
+{% set version = "0.3.8" %}
 
 package:
   name: partd
@@ -7,10 +7,11 @@ package:
 source:
   fn: partd-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/partd/partd-{{ version }}.tar.gz
-  md5: 7065f9ba12ba67463d16b2fde753a702
+  md5: 554d0e6511c0df4c907f034858be847f
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
