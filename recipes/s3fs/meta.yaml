@@ -1,4 +1,4 @@
-{% set version = "0.0.9" %}
+{% set version = "0.1.0" %}
 
 package:
   name: s3fs
@@ -7,10 +7,11 @@ package:
 source:
   fn: s3fs-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/s/s3fs/s3fs-{{ version }}.tar.gz
-  md5: f423a322a1175a6e7cc258a39a119a7d
+  md5: 3e3a3b717e4266906b82873ae1ccea0f
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
