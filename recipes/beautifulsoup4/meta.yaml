@@ -1,5 +1,5 @@
 {% set name = "beautifulsoup4" %}
-{% set version = "4.5.3" %}
+{% set version = "4.6.0" %}
 
 package:
   name: {{ name }}
@@ -8,10 +8,11 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  md5: 937e0df0d699a1237646f38fd567f0c6
+  md5: c17714d0f91a23b708a592cb3c697728
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
