@@ -1,13 +1,14 @@
-{% set version = "2.13.0" %}
+{% set name = "requests" %}
+{% set version = "2.14.1" %}
 
 package:
-  name: requests
+  name: {{ name }}
   version: {{ version }}
 
 source:
   fn: requests-{{ version }}.tar.gz
-  url: https://github.com/kennethreitz/requests/archive/v{{ version }}.tar.gz
-  sha256: 48fd188aaa388b4193bf7b917cf861a00eafacad651148475bc65ffaef445627
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: b3b191d677e526c1e512db86bc7387ccb8356e8826bcc7faa07f78f09afe68dd
 
 build:
   number: 0
