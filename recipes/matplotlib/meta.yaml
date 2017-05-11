@@ -1,7 +1,7 @@
 # Full credit goes to https://github.com/conda/conda-recipes for providing this recipe.
 # It has been subsequently adapted for automated building with conda-forge.
 
-{% set version = "2.0.1" %}
+{% set version = "2.0.2" %}
 
 package:
   name: matplotlib
@@ -10,7 +10,7 @@ package:
 source:
   fn: matplotlib-{{ version }}.tar.gz
   url: https://github.com/matplotlib/matplotlib/archive/v{{ version }}.tar.gz
-  sha256: 817c873084830a9169115e94a54ae6e7ef4f7b54d334a4ed0a63fac29393faa4
+  sha256: aebed23921562792b68b8ca355de5abc176af4424f1987e2fa95f65e5c5e7e89
 
 build:
     number: 0
