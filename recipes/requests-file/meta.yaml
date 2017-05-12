@@ -1,0 +1,37 @@
+{% set name = "requests-file" %}
+{% set version = "1.4.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: f518e7cfe048e053fd1019dfb891b4c55b871c56c5a31693d733240c80b8f191
+
+build:
+  number: 0
+  noarch: python
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - requests
+    - setuptools
+    - six
+  run:
+    - python
+    - requests
+    - six
+
+test:
+  imports:
+    - requests_file
+
+about:
+  home: http://github.com/dashea/requests-file
+  license: Apache
+  license_file: LICENSE
+  summary: file transport adapter for Requests
