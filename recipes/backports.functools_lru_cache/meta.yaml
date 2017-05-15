@@ -1,6 +1,6 @@
 {% set name = "backports.functools_lru_cache" %}
-{% set version = "1.3" %}
-{% set hash = "444a21bcec4ae177da554321f81a78dc879eaa8f6ea9920cb904830585d31e95" %}
+{% set version = "1.4" %}
+{% set hash = "31f235852f88edc1558d428d890663c49eb4514ffec9f3650e7f3c9e4a12e36f" %}
 
 package:
   name: {{ name }}
@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
