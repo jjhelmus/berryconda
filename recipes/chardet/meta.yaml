@@ -1,6 +1,6 @@
 {% set name = "chardet" %}
-{% set version = "3.0.2" %}
-{% set sha256 = "4f7832e7c583348a9eddd927ee8514b3bf717c061f57b21dbe7697211454d9bb" %}
+{% set version = "3.0.3" %}
+{% set sha256 = "77df6d712a6037ed6f247ad1dd67faca506f64bc1295d43533e9212a101f28cb" %}
 
 package:
   name: {{ name }}
