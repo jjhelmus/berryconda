@@ -1,7 +1,7 @@
-{%set name = "nltk" %}
-{%set version = "3.2.2" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "1b37db344770021c9be3d68f48d1667a8dae6eeff0e502b7bfb01638d288a88e" %}
+{% set name = "nltk" %}
+{% set version = "3.2.3" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "8734e180ba255562971aca8881f330201666e6ac63c8a1cd853e067eb827bcb1" %}
 
 package:
   name: {{ name }}
@@ -14,6 +14,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -24,6 +25,7 @@ requirements:
   run:
     - python
     - six
+    - requests
 
 test:
   imports:
