@@ -1,8 +1,8 @@
 {% set name = "pandas-datareader" %}
-{% set version = "0.3.0.post0" %}
+{% set version = "0.4.0" %}
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash_val = "1688566dddfba051e64ac193ad325587eecbe423f90ad0b4b104bd1e24a0d750" %}
+{% set hash_val = "1d02d6d15b47cc021e578da7ba495d929f8f65586669d278f3fb95a4f9613e78" %}
 {% set build_num = "0" %}
 
 package:
@@ -27,7 +27,7 @@ requirements:
 
   run:
     - python
-    - pandas <=0.19.2
+    - pandas
     - requests >=2.3.0
     - requests-file
     - requests-ftp
