@@ -9,10 +9,11 @@ All this can be done without compiling a single package!
 
 Berryconda is designed to work with [raspbian](https://www.raspbian.org/)
 jessie.  Other Linux versions and distributions may or may not work.
+When using non-raspbian based distributions, bzip2 should be installed.
 
 To install Berryconda, download the installer appropiate for your Raspberry Pi
 model.  For Raspberry Pi 2 or 3 use the armv7l installers.  For Raspberry
-Pi 1 or Zero use the armv6l installer.  
+Pi 1 or Zero use the armv6l installer.
 
 Berryconda comes in two 'flavors', Berryconda2 and Berryconda3.  The difference
 between these are the version of Python installed; Berryconda2 installs
@@ -38,6 +39,8 @@ chmod +x Berryconda3-1.0.0-Linux-armv7l.sh`
 ```
 
 Follow the prompts to finish your install of Berryconda.
+
+Berryconda should be installed in a user account, not by root or using sudo.
 
 Once installed use the [conda](http://conda.pydata.org/docs/) command to
 add packages from the [rpi](https://anaconda.org/rpi/) channel.
