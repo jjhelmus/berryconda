@@ -1,6 +1,6 @@
 {% set name = "pytest" %}
-{% set version = "3.0.7" %}
-{% set sha256 = "b70696ebd1a5e6b627e7e3ac1365a4bc60aaf3495e843c1e70448966c5224cab" %}
+{% set version = "3.1.0" %}
+{% set sha256 = "239c71f1804b57b07806f315752b42f675ddf3109a11ebe8d40eef043db12a83" %}
 
 package:
   name: {{ name|lower }}
@@ -23,6 +23,7 @@ requirements:
     - python
     - py
     - setuptools
+    - setuptools_scm
   run:
     - python
     - setuptools
