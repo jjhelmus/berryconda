@@ -1,4 +1,4 @@
-{% set version = "5.1.1" %}
+{% set version = "5.2.1" %}
 
 package:
   name: nbconvert
@@ -7,10 +7,11 @@ package:
 source:
   fn: nbconvert-{{ version }}.tar.gz
   url: https://github.com/jupyter/nbconvert/archive/{{ version }}.tar.gz
-  sha256: 1502366caab4f1aa86adebc9def492448f69310c88e52d0998c8edf2d97617ad
+  sha256: b9e37d8d947f498863476337e01cc7ef36193ccaa3079b428298b901a4c5bdaa
 
 build:
   number: 0
+  noarch: python
   script: pip install --no-deps .
   entry_points:
     - jupyter-nbconvert = nbconvert.nbconvertapp:main
