@@ -1,8 +1,8 @@
 {% set name = "testpath" %}
-{% set version = "0.3" %}
+{% set version = "0.3.1" %}
 {% set wheel_tag = "py2.py3-none-any" %}
 {% set fn = "{}-{}-{}.whl".format(name, version, wheel_tag) %}
-{% set sha256 = "f16b2cb3b03e1ada4fb0200b265a4446f92f3ba4b9d88ace34f51c54ab6d294e" %}
+{% set sha256 = "039fa6a6c9fd3488f8336d23aebbfead5fa602c4a47d49d83845f55a595ec1b4" %}
 
 package:
   name: {{ name }}
