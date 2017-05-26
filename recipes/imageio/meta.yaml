@@ -1,17 +1,18 @@
-{% set version = "2.1.2" %}
-{% set sha256 = "89d7692d9f513aa21665af7de94948bc1ef110d812fa66c34bfd486590d986bb" %}
+{% set version = "2.2.0" %}
+{% set sha256 = "6dd95300d3d64713a2649334390fd9cf96712013172afd6e73b008e00934a73f" %}
 
 package:
   name: imageio
   version: {{ version }}
 
 source:
-  fn: imageio-{{ version }}.zip
-  url: https://pypi.io/packages/source/i/imageio/imageio-{{ version }}.zip
+  fn: imageio-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/i/imageio/imageio-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   script: python setup.py install
+  noarch: python
   number: 0
 
 requirements:
