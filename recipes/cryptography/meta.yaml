@@ -1,7 +1,7 @@
 {%set name = "cryptography" %}
-{%set version = "1.8.2" %}
+{%set version = "1.9" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "8e88ebac371a388024dab3ccf393bf3c1790d21bc3c299d5a6f9f83fb823beda" %}
+{%set hash_val = "5518337022718029e367d982642f3e3523541e098ad671672a90b82474c84882" %}
 
 package:
   name: {{ name }}
