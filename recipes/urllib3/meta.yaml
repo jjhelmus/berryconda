@@ -1,0 +1,45 @@
+{% set name = "urllib3" %}
+{% set version = "1.21.1" %}
+{% set compress_type = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "b14486978518ca0901a76ba973d7821047409d7f726f22156b24e83fd71382a5" %}
+{% set build_num = "0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.{{ compress_type }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
+  {{ hash_type }}: {{ hash_val }}
+
+build:
+  number: {{ build_num }}
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+    - urllib3
+    - urllib3.contrib
+    - urllib3.packages
+    - urllib3.packages.backports
+    - urllib3.packages.ssl_match_hostname
+    - urllib3.util
+
+about:
+  home: https://urllib3.readthedocs.io/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: 'HTTP library with thread-safe connection pooling, file post, and more.'
+  doc_url: https://urllib3.readthedocs.io/
+  dev_url: https://github.com/shazow/urllib3
