@@ -1,5 +1,5 @@
 {% set name = "smmap2" %}
-{% set version = "2.0.1" %}
+{% set version = "2.0.2" %}
 
 package:
   name: {{ name }}
@@ -8,10 +8,11 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5c9fd3ac4a30b85d041a8bd3779e16aa704a161991e74b9a46692bc368e68752
+  sha256: 305d8cdaa7d11c00b528f57ecefd258da5cd3193cd57b61ea656c9281b5ce1eb
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
