@@ -1,5 +1,5 @@
-{% set version = "4.2.13" %}
-{% set md5 = "1140ffbe6232348c1fdb940cafb1fca9" %}
+{% set version = "4.2.14" %}
+{% set md5 = "555938e24911062b2febab248b419788" %}
 
 package:
   name: isort
