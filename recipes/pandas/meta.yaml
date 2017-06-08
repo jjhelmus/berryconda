@@ -19,10 +19,10 @@ requirements:
         - python
         - setuptools
         - cython
-        - numpy  x.x
+        - numpy x.x
     run:
         - python
-        - numpy  x.x
+        - numpy x.x
         - python-dateutil
         - pytz
 
