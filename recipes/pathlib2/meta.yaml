@@ -1,5 +1,5 @@
 {% set name = "pathlib2" %}
-{% set version = "2.2.1" %}
+{% set version = "2.3.0" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  md5: 6c75bfde898b6c88627621a48ee8de14
+  md5: 89c90409d11fd5947966b6a30a47d18c
 
 requirements:
   build:
