@@ -5,9 +5,16 @@ package:
   name: {{ name }}
   version: {{ version }}
 
+build:
+  number: 0
+  noarch: True
+  string: py2_0  # [py2k]
+  string: py3_0  # [py3k]
+
 requirements:
   run:
-    - python
+    - python 2.*  # [py2k]
+    - python 3.*  # [py3k]
     - six >=1.5.2
     - requests >=1.2.3
     - pyyaml >=3.10
