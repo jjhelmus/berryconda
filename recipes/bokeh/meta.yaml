@@ -23,6 +23,7 @@ requirements:
     - python
     - setuptools
   run:
+    - python
     # use requirements meta-package to account for python version dependencies
     - bokeh_conda_requirements {{ version }}
 
