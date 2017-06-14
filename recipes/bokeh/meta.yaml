@@ -1,43 +1,61 @@
+{% set name = "bokeh" %}
+{% set version = "0.12.6" %}
+{% set sha256 = "a2ddcc694c387440a2b361e741d2fa9a18ad0508a879a71f524a2f0ff7803181" %}
+
 package:
-  name: bokeh
-  version: 0.12.5
+  name: {{ name }}
+  version: {{ version }}
 
 source:
-  fn: bokeh-0.12.5.tar.gz
-  url: https://pypi.python.org/packages/6c/f5/6a4b75f5f7c35771b172994c5b5642dd0f923d781b8eb7a9167339eb63b4/bokeh-0.12.4.tar.gz
-  md5: 82eb8e8b7a5fe7ce727b8a6ab1e4b5da
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
   number: 0
+  noarch: python
+  script: python setup.py install --single-version-externally-managed --record record.txt
   entry_points:
     - bokeh = bokeh.__main__:main
 
 requirements:
   build:
     - python
+    - setuptools
   run:
-    - python
-    - six >=1.5.2
-    - requests >=1.2.3
-    - pyyaml >=3.10
-    - python-dateutil >=2.1
-    - jinja2 >=2.7
-    - numpy
-    - tornado >=4.3
-    - futures >=3.0.3        [py27]
+    # use requirements meta-package to account for python version dependencies
+    - bokeh_conda_requirements {{ version }}
 
 test:
-  commands:
-    - bokeh -h
+  requires:
+    - matplotlib
   imports:
     - bokeh
     - bokeh.application
+    - bokeh.application.handlers
+    - bokeh.client
+    - bokeh.command
+    - bokeh.command.subcommands
+    - bokeh.core
+    - bokeh.core.compat
+    - bokeh.core.compat.mplexporter
+    - bokeh.core.compat.mplexporter.renderers
+    - bokeh.core.property
+    - bokeh.core.validation
     - bokeh.models
     - bokeh.models.widgets
+    - bokeh.plotting
     - bokeh.sampledata
     - bokeh.server
+    - bokeh.server.protocol
+    - bokeh.server.protocol.messages
+    - bokeh.server.views
     - bokeh.sphinxext
+    - bokeh.themes
     - bokeh.util
+
+  commands:
+    - bokeh --help
 
 about:
   home: http://bokeh.pydata.org/
