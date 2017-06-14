@@ -1,0 +1,22 @@
+{% set name = "bokeh_conda_requirements" %}
+{% set version = "0.12.6" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+requirements:
+  run:
+    - python
+    - six >=1.5.2
+    - requests >=1.2.3
+    - pyyaml >=3.10
+    - python-dateutil >=2.1
+    - jinja2 >=2.7
+    - numpy >=1.7.1
+    - tornado >=4.3
+    - futures >=3.0.3      # [py2k]
+    - bkcharts >=0.2
+
+about:
+  summary: Requirements meta-package for bokeh
