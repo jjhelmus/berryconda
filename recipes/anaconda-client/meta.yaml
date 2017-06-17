@@ -1,6 +1,6 @@
 {% set name = "anaconda-client" %}
-{% set version = "1.5.3" %}
-{% set checksum = "1a7dc39661b606443134a76bebe0e062a262aa774387daa72a38d066da6a3fbe" %}
+{% set version = "1.6.3" %}
+{% set checksum = "e24339e172e79554c2045209c54366a39fb37f6ceeede738cde7cb324de464f3" %}
 
 package:
   name: {{ name }}
@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
   entry_points:
     - anaconda = binstar_client.scripts.cli:main
