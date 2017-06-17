@@ -1,4 +1,4 @@
-{% set version = "2.1.15" %}
+{% set version = "3.0.0" %}
 
 package:
   name: conda-build
@@ -7,7 +7,7 @@ package:
 source:
   fn: conda-build-{{ version }}.tar.gz
   url: https://github.com/conda/conda-build/archive/{{ version }}.tar.gz
-  sha256: 39c78ef006890f491bbe8a25b46e3288c3b6af66f2aa4e3e414a670f05773a05
+  sha256: dbdc5968ad2521dc4d136ea8b5767af4414a78fa1bea2af15397cbace332ca81
 
 build:
   number: 0
@@ -20,27 +20,24 @@ build:
     - conda-inspect = conda_build.cli.main_inspect:main
     - conda-metapackage = conda_build.cli.main_metapackage:main
     - conda-render = conda_build.cli.main_render:main
-    - conda-sign = conda_build.cli.main_sign:main
     - conda-skeleton = conda_build.cli.main_skeleton:main
 
 requirements:
   build:
     - python
     - setuptools
-
   run:
     - beautifulsoup4
     - chardet
-    - conda >=4.1,<4.4
-    - contextlib2   # [py27]
+    - conda >=4.3
     - conda-verify
+    - contextlib2   # [py27]
     - enum34        # [py27]
     - filelock
     - futures       # [py27]
     - jinja2
     - patchelf      # [linux]
     - pkginfo
-    - pycrypto
     - python
     - pyyaml
     - six
