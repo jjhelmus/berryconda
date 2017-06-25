@@ -1,4 +1,4 @@
-{% set version = "0.5.1" %}
+{% set version = "0.5.2" %}
 
 package:
   name: ptyprocess
@@ -6,10 +6,11 @@ package:
 
 source:
   fn: ptyprocess-{{ version }}.tar.gz
-  url: https://pypi.python.org/packages/source/p/ptyprocess/ptyprocess-{{ version }}.tar.gz
-  md5: 94e537122914cc9ec9c1eadcd36e73a1
+  url: https://pypi.io/packages/source/p/ptyprocess/ptyprocess-{{ version }}.tar.gz
+  md5: d3b8febae1b8c53b054bd818d0bb8665
 
 build:
+  noarch: python
   number: 0
 
 requirements:
