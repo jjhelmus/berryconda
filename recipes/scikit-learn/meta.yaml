@@ -1,5 +1,5 @@
 {% set name = "scikit-learn" %}
-{% set version = "0.18.1" %}
+{% set version = "0.18.2" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 1eddfc27bb37597a5d514de1299981758e660e0af56981c0bfdf462c9568a60c
+  sha256: f78c3e11bf38838eaf637cdd9e8d6b575a4a4048d1670a03a72b0d00d3f39ffa
 
 build:
   number: 0
