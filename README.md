@@ -17,25 +17,25 @@ Pi 1 or Zero use the armv6l installer.
 
 Berryconda comes in two 'flavors', Berryconda2 and Berryconda3.  The difference
 between these are the version of Python installed; Berryconda2 installs
-Python 2.7, and Berryconda3 installs Python 3.5. Choose the version you want install. 
+Python 2.7, and Berryconda3 installs Python 3.6. Choose the version you want installed.
 
 ### armv7l installers (Raspberry Pi 2 or 3)
 
-* [Berryconda3-1.0.0-Linux-armv7l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda3-1.0.0-Linux-armv7l.sh)
-* [Berryconda2-1.0.0-Linux-armv7l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda2-1.0.0-Linux-armv7l.sh)
+* [Berryconda3-2.0.0-Linux-armv7l.sh](https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh)
+* [Berryconda2-2.0.0-Linux-armv7l.sh](https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda2-2.0.0-Linux-armv7l.sh)
 
 ### armv6l installers (Raspberry Pi 1 or Zero)
 
-* [Berryconda3-1.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda3-1.0.0-Linux-armv6l.sh)
-* [Berryconda2-1.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v1.0.0/Berryconda2-1.0.0-Linux-armv6l.sh)
+* [Berryconda3-2.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv6l.sh)
+* [Berryconda2-2.0.0-Linux-armv6l.sh](https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda2-2.0.0-Linux-armv6l.sh)
 
 Once this file is downloaded on your Raspberry Pi, make the file executable
 using `chmod` and the execuate the installer.  For example, to install
 Berryconda3 on a Raspberry Pi 3:
 
 ```
-chmod +x Berryconda3-1.0.0-Linux-armv7l.sh`
-./Berryconda3-1.0.0-Linux-armv7l.sh
+chmod +x Berryconda3-2.0.0-Linux-armv7l.sh`
+./Berryconda3-2.0.0-Linux-armv7l.sh
 ```
 
 Follow the prompts to finish your install of Berryconda.
