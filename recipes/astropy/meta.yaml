@@ -1,5 +1,5 @@
 {%set name = "astropy" %}
-{%set version = "1.3.3" %}
+{%set version = "2.0" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ed093e033fcbee5a3ec122420c3376f8a80f74663214560727d3defe82170a99
+  sha256: cdd60fce57c2be5d93fdc39a8ddf3621c4099026f50617294875273321cd8f99
 
 build:
   number: 0
@@ -26,10 +26,14 @@ requirements:
     - python
     - setuptools
     - numpy x.x
+    - pytest >=2.8
+    - cython >=0.21
+    - jinja2 >=2.7
   run:
     - python
     - numpy x.x
     - argparse          [py26]
+    - pytest >=2.8
 
 test:
   commands:
