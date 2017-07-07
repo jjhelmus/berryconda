@@ -1,5 +1,5 @@
 {% set name = "numpy" %}
-{% set version = "1.13.0" %}
+{% set version = "1.13.1" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.zip
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
-  sha256: dcff367b725586830ff0e20b805c7654c876c2d4585c0834a6049502b9d6cf7e
+  sha256: c9b0283776085cb2804efff73e9955ca279ba4edafd58d3ead70b61d209c4fbb
 
 build:
   number: 0
