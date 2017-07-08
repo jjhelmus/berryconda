@@ -1,5 +1,5 @@
 {% set name = "pandas" %}
-{% set version = "0.20.2" %}
+{% set version = "0.20.3" %}
 
 package:
     name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
     fn: {{ name }}-{{ version }}.tar.gz
     url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 92173c976fcca70cb19a958eccdacf98af62ef7301bf786d0321cb8857cdfae6
+    sha256: a777e07633d83d546c55706420179551c8e01075b53c497dcf8ae4036766bc66
 
 build:
     number: 0
@@ -19,10 +19,10 @@ requirements:
         - python
         - setuptools
         - cython
-        - numpy x.x
+        - numpy 1.11.*
     run:
         - python
-        - numpy x.x
+        - numpy >=1.11
         - python-dateutil
         - pytz
 
