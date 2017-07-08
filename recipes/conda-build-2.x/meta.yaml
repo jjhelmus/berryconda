@@ -1,4 +1,4 @@
-{% set version = "2.1.15" %}
+{% set version = "2.1.17" %}
 
 package:
   name: conda-build
@@ -7,7 +7,7 @@ package:
 source:
   fn: conda-build-{{ version }}.tar.gz
   url: https://github.com/conda/conda-build/archive/{{ version }}.tar.gz
-  sha256: 39c78ef006890f491bbe8a25b46e3288c3b6af66f2aa4e3e414a670f05773a05
+  sha256: 1ec14c7aa8523042a5717e69fd0fbf5bf444ec4fe4eb0d42a32c3b0a62a7b543
 
 build:
   number: 0
