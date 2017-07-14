@@ -1,4 +1,4 @@
-{% set version = "2.0.0" %}
+{% set version = "2.3.2" %}
 
 package:
   name: conda-smithy
@@ -7,12 +7,15 @@ package:
 source:
   fn: conda-smithy-v{{ version }}.tar.gz
   url: https://github.com/conda-forge/conda-smithy/archive/v{{ version }}.tar.gz
-  sha256: 266c2a072e8fc5af9f0ef30de91a45a756459e1395555b3464a261b52088454d
+  sha256: 55d75429aecbdf8842fa93c106d319e65075f56f53cbbaeafdbfdaafb4b8bb31
 
 build:
   number: 0
-  skip: true  # [py==36]
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+  script:
+    - python setup.py install --single-version-externally-managed --record=record.txt
+    - rm -f "${PREFIX}/bin/conda"           # [unix]
+    - del /f /q "%PREFIX%\\Scripts\\conda"  # [win]
   entry_points:
     - feedstocks = conda_smithy.feedstocks:main
     - conda-smithy = conda_smithy.cli:main
@@ -23,7 +26,7 @@ requirements:
     - setuptools
   run:
     - python
-    - conda-build-all
+    - conda-build-all >=1.0.3
     - conda
     - conda-build >=1.21.12,!=2.0.9
     - jinja2
