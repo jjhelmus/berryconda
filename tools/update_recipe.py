@@ -31,13 +31,15 @@ def hash_from_download(recipe_dict, hash_type):
     return hash_value
 
 
-def hash_from_pypi(package_name, release, hash_type):
+def hash_from_pypi(package_name, release, filename, hash_type):
     """ Obtain a hash from PyPI. """
     url = 'https://pypi.org/pypi/' + package_name + '/json'
     response = urlopen(url)
     package_info = json.loads(response.read().decode('utf8'))
     release_info = package_info['releases'][release]
-    entry = [e for e in release_info if e['filename'].endswith('tar.gz')][0]
+    entry = [e for e in release_info if e['filename'] == filename][0]
+    if len(entry) == 0:
+        raise ValueError('No matching packages found on PyPI')
     hash_value = entry['digests'][hash_type]
     return hash_value
 
@@ -56,7 +58,8 @@ def find_hash(lines):
         raise ValueError("Unknown hash type", recipe_source)
     package_name = recipe_dict['package']['name']
     release = str(recipe_dict['package']['version'])
-    hash_value = hash_from_pypi(package_name, release, hash_type)
+    filename = recipe_dict['source']['url'].split('/')[-1]
+    hash_value = hash_from_pypi(package_name, release, filename, hash_type)
     return hash_type, hash_value
 
 
