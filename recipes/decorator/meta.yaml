@@ -1,6 +1,6 @@
 {% set name = "decorator" %}
-{% set version = "4.0.11" %}
-{% set sha256 = "953d6bf082b100f43229cf547f4f97f97e970f5ad645ee7601d55ff87afdfe76" %}
+{% set version = "4.1.0" %}
+{% set sha256 = "53d6e5864a8f11e38eddf2206ad6de3eb4738114e54c9fb6bbe47a7ddbec523b" %}
 
 package:
   name: {{ name|lower }}
@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
