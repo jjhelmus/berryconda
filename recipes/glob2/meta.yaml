@@ -1,0 +1,33 @@
+{% set name = "glob2" %}
+{% set version = "0.5" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 8f944b87ac4deaf39b0dce419665b40a3acb66a9ad3b07945e109246bb66fe9f
+
+build:
+  number: 0
+  noarch: python
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - glob2
+
+about:
+  home: https://github.com/miracle2k/python-glob2
+  license: BSD-2-Clause
+  license_file: LICENSE
+  summary: Version of the glob module that supports recursion via **, and can capture patterns.
