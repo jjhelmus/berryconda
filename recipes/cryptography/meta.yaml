@@ -1,7 +1,7 @@
 {%set name = "cryptography" %}
-{%set version = "1.9" %}
+{%set version = "2.0" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "5518337022718029e367d982642f3e3523541e098ad671672a90b82474c84882" %}
+{%set hash_val = "d32453b54f99cfe3103f0cb79f6c0ea68c66483811dfe1527a4f06eb3bc580b0" %}
 
 package:
   name: {{ name }}
@@ -24,8 +24,7 @@ requirements:
     - idna >=2.1
     - ipaddress        # [py27]
     - openssl 1.0.2*
-    - packaging
-    - setuptools >=11.3
+    - setuptools
     - six >=1.4.1
   run:
     - python
@@ -35,8 +34,7 @@ requirements:
     - idna >=2.1
     - ipaddress        # [py27]
     - openssl 1.0.2*
-    - packaging
-    - setuptools >=11.3
+    - setuptools
     - six >=1.4.1
 
 test:
