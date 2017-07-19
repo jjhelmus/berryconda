@@ -1,5 +1,5 @@
 {% set name = "setuptools" %}
-{% set version = "36.0.1" %}
+{% set version = "36.2.0" %}
 
 package:
   name: setuptools
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.zip
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
-  sha256: e17c4687fddd6d70a6604ac0ad25e33324cec71b5137267dd5c45e103c4b288a
+  sha256: 4c2bda3829c9dbbe9c2b33d89c4b1cb6d45813615ab8e248ad352e3697a96d81
   patches:
     # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
     - nodownload.patch
