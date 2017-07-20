@@ -1,8 +1,8 @@
 {% set name = "urllib3" %}
-{% set version = "1.21.1" %}
+{% set version = "1.22" %}
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash_val = "b14486978518ca0901a76ba973d7821047409d7f726f22156b24e83fd71382a5" %}
+{% set hash_val = "cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f" %}
 {% set build_num = "0" %}
 
 package:
