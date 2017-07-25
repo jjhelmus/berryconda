@@ -1,5 +1,5 @@
 {% set name = "pyserial" %}
-{% set version = "3.3" %}
+{% set version = "3.4" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 2949cddffc2b05683065a3cd2345114b1a49b08df8cb843d69ba99dc3e19edc2
+  sha256: 6e2d401fdee0eab996cf734e67773a0143b932772ca8b42451440cfed942c627
 
 build:
   number: 0
