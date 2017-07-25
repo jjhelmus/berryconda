@@ -1,6 +1,6 @@
 {% set name = "decorator" %}
-{% set version = "4.1.1" %}
-{% set sha256 = "d48a0a1107a1e72ebd603ae3f9b06e4b9109f7fa92e28152a710adc4d37bf6e9" %}
+{% set version = "4.1.2" %}
+{% set sha256 = "7cb64d38cb8002971710c8899fbdfb859a23a364b7c99dab19d1f719c2ba16b5" %}
 
 package:
   name: {{ name|lower }}
