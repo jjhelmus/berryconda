@@ -1,4 +1,4 @@
-{% set version = "3.0.1" %}
+{% set version = "3.0.8" %}
 
 package:
   name: conda-build
@@ -7,7 +7,9 @@ package:
 source:
   fn: conda-build-{{ version }}.tar.gz
   url: https://github.com/conda/conda-build/archive/{{ version }}.tar.gz
-  sha256: 1c8a64225d5d0429b1759518e6a0441a3b9c407446c0e8e76b3c64313d383e27
+  sha256: 984b23ce74c5cc456115ff472da721376df260d04fe68813eccdef96466496d8
+  patches:
+    - 2233.patch
 
 build:
   number: 0
@@ -35,11 +37,13 @@ requirements:
     - enum34        # [py27]
     - filelock
     - futures       # [py27]
+    - glob2
     - jinja2
     - patchelf      # [linux]
     - pkginfo
     - python
     - pyyaml
+    - ruamel_yaml
     - six
 
 test:
