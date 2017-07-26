@@ -1,0 +1,35 @@
+{% set name = "arm_pyart" %}
+{% set version = "1.8.0" %}
+{% set sha256 = "b68ac9cb70b357ded1173a84a44883c3348b335fbb674f6c2e5b654171a1c9d7" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+    number: 0
+
+requirements:
+    build:
+        - python
+        - numpy 1.11.*
+    run:
+        - python
+        - numpy >=1.11
+        - scipy
+        - matplotlib
+        - netcdf4
+
+test:
+    imports:
+        - pyart
+
+about:
+    home: http://arm-doe.github.io/pyart/
+    license: BSD-3-Clause
+    summary: "Python ARM Radar Toolkit"
