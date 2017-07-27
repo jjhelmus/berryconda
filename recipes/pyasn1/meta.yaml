@@ -1,7 +1,7 @@
 {%set name = "pyasn1" %}
-{%set version = "0.2.3" %}
+{%set version = "0.3.1" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "738c4ebd88a718e700ee35c8d129acce2286542daa80a82823a7073644f706ad" %}
+{%set hash_val = "f6e437000baec5feda6bc4c04acaf7ca25bbca76a6cbce142ebbfada12244fac" %}
 
 package:
   name: {{ name }}
@@ -14,6 +14,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
