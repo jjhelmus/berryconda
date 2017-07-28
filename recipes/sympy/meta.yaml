@@ -1,4 +1,4 @@
-{% set version = "1.1" %}
+{% set version = "1.1.1" %}
 
 package:
   name: sympy
@@ -7,10 +7,11 @@ package:
 source:
   fn: sympy-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/s/sympy/sympy-{{ version }}.tar.gz
-  md5: e1b7a2b14066fc99c1cf22cedba56be8
+  md5: c410a9c2346878716d16ec873d72e72a
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install
 
 requirements:
