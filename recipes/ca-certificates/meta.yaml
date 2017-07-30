@@ -4,21 +4,13 @@ package:
   name: ca-certificates
   version: {{ version }}
 
-# This does not have a source because it pulls these from certifi at present.
+source:
+  fn: certifi-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
+  sha256: f7527ebf7461582ce95f7a9e03dd141ce810d40590834f4ec20cddd54234c10a
 
 build:
   number: 0
-  # As openssl includes these (dependency of Python), they will be removed afterwards.
-  # This is our way of ensuring these files are kept anyways. Once conda-forge has its
-  # own openssl, this will no longer be necessary.
-  always_include_files:
-    - ssl/cert.pem
-    - ssl/cacert.pem
-
-requirements:
-  build:
-    - python
-    - certifi {{ version }}
 
 test:
   # use system provided curl for testing
@@ -27,13 +19,14 @@ test:
 
   commands:
     # Verify the certificates are there.
-    - test -f "${PREFIX}/ssl/cacert.pem"
-    - test -f "${PREFIX}/ssl/cert.pem"
+    - test -f "${PREFIX}/ssl/cacert.pem"                                      # [unix]
+    - test -f "${PREFIX}/ssl/cert.pem"                                        # [unix]
 
     # Use the certificates to download something.
-    - curl --cacert "${PREFIX}/ssl/cacert.pem" https://www.google.com
+    - curl --cacert "${PREFIX}/ssl/cacert.pem" https://www.google.com         # [unix]
 
 about:
   home: https://github.com/conda-forge/ca-certificates-feedstock
   license: ISC
+  license_file: LICENSE
   summary: Certificates for use with other packages.
