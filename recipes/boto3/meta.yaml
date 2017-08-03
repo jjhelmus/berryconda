@@ -1,6 +1,6 @@
 {% set name = "boto3" %}
-{% set version = "1.4.4" %}
-{% set sha256 = "518f724c4758e5a5bed114fbcbd1cf470a15306d416ff421a025b76f1d390939" %}
+{% set version = "1.4.5" %}
+{% set sha256 = "6d570df0f692e82b35e9abafbb4584b899b2803e8cfcb70d1f371ca08919831d" %}
 
 package:
   name: {{ name|lower }}
@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
@@ -21,9 +22,9 @@ requirements:
     - setuptools
   run:
     - python
-    - botocore >=1.4.1,<1.5.0
+    - botocore >=1.5.0,<1.6.0
     - jmespath >=0.7.1,<1.0.0
-    - s3transfer >=0.1.0,<0.2.0
+    - s3transfer >=0.1.10,<0.2.0
 
 test:
   imports:
