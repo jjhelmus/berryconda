@@ -1,11 +1,11 @@
 package:
   name: python
-  version: 3.5.3
+  version: 3.5.4
 
 source:
-  fn: Python-3.5.3.tgz
-  url: https://www.python.org/ftp/python/3.5.3/Python-3.5.3.tgz
-  sha256: d8890b84d773cd7059e597dbefa510340de8336ec9b9e9032bf030f19291565a
+  fn: Python-3.5.4.tgz
+  url: https://www.python.org/ftp/python/3.5.4/Python-3.5.4.tgz
+  md5: 2ed4802b7a2a7e40d2e797272bf388ec
 
 build:
   number: 0
