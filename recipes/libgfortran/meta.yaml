@@ -3,7 +3,7 @@ package:
   version: "3.0.0"
 
 build:
-  number: 0
+  number: 1
 
 about:
   home: https://gcc.gnu.org/fortran/
