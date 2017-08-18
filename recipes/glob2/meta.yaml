@@ -1,5 +1,5 @@
 {% set name = "glob2" %}
-{% set version = "0.5" %}
+{% set version = "0.6" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 8f944b87ac4deaf39b0dce419665b40a3acb66a9ad3b07945e109246bb66fe9f
+  sha256: f5b0a686ff21f820c4d3f0c4edd216704cea59d79d00fa337e244a2f2ff83ed6
 
 build:
   number: 0
