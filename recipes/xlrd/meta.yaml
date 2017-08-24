@@ -1,6 +1,6 @@
-{% set version = "1.0.0" %}
+{% set version = "1.1.0" %}
 {% set name = "xlrd" %}
-{% set sha256 = "0ff87dd5d50425084f7219cb6f86bb3eb5aa29063f53d50bf270ed007e941069" %}
+{% set sha256 = "8a21885513e6d915fe33a8ee5fdfa675433b61405ba13e2a69e62ee36828d7e2" %}
 
 package:
   name: {{ name }}
@@ -16,6 +16,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
