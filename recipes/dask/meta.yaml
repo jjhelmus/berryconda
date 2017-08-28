@@ -1,5 +1,5 @@
-{% set version = "0.15.1" %}
-{% set hash = "f62f19ab5958b13d0ee733db18218c28a9d452a3554446a3dfb5ac3d4a5f7e34" %}
+{% set version = "0.15.2" %}
+{% set hash = "abe6758540fdbc260f14ee71cebc3ab88682e24ff147afa89375b7006f57d3ed" %}
 
 package:
   name: dask
