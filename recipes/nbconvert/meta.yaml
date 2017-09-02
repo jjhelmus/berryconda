@@ -1,13 +1,14 @@
-{% set version = "5.2.1" %}
+{% set name = "nbconvert" %}
+{% set version = "5.3.0" %}
 
 package:
   name: nbconvert
   version: {{ version }}
 
 source:
-  fn: nbconvert-{{ version }}.tar.gz
-  url: https://github.com/jupyter/nbconvert/archive/{{ version }}.tar.gz
-  sha256: b9e37d8d947f498863476337e01cc7ef36193ccaa3079b428298b901a4c5bdaa
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 92827c21afa05b6ab83f451306f1d630d4577fd65109ac8817f118e9648791a0
 
 build:
   number: 0
@@ -26,7 +27,7 @@ requirements:
     - jinja2
     - jupyter_core
     - mistune >0.6
-    - nbformat
+    - nbformat >=4.4
     #- pandoc
     - pandocfilters >=1.4.1
     - python
