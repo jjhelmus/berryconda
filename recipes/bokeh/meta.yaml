@@ -1,6 +1,6 @@
 {% set name = "bokeh" %}
-{% set version = "0.12.6" %}
-{% set sha256 = "a2ddcc694c387440a2b361e741d2fa9a18ad0508a879a71f524a2f0ff7803181" %}
+{% set version = "0.12.7" %}
+{% set sha256 = "2c42c95bf1a418c758dbff8446b4f5e5fc72ac10ea5da4e6b5010067396d0880" %}
 
 package:
   name: {{ name }}
@@ -48,8 +48,6 @@ test:
     - bokeh.plotting
     - bokeh.sampledata
     - bokeh.server
-    - bokeh.server.protocol
-    - bokeh.server.protocol.messages
     - bokeh.server.views
     - bokeh.sphinxext
     - bokeh.themes
