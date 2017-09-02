@@ -1,4 +1,4 @@
-{% set version = "2.7.0" %}
+{% set version = "2.7.1" %}
 
 package:
   name: h5py
@@ -7,7 +7,7 @@ package:
 source:
   fn: h5py-{{ version }}.tar.gz
   url: https://github.com/h5py/h5py/archive/{{ version }}.tar.gz
-  sha256: fff3a878c6adfa1b4f5c30b558a295d52dd4fee9174128c626ef416dec1b536b
+  sha256: 55bdefda47c49973ec24384097d18eb5f84797c057aaf0bf0b6b0f7860ad43e7
 
 build:
   number: 0
@@ -16,7 +16,7 @@ requirements:
   build:
     - python
     - setuptools
-    - numpy x.x
+    - numpy 1.11*
     - hdf5 1.8.17|1.8.17.*
     - cython
     - six
@@ -24,7 +24,7 @@ requirements:
 
   run:
     - python
-    - numpy x.x
+    - numpy >=1.11
     - hdf5 1.8.17|1.8.17.*
     - six
     - unittest2    # [py26]
