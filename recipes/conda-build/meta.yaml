@@ -1,4 +1,4 @@
-{% set version = "3.0.8" %}
+{% set version = "3.0.14" %}
 
 package:
   name: conda-build
@@ -7,9 +7,7 @@ package:
 source:
   fn: conda-build-{{ version }}.tar.gz
   url: https://github.com/conda/conda-build/archive/{{ version }}.tar.gz
-  sha256: 984b23ce74c5cc456115ff472da721376df260d04fe68813eccdef96466496d8
-  patches:
-    - 2233.patch
+  sha256: 96f0aac8847f152632330c4a1f5439c69df0af055377c1cf24bbd3d43e7d9ee0
 
 build:
   number: 0
@@ -71,8 +69,6 @@ test:
     - conda-metapackage -h
     - which conda-render
     - conda-render -h
-    - which conda-sign
-    - conda-sign -h
     - which conda-skeleton
     - conda-skeleton -h
 
