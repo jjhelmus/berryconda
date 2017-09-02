@@ -1,7 +1,7 @@
 {%set name = "s3transfer" %}
-{%set version = "0.1.10" %}
+{%set version = "0.1.11" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "ba1a9104939b7c0331dc4dd234d79afeed8b66edce77bbeeecd4f56de74a0fc1" %}
+{%set hash_val = "76f1f58f4a47e2c8afa135e2c76958806a3abbc42b721d87fd9d11409c75d979" %}
 
 package:
   name: {{ name }}
