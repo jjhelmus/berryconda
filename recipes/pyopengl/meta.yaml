@@ -1,0 +1,35 @@
+{% set version = "3.1.1a1" %}
+
+package:
+  name: pyopengl
+  version: {{ version }}
+
+source:
+  fn: PyOpenGL-{{ version }}.tar.gz
+  url: https://pypi.python.org/packages/source/P/PyOpenGL/PyOpenGL-{{ version }}.tar.gz
+  sha256: c96d909b359abe3271b746bacf7e6ba52935141e2406a8f90231e4e44dfa4075
+
+build:
+  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+
+requirements:
+  build:
+    - setuptools
+    - python
+
+  run:
+    - python
+
+test:
+  imports:
+    - OpenGL.GL
+
+about:
+  home: http://pyopengl.sourceforge.net
+  license: BSD-like
+  license_file: license.txt
+  summary: Standard OpenGL bindings for Python
+  doc_url: http://pyopengl.sourceforge.net/documentation/index.html
+  doc_source_url: https://sourceforge.net/projects/pyopengl/
+  dev_url: https://github.com/mcfletch/pyopengl
