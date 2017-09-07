@@ -1,5 +1,5 @@
 {% set name = "nbconvert" %}
-{% set version = "5.3.0" %}
+{% set version = "5.3.1" %}
 
 package:
   name: nbconvert
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 92827c21afa05b6ab83f451306f1d630d4577fd65109ac8817f118e9648791a0
+  sha256: 12b1a4671d4463ab73af6e4cbcc965b62254e05d182cd54995dda0d0ef9e2db9
 
 build:
   number: 0
