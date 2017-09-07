@@ -1,4 +1,4 @@
-{% set version = "2.11.1" %}
+{% set version = "2.12.1" %}
 
 package:
   name: pytest-runner
@@ -7,10 +7,11 @@ package:
 source:
   fn: pytest-runner-{{version}}.tar.gz
   url: https://pypi.io/packages/source/p/pytest-runner/pytest-runner-{{version}}.tar.gz
-  sha256: 983a31eab45e375240e250161a556163bc8d250edaba97960909338c273a89b3
+  sha256: 5c9093e7a18780409d9a389f20366f2fd39acfb1db61545fdb2e90cdbd0bcae4
 
 build:
     script: python setup.py install --single-version-externally-managed --record record.txt
+    noarch: python
     number: 0
 
 requirements:
