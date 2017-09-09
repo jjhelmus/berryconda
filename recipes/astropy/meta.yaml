@@ -1,5 +1,5 @@
 {%set name = "astropy" %}
-{%set version = "2.0.1" %}
+{%set version = "2.0.2" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 25e0881a392a2e03b4a705cf9592f01894d23f64797323b21387efa8ea9ec03e
+  sha256: 4544a422b1173d79b2d65ba74c627f04a5fd8530d97fb604752d657d754e103d
 
 build:
   number: 0
