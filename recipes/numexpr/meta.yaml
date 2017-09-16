@@ -1,13 +1,14 @@
-{% set version="2.6.2" %}
+{% set name = "numexpr" %}
+{% set version = "2.6.4" %}
 
 package:
-    name: numexpr
+    name: {{ name }}
     version: {{ version }}
 
 source:
-    fn: numexpr-{{ version }}.tar.gz
-    url: https://github.com/pydata/numexpr/archive/v{{ version }}.tar.gz
-    sha256: 8c57759bbd64fb81d985e54772191b71e8b63d58843d64933009521d2dddfd2f
+    fn: {{ name }}-{{ version }}.tar.gz
+    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: f0bef9a3a5407fb8d6344cf91b658bef7c13ec8a8eb13f423822d9d2ca5af6ce
 
 build:
     number: 0
@@ -17,10 +18,10 @@ requirements:
     build:
         - python
         - setuptools
-        - numpy x.x
+        - numpy 1.11*
     run:
         - python
-        - numpy x.x
+        - numpy >=1.11
 
 test:
     requires:
