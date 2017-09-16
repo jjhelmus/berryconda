@@ -1,13 +1,14 @@
-{% set version = "0.4.1" %}
+{% set name = "h5netcdf" %}
+{% set version = "0.4.2" %}
 
 package:
-    name: h5netcdf
+    name: {{ name }}
     version: {{ version }}
 
 source:
-    fn: h5netcdf-{{ version }}.tar.gz
-    url: https://github.com/shoyer/h5netcdf/archive/v{{ version }}.tar.gz
-    sha256: 0982527e7a1e09019ac5c6f1b332a30f7bbacfbc30f4d5b5249ae4aba29cc986
+    fn: {{ name }}-{{ version }}.tar.gz
+    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: 0ebd1fee4a73887787e3ca295276f9caea358d6b292a3caf1d609fa48123c773
 
 build:
     number: 0
