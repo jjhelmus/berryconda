@@ -1,5 +1,5 @@
 {% set name = "wheel" %}
-{% set version = "0.29.0" %}
+{% set version = "0.30.0" %}
 {% set checksum = "555a67e4507cedee23a0deb9651e452f" %}
 
 package:
@@ -30,7 +30,6 @@ test:
   imports:
     - wheel
     - wheel.signatures
-    - wheel.test
     - wheel.tool
 
   commands:
