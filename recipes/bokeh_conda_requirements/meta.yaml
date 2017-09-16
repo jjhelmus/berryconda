@@ -1,5 +1,5 @@
 {% set name = "bokeh_conda_requirements" %}
-{% set version = "0.12.7" %}
+{% set version = "0.12.9" %}
 
 package:
   name: {{ name }}
