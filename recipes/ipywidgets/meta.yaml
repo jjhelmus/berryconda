@@ -1,0 +1,38 @@
+{% set version = "7.0.1" %}
+{% set sha256 = "8692b6656c7f492ca3b08441fdd44ac311860282ca5eac7b4f68d1f1cbdef43d" %}
+
+package:
+  name: ipywidgets
+  version: {{ version }}
+
+source:
+  fn: ipywidgets-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/i/ipywidgets/ipywidgets-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python -m pip install --no-deps .
+  noarch: python
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - ipython >=4.0.0
+    - ipykernel >=4.5.1
+    - traitlets >=4.3.1,<5.0.0
+    - nbformat >=4.2.0
+    - widgetsnbextension >=3.0.0,<4.0.0
+
+test:
+  imports:
+    - ipywidgets
+
+about:
+  home: https://github.com/ipython/ipywidgets
+  license: BSD 3-clause
+  license_file: COPYING.md
+  summary: Jupyter Interactive Widgets
