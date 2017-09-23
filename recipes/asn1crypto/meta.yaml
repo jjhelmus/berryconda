@@ -1,7 +1,7 @@
 {%set name = "asn1crypto" %}
-{%set version = "0.22.0" %}
+{%set version = "0.23.0" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "cbbadd640d3165ab24b06ef25d1dca09a3441611ac15f6a6b452474fdf0aed1a" %}
+{%set hash_val = "0874981329cfebb366d6584c3d16e913f2a0eb026c9463efcc4aaf42a9d94d70" %}
 
 package:
   name: {{ name }}
