@@ -1,7 +1,7 @@
 {% set name = "nltk" %}
-{% set version = "3.2.4" %}
+{% set version = "3.2.5" %}
 {% set hash_type = "sha256" %}
-{% set hash_val = "8682ae52f5de4f2ba7b77bd78222a38575ad01ef29946214b254dfdf93a3a0eb" %}
+{% set hash_val = "2661f9971d983db314bbebd51ba770811a362c6597fd0f303bb1d3beadcb4834" %}
 
 package:
   name: {{ name }}
