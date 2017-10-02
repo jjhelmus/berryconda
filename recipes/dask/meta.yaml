@@ -1,5 +1,5 @@
-{% set version = "0.15.2" %}
-{% set hash = "abe6758540fdbc260f14ee71cebc3ab88682e24ff147afa89375b7006f57d3ed" %}
+{% set version = "0.15.3" %}
+{% set hash = "439316a7f603785b1afe2592b2be244cb8d1a272d1a28b93042367be65082786" %}
 
 package:
   name: dask
@@ -24,11 +24,11 @@ requirements:
     - python
     - bokeh
     - cloudpickle >=0.2.1
-    - distributed >=1.16.0
+    - distributed >=1.19.0
     - numpy
     - pandas >=0.19.0
-    - partd >=0.3.7
-    - toolz >=0.7.2
+    - partd >=0.3.8
+    - toolz >=0.7.3
 
 test:
   imports:
