@@ -1,4 +1,4 @@
-{% set version = "6.2.0" %}
+{% set version = "6.2.1" %}
 
 package:
   name: ipython
@@ -7,7 +7,7 @@ package:
 source:
   fn: ipython-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/i/ipython/ipython-{{ version }}.tar.gz
-  sha256: 81b0d6936f87002e6972eccc7e4085f5c2d0673decff22724b53cf34809ffacf
+  sha256: 51c158a6c8b899898d1c91c6b51a34110196815cc905f9be0fa5878e19355608
 
 build:
   number: 0
