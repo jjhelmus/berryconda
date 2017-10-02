@@ -1,4 +1,4 @@
-{% set version="0.19" %}
+{% set version = "1.0.0" %}
 
 package:
   name: mpmath
@@ -6,11 +6,12 @@ package:
 
 source:
   fn: mpmath-{{ version }}.tar.gz
-  url: https://pypi.python.org/packages/source/m/mpmath/mpmath-{{ version }}.tar.gz
-  md5: af5cc956b2673b33a25c3e57299bae7b
+  url: https://pypi.io/packages/source/m/mpmath/mpmath-{{ version }}.tar.gz
+  md5: 998f10cb231af62743212ca80693f1b5
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install
 
 requirements:
