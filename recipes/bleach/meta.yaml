@@ -1,6 +1,6 @@
 {% set name = "bleach" %}
-{% set version = "2.0.0" %}
-{% set sha256 = "b9522130003e4caedf4f00a39c120a906dcd4242329c1c8f621f5370203cbc30" %}
+{% set version = "2.1" %}
+{% set sha256 = "f03041b8da8005c8bfa7f58de87a7ff59b07bb66d050ea67d2397ad14e54bb6f" %}
 
 package:
   name: {{ name }}
@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: pip install --no-deps .
 
 requirements:
@@ -21,6 +22,7 @@ requirements:
     - pip
   run:
     - python
+    - setuptools
     - html5lib >=0.99999999
     - six
 
