@@ -1,4 +1,4 @@
-{% set version = "0.2.3" %}
+{% set version = "0.2.4" %}
 
 package:
   name: sqlparse
@@ -6,11 +6,12 @@ package:
 
 source:
   fn: sqlparse-{{ version }}.tar.gz
-  url: https://github.com/andialbrecht/sqlparse/archive/{{ version }}.tar.gz
-  sha256: 12470ab41df1a7003a2957a79c6da9cd4ded180c8a193aa112fe0899b935ef30
+  url: https://pypi.io/packages/source/s/sqlparse/sqlparse-{{ version }}.tar.gz
+  sha256: ce028444cfab83be538752a2ffdb56bc417b7784ff35bb9a3062413717807dec
 
 build:
   number: 0
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
   entry_points:
     - sqlformat = sqlparse.__main__:main
