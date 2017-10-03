@@ -1,6 +1,6 @@
 {% set name = "bleach" %}
-{% set version = "2.1" %}
-{% set sha256 = "f03041b8da8005c8bfa7f58de87a7ff59b07bb66d050ea67d2397ad14e54bb6f" %}
+{% set version = "2.1.1" %}
+{% set sha256 = "760a9368002180fb8a0f4ea48dc6275378e6f311c39d0236d7b904fca1f5ea0d" %}
 
 package:
   name: {{ name }}
