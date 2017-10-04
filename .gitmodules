@@ -10,3 +10,6 @@
 [submodule "feedstocks/jupyter-feedstock"]
 	path = feedstocks/jupyter-feedstock
 	url = https://github.com/berryconda/jupyter-feedstock.git
+[submodule "feedstocks/jupyter_console-feedstock"]
+	path = feedstocks/jupyter_console-feedstock
+	url = https://github.com/berryconda/jupyter_console-feedstock.git
