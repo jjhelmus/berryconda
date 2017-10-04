@@ -7,3 +7,6 @@
 [submodule "feedstocks/lancet-feedstock"]
 	path = feedstocks/lancet-feedstock
 	url = https://github.com/berryconda/lancet-feedstock.git
+[submodule "feedstocks/jupyter-feedstock"]
+	path = feedstocks/jupyter-feedstock
+	url = https://github.com/berryconda/jupyter-feedstock.git
