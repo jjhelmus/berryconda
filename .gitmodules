@@ -4,3 +4,6 @@
 [submodule "feedstocks/param-feedstock"]
 	path = feedstocks/param-feedstock
 	url = https://github.com/berryconda/param-feedstock.git
+[submodule "feedstocks/lancet-feedstock"]
+	path = feedstocks/lancet-feedstock
+	url = https://github.com/berryconda/lancet-feedstock.git
