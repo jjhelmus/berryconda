@@ -1,3 +1,6 @@
 [submodule "feedstocks/holoviews-feedstock"]
 	path = feedstocks/holoviews-feedstock
 	url = https://github.com/berryconda/holoviews-feedstock.git
+[submodule "feedstocks/param-feedstock"]
+	path = feedstocks/param-feedstock
+	url = https://github.com/berryconda/param-feedstock.git
