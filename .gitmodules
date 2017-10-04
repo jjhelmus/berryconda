@@ -1,0 +1,3 @@
+[submodule "feedstocks/holoviews-feedstock"]
+	path = feedstocks/holoviews-feedstock
+	url = https://github.com/berryconda/holoviews-feedstock.git
