@@ -16,3 +16,6 @@
 [submodule "feedstocks/dask-feedstock"]
 	path = feedstocks/dask-feedstock
 	url = https://github.com/berryconda/dask-feedstock.git
+[submodule "feedstocks/dask-core-feedstock"]
+	path = feedstocks/dask-core-feedstock
+	url = https://github.com/berryconda/dask-core-feedstock.git
