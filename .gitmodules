@@ -22,3 +22,6 @@
 [submodule "feedstocks/distributed-feedstock"]
 	path = feedstocks/distributed-feedstock
 	url = https://github.com/berryconda/distributed-feedstock
+[submodule "feedstocks/cffi-feedstock"]
+	path = feedstocks/cffi-feedstock
+	url = https://github.com/berryconda/cffi-feedstock.git
