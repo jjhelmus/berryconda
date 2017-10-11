@@ -13,3 +13,6 @@
 [submodule "feedstocks/jupyter_console-feedstock"]
 	path = feedstocks/jupyter_console-feedstock
 	url = https://github.com/berryconda/jupyter_console-feedstock.git
+[submodule "feedstocks/dask-feedstock"]
+	path = feedstocks/dask-feedstock
+	url = https://github.com/berryconda/dask-feedstock.git
