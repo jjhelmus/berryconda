@@ -28,3 +28,6 @@
 [submodule "feedstocks/h5netcdf-feedstock"]
 	path = feedstocks/h5netcdf-feedstock
 	url = https://github.com/berryconda/h5netcdf-feedstock.git
+[submodule "feedstocks/pytest-feedstock"]
+	path = feedstocks/pytest-feedstock
+	url = https://github.com/berryconda/pytest-feedstock.git
