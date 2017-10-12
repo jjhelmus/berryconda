@@ -31,3 +31,6 @@
 [submodule "feedstocks/pytest-feedstock"]
 	path = feedstocks/pytest-feedstock
 	url = https://github.com/berryconda/pytest-feedstock.git
+[submodule "feedstocks/pyasn1-feedstock"]
+	path = feedstocks/pyasn1-feedstock
+	url = https://github.com/berryconda/pyasn1-feedstock.git
