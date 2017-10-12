@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Remove symlinks
-unlink $PREFIX/bin/conda
-unlink $PREFIX/bin/activate
-unlink $PREFIX/bin/deactivate
+# Remove symlinks if they exist
+unlink $PREFIX/bin/conda || true
+unlink $PREFIX/bin/activate || true
+unlink $PREFIX/bin/deactivate || true
 
 # Prep conda install
 export CONDA_DEFAULT_ENV=''
