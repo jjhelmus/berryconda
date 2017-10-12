@@ -34,3 +34,6 @@
 [submodule "feedstocks/pyasn1-feedstock"]
 	path = feedstocks/pyasn1-feedstock
 	url = https://github.com/berryconda/pyasn1-feedstock.git
+[submodule "feedstocks/conda-feedstock"]
+	path = feedstocks/conda-feedstock
+	url = https://github.com/berryconda/conda-feedstock.git
