@@ -40,3 +40,6 @@
 [submodule "feedstocks/lxml-feedstock"]
 	path = feedstocks/lxml-feedstock
 	url = https://github.com/berryconda/lxml-feedstock.git
+[submodule "feedstocks/psutil-feedstock"]
+	path = feedstocks/psutil-feedstock
+	url = https://github.com/berryconda/psutil-feedstock.git
