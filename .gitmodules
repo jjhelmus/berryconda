@@ -37,3 +37,6 @@
 [submodule "feedstocks/conda-feedstock"]
 	path = feedstocks/conda-feedstock
 	url = https://github.com/berryconda/conda-feedstock.git
+[submodule "feedstocks/lxml-feedstock"]
+	path = feedstocks/lxml-feedstock
+	url = https://github.com/berryconda/lxml-feedstock.git
