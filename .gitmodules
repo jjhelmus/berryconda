@@ -43,3 +43,6 @@
 [submodule "feedstocks/psutil-feedstock"]
 	path = feedstocks/psutil-feedstock
 	url = https://github.com/berryconda/psutil-feedstock.git
+[submodule "feedstocks/setuptools-feedstock"]
+	path = feedstocks/setuptools-feedstock
+	url = https://github.com/berryconda/setuptools-feedstock.git
