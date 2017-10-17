@@ -46,3 +46,6 @@
 [submodule "feedstocks/setuptools-feedstock"]
 	path = feedstocks/setuptools-feedstock
 	url = https://github.com/berryconda/setuptools-feedstock.git
+[submodule "feedstocks/seaborn-feedstock"]
+	path = feedstocks/seaborn-feedstock
+	url = https://github.com/berryconda/seaborn-feedstock.git
