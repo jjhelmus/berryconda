@@ -52,3 +52,6 @@
 [submodule "feedstocks/statsmodels-feedstock"]
 	path = feedstocks/statsmodels-feedstock
 	url = https://github.com/berryconda/statsmodels-feedstock.git
+[submodule "feedstocks/patsy-feedstock"]
+	path = feedstocks/patsy-feedstock
+	url = https://github.com/berryconda/patsy-feedstock.git
