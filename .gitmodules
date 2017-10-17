@@ -49,3 +49,6 @@
 [submodule "feedstocks/seaborn-feedstock"]
 	path = feedstocks/seaborn-feedstock
 	url = https://github.com/berryconda/seaborn-feedstock.git
+[submodule "feedstocks/statsmodels-feedstock"]
+	path = feedstocks/statsmodels-feedstock
+	url = https://github.com/berryconda/statsmodels-feedstock.git
