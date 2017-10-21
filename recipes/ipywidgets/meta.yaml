@@ -1,5 +1,5 @@
-{% set version = "7.0.1" %}
-{% set sha256 = "8692b6656c7f492ca3b08441fdd44ac311860282ca5eac7b4f68d1f1cbdef43d" %}
+{% set version = "7.0.3" %}
+{% set sha256 = "f98b4c3719097c9d2e6489f303db520b20bd4de3e0b1d6d4f92f81bfe3c2a0c8" %}
 
 package:
   name: ipywidgets
