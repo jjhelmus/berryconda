@@ -58,3 +58,6 @@
 [submodule "feedstocks/jupyterlab-feedstock"]
 	path = feedstocks/jupyterlab-feedstock
 	url = https://github.com/berryconda/jupyterlab-feedstock.git
+[submodule "feedstocks/jupyterlab_launcher-feedstock"]
+	path = feedstocks/jupyterlab_launcher-feedstock
+	url = https://github.com/berryconda/jupyterlab_launcher-feedstock.git
