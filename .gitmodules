@@ -55,3 +55,6 @@
 [submodule "feedstocks/patsy-feedstock"]
 	path = feedstocks/patsy-feedstock
 	url = https://github.com/berryconda/patsy-feedstock.git
+[submodule "feedstocks/jupyterlab-feedstock"]
+	path = feedstocks/jupyterlab-feedstock
+	url = https://github.com/berryconda/jupyterlab-feedstock.git
