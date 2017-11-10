@@ -1,5 +1,5 @@
-{% set version = "0.4.1" %}
-{% set hash = "f4702267cacdb723fea717fd972a82ab" %}
+{% set version = "0.5.1" %}
+{% set hash = "80517aad8965c2e40957235d09b11e11" %}
 
 package:
   name: cloudpickle
