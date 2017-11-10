@@ -1,13 +1,13 @@
-{% set version = "0.6.1" %}
+{% set version = "0.6.3" %}
 
 package:
   name: pycosat
   version: {{ version }}
 
 source:
-  fn: pycosat-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/p/pycosat/pycosat-{{ version }}.tar.gz
-  md5: c1fc35b17865f5f992595ae0362f9f9f
+  fn: pycosat-{{ version }}.zip
+  url: https://pypi.io/packages/source/p/pycosat/pycosat-{{ version }}.zip
+  md5: 51eb7cfe19cf704d4f0c476da61200c0
 
 build:
   number: 0
