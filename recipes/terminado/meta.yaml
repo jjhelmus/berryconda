@@ -1,21 +1,27 @@
-{% set version = "0.6" %}
+{% set name = "terminado" %}
+{% set version = "0.7" %}
+{% set wheel_tag = "py2.py3" %}
+{% set fn = "{}-{}-{}-none-any.whl".format(name, version, wheel_tag) %}
+{% set sha256 = "57858bd06c6f20f66971aa62377e14e88995f6d6ec70ded7d1d2fcbdad570c8a" %}
 
 package:
-  name: terminado
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: terminado-{{ version }}.tar.gz
-  url: https://github.com/takluyver/terminado/archive/0.6.tar.gz
-  sha256: 6a1cfe8ede41962827ca8260bc64f387de85be62fd4e936bdde2ecf2a433931c
+  fn: {{ fn }}
+  url: https://pypi.io/packages/{{ wheel_tag }}/{{ name[0] }}/{{ name }}/{{ fn }}
+  sha256: {{ sha256 }}
 
 build:
   number: 0
-  script: python setup.py install
+  noarch: python
+  script: pip install --no-deps {{ fn }}
 
 requirements:
   build:
     - python
+    - pip
   run:
     - python
     - ptyprocess
