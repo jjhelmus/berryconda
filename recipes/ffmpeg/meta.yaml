@@ -1,0 +1,79 @@
+{% set version = "3.2.4" %}
+
+package:
+  name: ffmpeg
+  version: {{ version }}
+
+source:
+  fn: ffmpeg-{{ version }}.tar.gz  # [not win]
+  url: https://ffmpeg.org/releases/ffmpeg-{{ version }}.tar.gz  # [not win]
+  sha256: 2838c37bd35dba6e9b08ebe4e6c11dedbe2d9909583e3c2b9e7a1ad3ce2a9607  # [not win]
+
+  fn: ffmpeg-{{ version }}-win32-shared.zip  # [win32]
+  url: https://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-{{ version }}-win32-shared.zip  # [win32]
+  sha256: c62a6e2237097cedbfd6b2e122f6650baf468d1bb4e9f73105126bf2a44b2329  # [win32]
+
+  fn: ffmpeg-{{ version }}-win64-shared.zip  # [win64]
+  url: https://ffmpeg.zeranoe.com/builds/win64/shared/ffmpeg-{{ version }}-win64-shared.zip  # [win64]
+  sha256: 31dab0e45aa2808fc422927eca5d49761985d1471b7122aadc6f85deb7bf6a7f  # [win64]
+
+build:
+  number: 3
+
+requirements:
+  build:
+    - toolchain    # [not win]
+    - pkg-config   # [not win]
+    - libtool      # [not win]
+    - yasm         # [not win]
+    - bzip2 1.0.*  # [not win]
+    - libiconv 1.15     # [not win]
+    - x264         # [not win]
+    - zlib 1.2.11   # [not win]
+    - 7za          # [win]
+    - curl >=7.44.0,<8         # [win]
+    - openssl      # [win]
+  run:
+    - bzip2 1.0.*  # [not win]
+    - libiconv 1.15     # [not win]
+    - x264         # [not win]
+    - zlib 1.2.11   # [not win]
+
+test:
+  commands:
+    - ffmpeg --help
+    - ffmpeg -codecs | grep "DEVI.S zlib"  # [unix]
+    # Verify dynamic libraries on all systems
+    {% set ffmpeg_libs = [
+        "avcodec",
+        "avdevice",
+        "swresample",
+        "postproc",
+        "avfilter",
+        "swresample",
+        "avcodec",
+        "avformat",
+        "swscale",
+        "avresample"
+    ] %}
+    {% for each_ffmpeg_lib in ffmpeg_libs %}
+    - test -f $PREFIX/lib/lib{{ each_ffmpeg_lib }}.dylib  # [osx]
+    - test -f $PREFIX/lib/lib{{ each_ffmpeg_lib }}.so     # [linux]
+    {% endfor %}
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: http://www.ffmpeg.org/
+  license: GPL 2
+  license_file: COPYING.GPLv2  # [unix]
+  summary: Cross-platform solution to record, convert and stream audio and video.
+
+extra:
+  recipe-maintainers:
+    - danielballan
+    - jakirkham
+    - 183amir
+    - caspervdw
+    - patricksnape
+    - ocefpaf
