@@ -60,7 +60,7 @@ cmake -LAH                                                                \
     -DOpenBLAS=1                                                          \
     -DOpenBLAS_INCLUDE_DIR=$PREFIX/include                                \
     -DOpenBLAS_LIB=$PREFIX/lib/libopenblas$SHLIB_EXT                      \
-    -DWITH_EIGEN=1                                                        \
+    -DWITH_EIGEN=0                                                        \
     -DBUILD_TESTS=0                                                       \
     -DBUILD_DOCS=0                                                        \
     -DBUILD_PERF_TESTS=0                                                  \
@@ -77,7 +77,7 @@ cmake -LAH                                                                \
     -DWITH_FFMPEG=1                                                       \
     -DWITH_MATLAB=0                                                       \
     -DWITH_VTK=0                                                          \
-    -DWITH_QT=$QT                                                         \
+    -DWITH_QT=0                                                           \
     -DWITH_GPHOTO2=0                                                      \
     -DINSTALL_C_EXAMPLES=0                                                \
     -DOPENCV_EXTRA_MODULES_PATH="../opencv_contrib-$PKG_VERSION/modules"  \
