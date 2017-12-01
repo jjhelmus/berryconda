@@ -1,0 +1,35 @@
+{% set version = "5.1.4" %}
+
+package:
+  name: giflib
+  version: {{ version }}
+
+source:
+  url: http://downloads.sourceforge.net/project/giflib/giflib-{{ version }}.tar.gz
+  sha256: 34a7377ba834397db019e8eb122e551a49c98f49df75ec3fcc92b9a794a4f6d1
+
+build:
+  number: 0
+  skip: True  # [win]
+
+test:
+  commands:
+    - gif2rgb -h
+    - gifbuild -h
+    - gifclrmp -h
+    - gifecho -h
+    - giffix -h
+    - gifinto -h
+    - giftext -h
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: http://giflib.sourceforge.net
+  license: MIT
+  summary: Library for reading and writing gif images
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - 183amir
