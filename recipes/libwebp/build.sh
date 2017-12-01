@@ -8,6 +8,6 @@
 	--with-jpeglibdir=${PREFIX}/lib --with-jpegincludedir=${PREFIX}/include \
 	--with-tifflibdir=${PREFIX}/lib --with-tiffincludedir=${PREFIX}/include \
 	--with-giflibdir=${PREFIX}/lib --with-gifincludedir=${PREFIX}/include
-make 
+make -j ${CPU_COUNT}
 make check
 make install

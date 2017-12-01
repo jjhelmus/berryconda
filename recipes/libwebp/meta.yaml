@@ -25,7 +25,6 @@ requirements:
     - libpng  # [unix]
     - libtiff  # [unix]
     - giflib  # [unix]
-    - toolchain
   run:
     - jpeg  # [unix]
     - libpng  # [unix]
