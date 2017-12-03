@@ -64,3 +64,6 @@
 [submodule "feedstocks/attrs-feedstock"]
 	path = feedstocks/attrs-feedstock
 	url = https://github.com/berryconda/attrs-feedstock.git
+[submodule "feedstocks/pluggy-feedstock"]
+	path = feedstocks/pluggy-feedstock
+	url = https://github.com/berryconda/pluggy-feedstock.git
