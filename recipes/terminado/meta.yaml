@@ -1,27 +1,21 @@
-{% set name = "terminado" %}
-{% set version = "0.7" %}
-{% set wheel_tag = "py2.py3" %}
-{% set fn = "{}-{}-{}-none-any.whl".format(name, version, wheel_tag) %}
-{% set sha256 = "57858bd06c6f20f66971aa62377e14e88995f6d6ec70ded7d1d2fcbdad570c8a" %}
+{% set version = "0.8.1" %}
 
 package:
-  name: {{ name }}
+  name: terminado
   version: {{ version }}
 
 source:
-  fn: {{ fn }}
-  url: https://pypi.io/packages/{{ wheel_tag }}/{{ name[0] }}/{{ name }}/{{ fn }}
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
+  sha256: 55abf9ade563b8f9be1f34e4233c7b7bde726059947a593322e8a553cc4c067a
 
 build:
   number: 0
   noarch: python
-  script: pip install --no-deps {{ fn }}
+  script: python setup.py install
 
 requirements:
   build:
     - python
-    - pip
   run:
     - python
     - ptyprocess
