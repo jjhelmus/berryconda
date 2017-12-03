@@ -1,6 +1,6 @@
 {% set name = "bokeh" %}
-{% set version = "0.12.10" %}
-{% set sha256 = "6465fae82e94223f16584645b38d34a73d95712870f29c0244649c2cbf2c8393" %}
+{% set version = "0.12.11" %}
+{% set sha256 = "d29b544dd4576900774773a951bf61e2e0a0456d0b065baf48cbf30a8e0c0e95" %}
 
 package:
   name: {{ name }}
