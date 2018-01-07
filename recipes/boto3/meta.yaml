@@ -1,6 +1,6 @@
 {% set name = "boto3" %}
-{% set version = "1.4.8" %}
-{% set sha256 = "332c6a17fd695581dd6f9ed825ce13c2d5ee3a6f5e1b079bed0ff7293809faf0" %}
+{% set version = "1.5.9" %}
+{% set sha256 = "6d00cbff4f0ae4d5681235e10bc470cc34652c13e6778e00585eb9d6e5018de4" %}
 
 package:
   name: {{ name|lower }}
