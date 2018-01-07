@@ -1,5 +1,5 @@
 {% set name = "html5lib" %}
-{% set version = "0.999999999" %}
+{% set version = "1.0.1" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  md5: 8578e4e3a341436cb9743a9e4a299239
+  md5: 942a0688d6bdf20d087c9805c40182ad
 
 build:
   number: 0
@@ -20,7 +20,7 @@ requirements:
     - setuptools
   run:
     - python
-    - six
+    - six >=1.9
     - webencodings
 
 test:
