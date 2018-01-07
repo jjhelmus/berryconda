@@ -1,0 +1,39 @@
+{%set name = "msgpack" %}
+{%set version = "0.5.0" %}
+{%set compress_type = "tar.gz" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "9ed78ef17937222b0467566487bab1ca1bb28158f66c6528ff3d5aced93ff49d" %}
+{%set build_num = "0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.{{ compress_type }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
+  {{ hash_type }}: {{ hash_val }}
+
+build:
+  number: {{ build_num }}
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+    - msgpack
+
+about:
+  home: http://msgpack.org/
+  license: Apache 2.0
+  license_file: COPYING
+  summary: 'MessagePack (de)serializer.'
+  license_family: Apache
+  dev_url: https://github.com/msgpack/msgpack-python
