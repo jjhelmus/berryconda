@@ -1,6 +1,6 @@
 {% set name = "pylint" %}
-{% set version = "1.7.4" %}
-{% set sha256 = "1f65b3815c3bf7524b845711d54c4242e4057dd93826586620239ecdfe591fb1" %}
+{% set version = "1.8.1" %}
+{% set sha256 = "3035e44e37cd09919e9edad5573af01d7c6b9c52a0ebb4781185ae7ab690458b" %}
 
 package:
   name: {{ name|lower }}
@@ -30,7 +30,7 @@ requirements:
 
   run:
     - python
-    - astroid >=1.5.1
+    - astroid <2.0
     - backports.functools_lru_cache  # [py27]
     - configparser                   # [py27]
     - singledispatch                 # [py27]
