@@ -1,4 +1,4 @@
-{% set version = "5.4.1" %}
+{% set version = "5.4.3" %}
 
 package:
   name: psutil
@@ -7,7 +7,7 @@ package:
 source:
   fn: psutil-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/psutil/psutil-{{ version }}.tar.gz
-  md5: c0aa7823e416b4e2ee908c2d387d2662
+  md5: 3b291833dbea631db9d271aa602a169a
 
 build:
   number: 0
