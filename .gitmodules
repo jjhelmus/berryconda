@@ -67,3 +67,6 @@
 [submodule "feedstocks/pluggy-feedstock"]
 	path = feedstocks/pluggy-feedstock
 	url = https://github.com/berryconda/pluggy-feedstock.git
+[submodule "feedstocks/send2trash-feedstock"]
+	path = feedstocks/send2trash-feedstock
+	url = https://github.com/berryconda/send2trash-feedstock.git
