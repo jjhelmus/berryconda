@@ -1,3 +1,5 @@
 curl
 openssl
 sqlite
+boto3
+botocore
