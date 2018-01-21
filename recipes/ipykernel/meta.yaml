@@ -1,4 +1,4 @@
-{% set version = "4.7.0" %}
+{% set version = "4.8.0" %}
 
 package:
   name: ipykernel
@@ -7,7 +7,7 @@ package:
 source:
   fn: ipykernel-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/i/ipykernel/ipykernel-{{ version }}.tar.gz
-  sha256: 354986612a38f0555c43d5af2425e2a67506b63b313a0325e38904003b9d977b
+  sha256: dedc199df6a38725c732986dfa606c245fb8fe0fe999b33a0c305b73d80c6774
 
 build:
   number: 0
@@ -19,13 +19,14 @@ requirements:
   build:
     - pip
     - python
-    - jupyter_client
     - ipython >=4.0
+    - traitlets >=4.1.0
+    - jupyter_client
     - tornado >=4.0
   run:
     - python
     - ipython >=4.0
-    - traitlets
+    - traitlets >=4.1.0
     - jupyter_client
     - tornado >=4.0
 
