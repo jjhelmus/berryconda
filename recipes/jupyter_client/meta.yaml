@@ -1,4 +1,4 @@
-{% set version = "5.2.1" %}
+{% set version = "5.2.2" %}
 
 package:
   name: jupyter_client
@@ -7,7 +7,7 @@ package:
 source:
   fn: jupyter_client-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/j/jupyter_client/jupyter_client-{{ version }}.tar.gz
-  sha256: 462790d46b244f0a631ea5e3cd5cdbad6874d5d24cc0ff512deb7c16cdf8653d
+  sha256: 83d5e23132f0d8f79ccd3939f53fb9fa97f88a896a85114dc48d0e86909b06c4
 
 build:
   number: 0
@@ -23,6 +23,7 @@ requirements:
   run:
     - python
     - traitlets
+    - tornado >=4.1
     - jupyter_core
     - python-dateutil >=2.1
     - pyzmq >=13
