@@ -1,8 +1,8 @@
 {% set name = "pandas-datareader" %}
-{% set version = "0.5.0" %}
+{% set version = "0.6.0" %}
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash_val = "7523ca480c258cf4335869ba72e201807f2f3a8f4395efad5508a269efff18c9" %}
+{% set hash_val = "47681336a3f6e6953b024bd73f8bb005f36e8df831ccce336e9fc601c587e3db" %}
 {% set build_num = "0" %}
 
 package:
@@ -27,10 +27,12 @@ requirements:
 
   run:
     - python
-    - pandas
+    - lxml
+    - pandas >=0.19.2
     - requests >=2.3.0
     - requests-file
     - requests-ftp
+    - wrapt
 
 test:
   imports:
