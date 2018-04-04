@@ -1,5 +1,5 @@
 {% set name = "bokeh_conda_requirements" %}
-{% set version = "0.12.13" %}
+{% set version = "0.12.15" %}
 
 package:
   name: {{ name }}
@@ -21,6 +21,7 @@ requirements:
     - python-dateutil >=2.1
     - jinja2 >=2.7
     - numpy >=1.7.1
+    - packaging >=16.8
     - tornado >=4.3
     - futures >=3.0.3      # [py2k]
     - bkcharts >=0.2
