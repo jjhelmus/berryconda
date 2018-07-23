@@ -34,7 +34,7 @@ using `chmod` and the execuate the installer.  For example, to install
 Berryconda3 on a Raspberry Pi 3:
 
 ```
-chmod +x Berryconda3-2.0.0-Linux-armv7l.sh`
+chmod +x Berryconda3-2.0.0-Linux-armv7l.sh
 ./Berryconda3-2.0.0-Linux-armv7l.sh
 ```
 
