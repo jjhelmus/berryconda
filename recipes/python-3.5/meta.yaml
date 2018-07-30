@@ -1,11 +1,13 @@
+{% set version = "3.5.5" %}
+
 package:
   name: python
-  version: 3.5.4
+  version: {{ version }}
 
 source:
-  fn: Python-3.5.4.tgz
-  url: https://www.python.org/ftp/python/3.5.4/Python-3.5.4.tgz
-  md5: 2ed4802b7a2a7e40d2e797272bf388ec
+  fn: Python-{{ version }}.tgz
+  url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
+  md5: 7c825b747d25c11e669e99b912398585
 
 build:
   number: 0

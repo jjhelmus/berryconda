@@ -7,6 +7,7 @@ rm -rf Lib/test Lib/*/test
 rm -rf Lib/ensurepip
 
 ./configure --enable-shared --enable-ipv6 --with-ensurepip=no \
+    --enable-optimizations \
     --prefix=$PREFIX \
     --with-tcltk-includes="-I$PREFIX/include" \
     --with-tcltk-libs="-L$PREFIX/lib -ltcl8.6 -ltk8.6" \

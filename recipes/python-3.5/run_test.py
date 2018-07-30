@@ -103,5 +103,3 @@ if not (ppc64le or osx105):
 
 import ssl
 print('OPENSSL_VERSION:', ssl.OPENSSL_VERSION)
-if sys.platform != 'win32':
-    assert '1.0.2l' in ssl.OPENSSL_VERSION
