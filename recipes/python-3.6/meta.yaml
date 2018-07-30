@@ -1,4 +1,4 @@
-{% set version = "3.6.3" %}
+{% set version = "3.6.6" %}
 
 package:
   name: python
@@ -6,8 +6,8 @@ package:
 
 source:
   fn: Python-{{ version }}.tgz
-  url: https://www.python.org/ftp/python/3.6.3/Python-{{ version }}.tgz
-  md5: e9180c69ed9a878a4a8a3ab221e32fa9
+  url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
+  md5: 9a080a86e1a8d85e45eee4b1cd0a18a2
 
 build:
   number: 0
