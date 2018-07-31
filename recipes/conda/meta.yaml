@@ -1,13 +1,11 @@
-{% set name = "conda" %}
-{% set version = "4.3.29" %}
-{% set checksum = "08b3ddb32615339c50684cb544529afe30732774a9332f7badd64ad836646519" %}
+{% set version = "4.5.9" %}
+{% set checksum = "de688d19f38146d9d66af4ebc9079bd328a582f38c635f6edc85a16b5339b227" %}
 
 package:
   name: conda
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/conda/conda/archive/{{ version }}.tar.gz
   sha256: {{ checksum }}
 
@@ -24,15 +22,12 @@ build:
 requirements:
   build:
     - python
-    - pycosat >=0.6.1
-    - pyopenssl >=16.2.0
-    - requests >=2.12.4
-    - ruamel_yaml >=0.11.14
   run:
     - python
     - conda-env >=2.6
     - enum34                 # [py<34]
-    - pycosat >=0.6.1
+    - futures >=3.0.0        # [py<34]
+    - pycosat >=0.6.3
     - pyopenssl >=16.2.0
     - requests >=2.12.4
     - ruamel_yaml >=0.11.14
