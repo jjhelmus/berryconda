@@ -1,13 +1,12 @@
-{% set version = "1.0.2l" %}
+{% set version = "1.0.2o" %}
 
 package:
   name: openssl
   version: {{ version }}
 
 source:
-  fn: openssl-{{ version }}.tar.gz
   url: http://www.openssl.org/source/openssl-{{ version }}.tar.gz
-  sha256: ce07195b659e75f4e1db43552860070061f156a98bb37b672b101ba6e3ddf30c
+  sha256: ec3f5c9714ba0fd45cb4e087301eb1336c317e0d20b575a125050470e8089e4d
 
 build:
   number: 0
