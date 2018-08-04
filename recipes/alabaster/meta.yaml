@@ -1,22 +1,22 @@
-{% set version = "0.7.10" %}
+{% set version = "0.7.11" %}
 
 package:
   name: alabaster
   version: {{ version }}
 
 source:
-  fn: alabaster-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/a/alabaster/alabaster-{{ version }}.tar.gz
-  md5: 7934dccf38801faa105f6e7b4784f493
+  sha256: b63b1f4dc77c074d386752ec4a8a7517600f6c0db8cd42980cae17ab7b3275d7
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  noarch: python
+  number: 3
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
 
@@ -30,7 +30,7 @@ about:
   home: http://www.sphinx-doc.org/en/stable/index.html
   license: BSD 3-Clause
   license_file: LICENSE
-  summary: Configurable, Python 2+3 compatible Sphinx theme
+  summary: 'Configurable, Python 2+3 compatible Sphinx theme.'
   description: |
     Alabaster is a visually clean, responsive, and configurable Sphinx
     theme. It is sidebar-enabled and easy to install/use as a Python
@@ -38,3 +38,9 @@ about:
     theme for Sphinx.
   doc_url: https://anaconda.org/anaconda/alabaster
   dev_url: https://github.com/bitprophet/alabaster
+
+extra:
+  recipe-maintainers:
+    - msarahan
+    - r-jain1
+    - ocefpaf
