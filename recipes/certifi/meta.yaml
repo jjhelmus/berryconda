@@ -1,16 +1,16 @@
-{% set version = "2018.1.18" %}
+{% set version = "2018.4.16" %}
 
 package:
   name: certifi
   version: {{ version }}
 
 source:
-  fn: certifi-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
-  sha256: edbc3f203427eef571f79a7692bb160a2b0f7ccaa31953e99bd17e307cf63f7d
+  sha256: 13e698f54293db9f89122b0581843a782ad0934a4fe0172d2a980ba77fc61bb7
 
 build:
   number: 0
+  preserve_egg_dir: True
   script: python setup.py install
 
 requirements:
@@ -28,3 +28,10 @@ about:
   license: ISC
   license_file: LICENSE
   summary: Python package for providing Mozilla's CA Bundle.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - pelson
+    - sigmavirus24
+    - ocefpaf
