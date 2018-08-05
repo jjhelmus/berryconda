@@ -7,15 +7,16 @@ package:
 source:
   fn: partd-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/partd/partd-{{ version }}.tar.gz
-  md5: 554d0e6511c0df4c907f034858be847f
+  sha256: 67291f1c4827cde3e0148b3be5d69af64b6d6169feb9ba88f0a6cfe77089400f
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
     - locket
@@ -33,4 +34,10 @@ test:
 about:
   home: https://github.com/dask/partd
   license: BSD 3-Clause
-  summary: Concurrent appendable key-value storage
+  summary: Data structure for on-disk shuffle operations
+
+extra:
+  recipe-maintainers:
+    - jcrist
+    - mrocklin
+    - koverholt
