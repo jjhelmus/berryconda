@@ -1,25 +1,23 @@
-{% set name = "decorator" %}
-{% set version = "4.2.1" %}
-{% set sha256 = "7d46dd9f3ea1cf5f06ee0e4e1277ae618cf48dfb10ada7c8427cd46c42702a0e" %}
+{% set version = "4.3.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: decorator
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  fn: decorator-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/d/decorator/decorator-{{ version }}.tar.gz
+  sha256: c39efa13fbdeb4506c476c9b3babf6a718da943dab7811c206005a4a956c080c
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  script: python -m pip install --no-deps .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
   run:
     - python
 
@@ -28,12 +26,14 @@ test:
     - decorator
 
 about:
-  home: http://pypi.python.org/pypi/decorator
-  license: BSD
+  home: https://github.com/micheles/decorator
+  license: BSD 3-Clause
   license_file: LICENSE.txt
-  summary: Better living through Python with decorators
-  description: |
-    Preserve the signature of decorated functions in a consistent way
-    across Python releases.
-  doc_url: http://pythonhosted.org/decorator/
-  dev_url: https://github.com/micheles/decorator
+  summary: 'Better living through Python with decorators.'
+
+extra:
+  recipe-maintainers:
+    - msarahan
+    - pelson
+    - ocefpaf
+    - scopatz
