@@ -1,31 +1,25 @@
-{% set version = "0.15.3" %}
-{% set hash = "439316a7f603785b1afe2592b2be244cb8d1a272d1a28b93042367be65082786" %}
+{% set version = "0.18.2" %}
 
 package:
   name: dask
   version: "{{ version }}"
 
-source:
-  fn: dask-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/d/dask/dask-{{ version }}.tar.gz
-  sha256: {{ hash }}
-
 build:
   number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
   build:
     - python
-    - setuptools
 
   run:
     - python
     - bokeh
     - cloudpickle >=0.2.1
-    - distributed >=1.19.0
-    - numpy
+    - cytoolz >=0.7.3
+    - dask-core {{ version }}
+    - distributed >=1.22.0
+    - numpy >=1.11.0
     - pandas >=0.19.0
     - partd >=0.3.8
     - toolz >=0.7.3
@@ -40,9 +34,24 @@ test:
     - dask.dataframe.tseries
     - dask.delayed
     - dask.diagnostics
-    - dask.store
+    - dask.distributed
+    - distributed
 
 about:
   home: http://github.com/dask/dask/
   license: BSD 3-Clause
-  summary: 'Minimal task scheduling abstraction'
+  summary: 'Parallel Python with task scheduling'
+  doc_url: https://dask.pydata.org/
+  dev_url: https://github.com/dask/dask
+
+extra:
+  recipe-maintainers:
+    - alimanfoo
+    - jakirkham
+    - jcrist
+    - koverholt
+    - martindurant
+    - mrocklin
+    - pitrou
+    - tomaugspurger
+    - shoyer
