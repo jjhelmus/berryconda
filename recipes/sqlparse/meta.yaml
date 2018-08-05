@@ -5,7 +5,6 @@ package:
   version: {{ version }}
 
 source:
-  fn: sqlparse-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/s/sqlparse/sqlparse-{{ version }}.tar.gz
   sha256: ce028444cfab83be538752a2ffdb56bc417b7784ff35bb9a3062413717807dec
 
@@ -37,3 +36,7 @@ about:
     for parsing, splitting and formatting SQL statements.
   doc_url: https://sqlparse.readthedocs.org
   dev_url: https://github.com/andialbrecht/sqlparse
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
