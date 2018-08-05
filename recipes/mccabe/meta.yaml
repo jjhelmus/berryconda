@@ -1,35 +1,41 @@
-{%set name = "mccabe" %}
-{%set version = "0.6.1" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f" %}
+{% set version = "0.6.1" %}
 
 package:
-  name: {{ name }}
+  name: mccabe
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
+  url: https://pypi.io/packages/source/m/mccabe/mccabe-{{ version }}.tar.gz
+  sha256: dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
-    - setuptools
     - pytest-runner
-
   run:
     - python
 
 test:
   imports:
-    - {{ name }}
+    - mccabe
 
 about:
   home: https://github.com/PyCQA/mccabe
   license: MIT
+  license_family: MIT
+  license_file: LICENSE
   summary: 'McCabe complexity checker for Python'
+  dev_url: https://github.com/PyCQA/mccabe
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - sigmavirus24
+    - ocefpaf
+    - dopplershift
