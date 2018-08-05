@@ -1,24 +1,22 @@
-{% set name = "packaging" %}
-{% set version = "16.8" %}
-{% set hash_type = "sha256" %}
-{% set hash = "5d50835fdf0a7edf0b55e311b7c887786504efea1177abd7e69329a8e5ea619e" %}
+{% set version = "17.1" %}
 
 package:
-  name: {{ name }}
+  name: packaging
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash }}
+  url: https://pypi.io/packages/source/p/packaging/packaging-{{ version }}.tar.gz
+  sha256: f019b770dd64e585a99714f1fd5e01c7a8f11b45635aa953fd41c689a657375b
 
 build:
   number: 0
-  script: python setup.py install
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
+    - pip
     - pyparsing
     - six
 
@@ -36,3 +34,8 @@ about:
   license: Apache 2.0 or BSD 2-Clause
   license_file: LICENSE
   summary: Core utilities for Python packages
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - nicoddemus
