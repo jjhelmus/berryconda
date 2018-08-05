@@ -1,9 +1,9 @@
-{% set name = "requests-ftp" %}
-{% set version = "0.3.1" %}
-{% set compress_type = "tar.gz" %}
-{% set hash_type = "sha256" %}
-{% set hash_val = "7504ceb5cba8a5c0135ed738596820a78c5f2be92d79b29f96ba99b183d8057a" %}
-{% set build_num = "0" %}
+{%set name = "requests-ftp" %}
+{%set version = "0.3.1" %}
+{%set compress_type = "tar.gz" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "7504ceb5cba8a5c0135ed738596820a78c5f2be92d79b29f96ba99b183d8057a" %}
+{%set build_num = "0" %}
 
 package:
   name: {{ name|lower }}
@@ -40,3 +40,7 @@ about:
   license_family: Apache
   summary: 'An FTP transport adapter for use with the Python Requests library'
   dev_url: https://github.com/Lukasa/requests-ftp
+
+extra:
+  recipe-maintainers:
+    - mariusvniekerk
