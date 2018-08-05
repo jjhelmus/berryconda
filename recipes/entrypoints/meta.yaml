@@ -1,29 +1,42 @@
+{% set name = "entrypoints" %}
 {% set version = "0.2.3" %}
+{% set wheel_tag = "py2.py3-none-any" %}
+{% set fn = "{}-{}-{}.whl".format(name, version, wheel_tag) %}
+{% set sha256 = "10ad569bb245e7e2ba425285b9fa3e8178a0dc92fc53b1e1c553805e15a8825b" %}
 
 package:
     name: entrypoints
     version: {{ version }}
 
 source:
-    fn: {{ version }}.tar.gz
-    url: https://github.com/takluyver/entrypoints/archive/{{ version }}.tar.gz
-    md5: ad31adbe634709555c400de125098dc8
+    fn: {{ fn }}
+    url: https://pypi.io/packages/py2.py3/{{ name[0] }}/{{ name }}/{{ fn }}
+    sha256: {{ sha256 }}
 
 build:
-    number: 0
+    number: 1
+    script: pip install --no-deps {{ fn }}
 
 requirements:
     build:
         - python
+        - pip
     run:
         - python
-        - configparser  # [py<35]
+        - configparser  # [py2k or py34]
 
 test:
     imports:
         - entrypoints
 
 about:
-    home: http://entrypoints.readthedocs.org/en/latest/
+    home: https://entrypoints.readthedocs.io/
     license: MIT
     summary: Discover and load entry points from installed packages
+
+extra:
+  recipe-maintainers:
+    - pelson
+    - minrk
+    - takluyver
+    - ocefpaf
