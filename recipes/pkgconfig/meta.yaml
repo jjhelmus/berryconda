@@ -1,27 +1,26 @@
-{% set name = "pkgconfig" %}
-{% set version = "1.2.2" %}
-{% set sha256 = "3685ba02a9b72654a764b728b559f327e1dbd7dc6ebc310a1bd429666ee202aa" %}
+{% set version = "1.3.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: pkgconfig
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://github.com/matze/pkgconfig/archive/v{{ version }}.tar.gz
+  sha256: b4b8277cf33df2bfdd73da2bc4faab1b4b65b6d12e295aa6c70987642bcfb5c7
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
     - nose >=1.0
   run:
     - python
+    - pkg-config        # [unix]
+    - m2w64-pkg-config  # [win]
 
 test:
   imports:
@@ -33,3 +32,9 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: 'A Python interface to the pkg-config command line tool'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - lbdreyer
+    - ocefpaf
