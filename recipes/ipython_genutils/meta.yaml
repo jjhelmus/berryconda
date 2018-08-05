@@ -6,16 +6,17 @@ package:
 
 source:
   fn: ipython_genutils-{{ version }}.tar.gz
-  url: https://github.com/ipython/ipython_genutils/archive/{{ version }}.tar.gz
-  md5: 477e596a0e6e2f74ec08ec09687eeb6c
+  url: https://pypi.io/packages/source/i/ipython_genutils/ipython_genutils-{{ version }}.tar.gz
+  sha256: eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
   run:
     - python
@@ -30,3 +31,12 @@ about:
   home: http://ipython.org
   license: BSD 3-Clause
   summary: Vestigial utilities from IPython
+
+extra:
+  recipe-maintainers:
+    - minrk
+    - msarahan
+    - pelson
+    - scopatz
+    - Carreau
+    - takluyver
