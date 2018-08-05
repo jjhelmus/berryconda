@@ -5,19 +5,22 @@ package:
 source:
   url: https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
   fn: cycler-v0.10.0.tar.gz
+  sha256: b6d217635e03024196225367b1a438996dbbf0271bec488f00584f0e7dc15cfa
+
+build:
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
     - six
-
   run:
     - python
     - six
-
-build:
-  number: 0
 
 test:
   imports:
@@ -25,5 +28,13 @@ test:
 
 about:
   home: http://github.com/matplotlib/cycler
-  license: BSD
-  summary: 'Composable style cycles'
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: 'Composable style cycles.'
+
+extra:
+  recipe-maintainers:
+    - pelson
+    - tacaswell
+    - jankatins
+    - ocefpaf
