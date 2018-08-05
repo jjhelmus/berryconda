@@ -31,3 +31,7 @@ about:
   home: http://docs.python.org/3/library/functools.html#functools.singledispatch
   license: MIT
   summary: This library brings functools.singledispatch from Python 3.4 to Python 2.6-3.3.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
