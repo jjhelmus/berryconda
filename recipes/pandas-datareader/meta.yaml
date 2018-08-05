@@ -1,9 +1,9 @@
-{% set name = "pandas-datareader" %}
-{% set version = "0.6.0" %}
-{% set compress_type = "tar.gz" %}
-{% set hash_type = "sha256" %}
-{% set hash_val = "47681336a3f6e6953b024bd73f8bb005f36e8df831ccce336e9fc601c587e3db" %}
-{% set build_num = "0" %}
+{%set name = "pandas-datareader" %}
+{%set version = "0.6.0" %}
+{%set compress_type = "tar.gz" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "47681336a3f6e6953b024bd73f8bb005f36e8df831ccce336e9fc601c587e3db" %}
+{%set build_num = "0" %}
 
 package:
   name: {{ name|lower }}
@@ -16,7 +16,6 @@ source:
 
 build:
   number: {{ build_num }}
-  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 
@@ -27,12 +26,10 @@ requirements:
 
   run:
     - python
-    - lxml
-    - pandas >=0.19.2
+    - pandas
     - requests >=2.3.0
     - requests-file
     - requests-ftp
-    - wrapt
 
 test:
   imports:
@@ -46,3 +43,11 @@ about:
   summary: 'Up to date remote data access for pandas, works for multiple versions of pandas'
   dev_url: https://github.com/pydata/pandas-datareader
   doc_url: https://pandas-datareader.readthedocs.io/en/latest/
+
+extra:
+  recipe-maintainers:
+    - mariusvniekerk
+    - femtotrader
+    - jreback
+    - davidastephens
+    - bashtage
