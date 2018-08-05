@@ -28,3 +28,8 @@ about:
     home: http://stutzbachenterprises.com/
     license: BSD 3-Clause
     summary: 'A Heap MutableMapping.'
+
+extra:
+    recipe-maintainers:
+        - mrocklin
+        - ocefpaf
