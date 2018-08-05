@@ -1,34 +1,40 @@
-{% set name = "h5netcdf" %}
-{% set version = "0.4.2" %}
+{% set version = "0.6.1" %}
 
 package:
-    name: {{ name }}
-    version: {{ version }}
+  name: h5netcdf
+  version: {{ version }}
 
 source:
-    fn: {{ name }}-{{ version }}.tar.gz
-    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 0ebd1fee4a73887787e3ca295276f9caea358d6b292a3caf1d609fa48123c773
+  url: https://pypi.io/packages/source/h/h5netcdf/h5netcdf-{{ version }}.tar.gz
+  sha256: e81078d62eb6fa9bd90a8dad21bf238d1567447e0c6de84d004ec122a9a436ef
 
 build:
-    number: 0
-    noarch: python
-    script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-    build:
-        - python
-        - setuptools
-        - h5py
-    run:
-        - python
-        - h5py
+  build:
+    - python
+    - pip
+    - h5py
+  run:
+    - python
+    - h5py
 
 test:
-    imports:
-        - h5netcdf
+  imports:
+    - h5netcdf
 
 about:
-    home: https://github.com/shoyer/h5netcdf
-    license: BSD 3-Clause
-    summary: 'netCDF4 via h5py.'
+  home: https://github.com/shoyer/h5netcdf
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: 'netCDF4 via h5py.'
+
+extra:
+  recipe-maintainers:
+    - jhamman
+    - jjhelmus
+    - ocefpaf
+    - shoyer
