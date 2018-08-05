@@ -1,23 +1,23 @@
 {% set name = "prompt_toolkit" %}
-{% set version = "1.0.15" %}
-{% set sha256 = "858588f1983ca497f1cf4ffde01d978a3ea02b01c8a26a8bbc5cd2e66d816917" %}
+{% set version = "2.0.4" %}
+{% set sha256 = "ff58ce8bb82c11c43416dd3eec7701dcbe8c576e2d7649f1d2b9d21a2fd93808" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
   run:
@@ -33,14 +33,11 @@ test:
     - prompt_toolkit.contrib
     - prompt_toolkit.contrib.completers
     - prompt_toolkit.contrib.regular_languages
-    - prompt_toolkit.contrib.telnet
-    - prompt_toolkit.contrib.validators
     - prompt_toolkit.eventloop
     - prompt_toolkit.filters
     - prompt_toolkit.key_binding
     - prompt_toolkit.key_binding.bindings
     - prompt_toolkit.layout
-    - prompt_toolkit.terminal
 
 about:
   home: https://github.com/jonathanslenders/python-prompt-toolkit
@@ -48,8 +45,15 @@ about:
   license_file: LICENSE
   summary: Library for building powerful interactive command lines in Python
   description: |
-    prompt_toolkit is a library for building powerful interactive command 
-    lines and terminal applications in Python. It can be a pure Python 
+    prompt_toolkit is a library for building powerful interactive command
+    lines and terminal applications in Python. It can be a pure Python
     replacement for GNU readline, but it can be much more than that.
   doc_url: http://python-prompt-toolkit.readthedocs.io
   dev_url: https://github.com/jonathanslenders/python-prompt-toolkit
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ocefpaf
+    - scopatz
+    - asmeurer
