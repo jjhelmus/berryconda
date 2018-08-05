@@ -1,4 +1,4 @@
-{% set version = "1.19.1" %}
+{% set version = "1.22.0" %}
 
 package:
   name: distributed
@@ -7,45 +7,50 @@ package:
 source:
   fn: distributed-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/d/distributed/distributed-{{ version }}.tar.gz
-  sha256: 81848b4b8b7f4f7cf6bdbed3e779cae4548b9bf73a262ba623272fd21666c781
+  sha256: 73b992604118c1489f621586209a50c75d1df146e7eccbffbc790ac028a97ca4
 
 build:
   number: 0
   entry_points:
-    - dask-scheduler = distributed.cli.dask_scheduler:go
-    - dask-ssh = distributed.cli.dask_ssh:go
-    - dask-worker = distributed.cli.dask_worker:go
-    - dask-remote = distributed.cli.dask_remote:go
-    - dask-submit = distributed.cli.dask_submit:go
-    - dask-mpi = distributeed.cli.dask_mpi:go
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+    - dask-scheduler=distributed.cli.dask_scheduler:go
+    - dask-ssh=distributed.cli.dask_ssh:go
+    - dask-worker=distributed.cli.dask_worker:go
+    - dask-remote=distributed.cli.dask_remote:go
+    - dask-submit=distributed.cli.dask_submit:go
+    - dask-mpi=distributed.cli.dask_mpi:go
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
 
   run:
     - python
     - click >=6.6
     - cloudpickle >=0.2.2
-    - dask >=0.15.2
+    - cytoolz >=0.7.4
+    - dask-core >=0.18.0
+    - futures  # [py2k]
     - msgpack-python
     - psutil
+    - pyyaml
+    - singledispatch  # [py2k]
     - six
+    - sortedcontainers
     - tblib
     - toolz >=0.7.4
     - tornado >=4.5.1
     - zict >=0.1.3
-    - sortedcontainers
-    - futures  # [py2k]
 
 test:
   imports:
     - distributed
     - distributed.cli
+    - distributed.comm
+    - distributed.deploy
     - distributed.diagnostics
-    - distributed.http
+    - distributed.protocol
   commands:
     - dask-scheduler --help
     - dask-ssh --help
@@ -55,4 +60,12 @@ about:
   home: http://distributed.readthedocs.io/en/latest/
   license: BSD 3-Clause
   license_file: LICENSE.txt
-  summary: 'Distributed computing'
+  summary: 'Distributed computing with Dask'
+
+extra:
+  recipe-maintainers:
+    - mrocklin
+    - pitrou
+    - jcrist
+    - martindurant
+    - jakirkham
