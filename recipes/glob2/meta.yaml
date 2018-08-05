@@ -13,12 +13,12 @@ source:
 build:
   number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python -m pip install --no-deps --ignore-installed . --verbose
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
 
@@ -31,3 +31,7 @@ about:
   license: BSD-2-Clause
   license_file: LICENSE
   summary: Version of the glob module that supports recursion via **, and can capture patterns.
+
+extra:
+  recipe-maintainers:
+    - dfroger
