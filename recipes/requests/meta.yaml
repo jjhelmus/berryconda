@@ -1,29 +1,27 @@
-{% set name = "requests" %}
-{% set version = "2.18.4" %}
+{% set version = "2.19.1" %}
 
 package:
-  name: {{ name }}
+  name: requests
   version: {{ version }}
 
 source:
-  fn: requests-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 9c443e7324ba5b85070c4a818ade28bfabedf16ea10206da1132edaa6dda237e
+  url: https://pypi.io/packages/source/r/requests/requests-{{ version }}.tar.gz
+  sha256: ec22d826a36ed72a7358ff3fe56cbd4ba69dd7a6718ffd450ff0e9df7a47ce6a
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
-    - certifi
-    - chardet
-    - idna
-    - urllib3
+    - chardet >=3.0.2,<3.1.0
+    - idna >=2.5,<2.8
+    - urllib3 >=1.21.1,<1.24
+    - certifi >=2017.4.17
 
 test:
   imports:
@@ -32,4 +30,16 @@ test:
 about:
   home: http://python-requests.org
   license: Apache 2.0
+  license_file: LICENSE
   summary: 'Python HTTP for Humans.'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - kalefranz
+    - mcg1969
+    - mingwandroid
+    - msarahan
+    - pelson
+    - sigmavirus24
+    - ocefpaf
