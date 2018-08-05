@@ -1,9 +1,9 @@
 {% set name = "pycodestyle" %}
-{% set version = "2.3.1" %}
-{%set compress_type = "tar.gz" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "682256a5b318149ca0d2a9185d365d8864a768a28db66a84a2ea946bcc426766" %}
-{%set build_num = "0" %}
+{% set version = "2.4.0" %}
+{% set compress_type = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "cbfca99bd594a10f674d0cd97a3d802a1fdef635d4361e1a2658de47ed261e3a" %}
+{% set build_num = "0" %}
 
 package:
   name: {{ name|lower }}
@@ -15,14 +15,16 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
+  noarch: python
   entry_points:
     - pycodestyle = pycodestyle:_main
 
-  number: {{ build_num }}
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
+    - pip
     - python
     - setuptools
 
@@ -41,3 +43,12 @@ about:
   summary: 'Python style guide checker'
   doc_url: https://pycodestyle.readthedocs.io/
   dev_url: https://github.com/PyCQA/pycodestyle
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - pmlandwehr
+    - jjhelmus
+    - sigmavirus24
+    - dopplershift
+    - ocefpaf
