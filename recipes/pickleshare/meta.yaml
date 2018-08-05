@@ -7,7 +7,7 @@ package:
 source:
   fn: pickleshare-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/pickleshare/pickleshare-{{ version }}.tar.gz
-  md5: 6a9e5dd8dfc023031f6b7b3f824cab12
+  sha256: 84a9257227dfdd6fe1b4be1319096c20eb85ff1e82c7932f36efccfe1b09737b
 
 build:
   number: 0
@@ -30,3 +30,9 @@ about:
   home: https://github.com/vivainio/pickleshare
   license: MIT
   summary: "Tiny 'shelve'-like database with concurrency support"
+
+extra:
+  recipe-maintainers:
+    - pelson
+    - takluyver
+    - ocefpaf
