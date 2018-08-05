@@ -1,27 +1,31 @@
-{% set version="2.8" %}
+{% set name = "Jinja2" %}
+{% set version = "2.10" %}
+{% set sha256 = "f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4" %}
 
 package:
-  name: jinja2
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: Jinja2-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/J/Jinja2/Jinja2-{{ version }}.tar.gz
-  md5: edb51693fe22c53cee5403775c71a99e
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
-  number:  0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
-    - markupsafe
+
   run:
     - python
     - setuptools
-    - markupsafe
+    - markupsafe >=0.23
 
 test:
   imports:
@@ -38,3 +42,11 @@ about:
     used and BSD licensed.
   doc_url: http://jinja.pocoo.org/docs/dev/
   dev_url: https://github.com/pallets/jinja
+  doc_source_url: https://github.com/pallets/jinja/blob/master/docs/index.rst
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - scopatz
+    - nehaljwani
