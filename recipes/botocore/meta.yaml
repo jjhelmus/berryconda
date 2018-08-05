@@ -1,26 +1,27 @@
-{%set name = "botocore" %}
-{%set version = "1.8.28" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "02d360797944f091fb5341a2a51810aa6f44f8b40ac66951c876555e410e5f06" %}
+{% set name = "botocore" %}
+{% set version = "1.10.70" %}
+{% set bundle = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash = "7a3759d346bf297d33091a4c154d3c50f0c3dc7b428badb6c950f87ea390e5b1" %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
+  fn: {{ name }}-{{ version }}.{{ bundle }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ bundle }}
+  {{ hash_type }}: {{ hash }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
 
   run:
     - python
@@ -44,10 +45,19 @@ test:
     - botocore.vendored.requests.packages.urllib3.util
 
 about:
-  home: https://github.com/boto/botocore
-  license: Apache 2.0
+  home: http://aws.amazon.com/sdk-for-python/
   license_file: LICENSE.txt
+  license: Apache 2.0
+  license_url: http://aws.amazon.com/apache2.0/
   license_family: Apache
   summary: 'Low-level, data-driven core of boto 3.'
+  description: |
+    Provides the core functionality of Boto3, the AWS SDK for Python
   dev_url: https://github.com/boto/botocore
   doc_url: https://botocore.readthedocs.io/en/latest/
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
+    - hajapy
+    - tkelman
