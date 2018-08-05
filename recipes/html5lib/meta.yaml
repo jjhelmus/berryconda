@@ -1,5 +1,6 @@
 {% set name = "html5lib" %}
 {% set version = "1.0.1" %}
+{% set sha256 = "66cb0dcfdbbc4f9c3ba1a63fdb511ffdbd4f513b2b6d81b80cd26ce6b3fb3736" %}
 
 package:
   name: {{ name }}
@@ -8,16 +9,18 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  md5: 942a0688d6bdf20d087c9805c40182ad
+  sha256: {{ sha256 }}
 
 build:
+  noarch: python
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: pip install --no-deps .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
+
   run:
     - python
     - six >=1.9
@@ -26,15 +29,27 @@ requirements:
 test:
   imports:
     - html5lib
+    - html5lib._trie
+    - html5lib.filters
+    - html5lib.treeadapters
+    - html5lib.treebuilders
+    - html5lib.treewalkers
 
 about:
   home: https://github.com/html5lib/html5lib-python
   license: MIT
+  license_family: MIT
   license_file: LICENSE
-  summary: HTML parser based on the WHATWG HTML specifcation
+  summary: 'HTML parser based on the WHATWG HTML specification'
   description: |
     html5lib is a pure-python library for parsing HTML. It is designed to
     conform to the WHATWG HTML specification, as is implemented by all major
     web browsers.
   doc_url: http://html5lib.readthedocs.org/
+  doc_source_url: https://github.com/html5lib/html5lib-python/blob/master/doc/index.rst
   dev_url: https://github.com/html5lib/html5lib-python
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - minrk
