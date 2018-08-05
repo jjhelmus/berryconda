@@ -1,5 +1,4 @@
-{% set version = "0.5.2" %}
-{% set hash = "d0f6fc27882f865f2eb185fb0a32c84b" %}
+{% set version = "0.5.3" %}
 
 package:
   name: cloudpickle
@@ -8,17 +7,17 @@ package:
 source:
   fn: cloudpickle-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/c/cloudpickle/cloudpickle-{{ version }}.tar.gz
-  md5: {{ hash }}
+  sha256: 54858c7b7dc763ed894ff91059c1d0b017d593fe23850d3d8d75f47d98398197
 
 build:
   number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
 
   run:
     - python
@@ -30,4 +29,20 @@ test:
 about:
   home: https://github.com/cloudpipe/cloudpickle
   license: BSD 3-Clause
+  license_file: LICENSE
   summary: Extended pickling support for Python objects
+  description: |
+    cloudpickle is extended pickling support for Python objects.
+    cloudpickle makes it possible to serialize Python constructs not
+    supported by the default pickle module from the Python standard library.
+  doc_url: https://pypi.python.org/pypi/cloudpickle/{{ version }}
+  doc_source_url: https://github.com/cloudpipe/cloudpickle/blob/master/README.md
+  dev_url: https://github.com/cloudpipe/cloudpickle
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ogrisel
+    - rgbkrk
+    - mrocklin
+    - nehaljwani
