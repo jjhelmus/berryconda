@@ -1,43 +1,47 @@
-{% set version = "0.10.0" %}
+{% set version = "0.10.8" %}
 
 package:
-    name: xarray
-    version: {{ version }}
+  name: xarray
+  version: {{ version }}
 
 source:
-    fn: xarray-{{ version }}.tar.gz
-    url: https://github.com/pydata/xarray/archive/v{{ version }}.tar.gz
-    sha256: 9191838f82467b3e2cc11670f6573202548ac9562d6d3abba6bcba34fc1b66f0
+  url: https://pypi.io/packages/source/x/xarray/xarray-{{ version }}.tar.gz
+  sha256: 6a1f2c5dc5f639f8343f70ed08d0afbb477a3867298ef38f0d9bf4aafa0fb750
 
 build:
-    number: 0
-    noarch: python
-    script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-    build:
-        - python
-        - setuptools
-    run:
-        - python
-        - numpy
-        - pandas
-        - netcdf4
-        - scipy
-        - bottleneck
-        - dask >=0.6
-        - h5netcdf
-        - cyordereddict
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - numpy >=1.11
+    - pandas >=0.18
+    - netcdf4
+    - scipy
+    - bottleneck
+    - dask >=0.9
+    - h5netcdf
+    - cyordereddict  # [not py>=35]
 
 test:
-    imports:
-        - xarray
-        - xarray.backends
-        - xarray.core
-    requires:
-        - pytest
+  imports:
+    - xarray
+    - xarray.backends
+  requires:
+    - pytest
 
 about:
-    home: https://github.com/pydata/xarray
-    license: Apache Software License
-    summary: N-D labeled arrays and datasets in Python
+  home: https://github.com/pydata/xarray
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: 'N-D labeled arrays and datasets in Python.'
+
+extra:
+  recipe-maintainers:
+    - jhamman
+    - ocefpaf
+    - shoyer
