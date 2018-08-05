@@ -1,7 +1,5 @@
 {% set name = "idna" %}
-{% set version = "2.6" %}
-{% set hash_type = "sha256" %}
-{% set hash = "2c6a5de3089009e3da7c5dde64a141dbc8551d5b7f6cf4ed7c2568d0cc520a8f" %}
+{% set version = "2.7" %}
 
 package:
   name: {{ name|lower }}
@@ -10,10 +8,10 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash }}
+  sha256: 684a38a6f903c1d71d6d5fac066b58d7768af4de2b832e426ec79c30daa94a16
 
 build:
-  number: 0
+  number: 2
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -35,4 +33,9 @@ about:
   description: |
     A library to support the Internationalised Domain Names in Applications
     (IDNA) protocol as specified in RFC 5891. This version of the protocol
-    is often referred to as “IDNA2008”.
+    is often referred to as "IDNA2008".
+
+extra:
+  recipe-maintainers:
+    - goanpeca
+    - jschueller
