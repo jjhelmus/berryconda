@@ -1,26 +1,22 @@
-{%set name = "pyasn1" %}
-{%set version = "0.3.6" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "f0380ea97db0ede095a0dd87ce3003d46c197191f924206e43f776fc77e51f09" %}
+{% set version = "0.4.4" %}
 
 package:
-  name: {{ name }}
+  name: pyasn1
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
+  url: https://pypi.org/packages/source/p/pyasn1/pyasn1-{{ version }}.tar.gz
+  sha256: f58f2a3d12fd754aa123e9fa74fb7345333000a035f3921dbdaa08597aa53137
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   build:
     - python
-    - setuptools
-
+    - pip
   run:
     - python
 
@@ -35,8 +31,14 @@ test:
     - pyasn1.type
 
 about:
-  home: http://sourceforge.net/projects/pyasn1/
+  home: https://github.com/etingof/pyasn1
   license: BSD 2-Clause
+  license_file: LICENSE.rst
   summary: 'ASN.1 types and codecs'
   license_family: BSD
   doc_url: http://pyasn1.sourceforge.net/
+  dev_url: https://github.com/etingof/pyasn1
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
