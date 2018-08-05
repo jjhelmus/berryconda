@@ -9,7 +9,7 @@ source:
   sha256: 502ad98707319f4a51fa2ca1c677bd659008d27ded9f6380c79e8932e38dcdf2
 
 build:
-  number: 0
+  number: 1
   script: python setup.py install
   skip: True  # [py>=35]
 
@@ -26,5 +26,12 @@ test:
 
 about:
   home: http://bitbucket.org/brandon/backports.ssl_match_hostname
-  license:  Python Software Foundation License
+  license:  PSF 2
+  license_file: backports/ssl_match_hostname/LICENSE.txt
   summary: 'The ssl.match_hostname() function from Python 3.5'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mwcraig
+    - pelson
