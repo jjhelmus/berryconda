@@ -1,22 +1,22 @@
-{% set name = "numpydoc" %}
-{% set version = "0.7.0" %}
+{% set version = "0.8.0" %}
 
 package:
-  name: {{ name }}
+  name: numpydoc
   version: {{ version }}
 
 source:
   fn: numpydoc-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 2dc7b2c4e3914745e38e370946fa4c109817331e6d450806285c08bce5cd575a
+  url: https://pypi.io/packages/source/n/numpydoc/numpydoc-{{ version }}.tar.gz
+  sha256: 61f4bf030937b60daa3262e421775838c945dcdd671f37b69e8e4854c7eb5ffd
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
 
@@ -33,3 +33,8 @@ about:
   license: BSD 3-Clause
   license_file: LICENSE.txt
   summary: Numpy's Sphinx extensions
+
+extra:
+  recipe-maintainers:
+    - jschueller
+    - scopatz
