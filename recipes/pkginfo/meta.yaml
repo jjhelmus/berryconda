@@ -1,33 +1,54 @@
-{% set version = "1.4.1" %}
+{% set name = "pkginfo" %}
+{% set version = "1.4.2" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "5878d542a4b3f237e359926384f1dde4e099c9f5525d236b1840cf704fa8d474" %}
 
 package:
-  name: pkginfo
-  version: {{ version }}
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
 
 source:
-  fn: pkginfo-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/p/pkginfo/pkginfo-{{ version }}.tar.gz
-  md5: 3d093d5b51c7902e7dd1736100e0ce87
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  noarch: python
+  number: 1
   entry_points:
     - pkginfo = pkginfo.commandline:main
-  
+  script: python -m pip install --no-deps --ignore-installed .
+
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
-
   run:
     - python
 
 test:
   imports:
     - pkginfo
+    - pkginfo.tests
+  commands:
+    - pkginfo --help
 
 about:
-  home: https://pypi.python.org/pypi/pkginfo/
-  license: PSF
-  summary: 'Query metadatdata from sdists / bdists / installed packages.'
+  home: https://code.launchpad.net/~tseaver/pkginfo/trunk
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: Query metadatdata from sdists / bdists / installed packages.
+  description: |
+    This package provides an API for querying the distutils metadata written in
+    the ``PKG-INFO`` file inside a source distriubtion (an ``sdist``) or
+    a binary distribution (e.g., created by running ``bdist_egg``)
+  doc_url: http://pythonhosted.org/pkginfo/
+  dev_url: https://code.launchpad.net/~tseaver/pkginfo/trunk
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - jankatins
+    - mingwandroid
