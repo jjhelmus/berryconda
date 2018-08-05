@@ -1,4 +1,4 @@
-{% set version = "1.0.0" %}
+{% set version="1.0.0" %}
 
 package:
   name: mpmath
@@ -7,11 +7,11 @@ package:
 source:
   fn: mpmath-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/m/mpmath/mpmath-{{ version }}.tar.gz
-  md5: 998f10cb231af62743212ca80693f1b5
+  sha256: 04d14803b6875fe6d69e6dccea87d5ae5599802e4b1df7997bddd2024001050c
 
 build:
-  number: 0
   noarch: python
+  number: 0
   script: python setup.py install
 
 requirements:
@@ -19,6 +19,7 @@ requirements:
     - python
   run:
     - python
+    #- gmpy2       # [(not win) or py35]
 
 test:
   imports:
@@ -39,3 +40,10 @@ about:
     arithmetic with arbitrary precision.
   doc_url: http://mpmath.org/doc/current/
   dev_url: https://github.com/fredrik-johansson/mpmath
+
+extra:
+  recipe-maintainers:
+    - asmeurer
+    - msarahan
+    - ocefpaf
+    - scopatz
