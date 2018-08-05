@@ -15,9 +15,10 @@ source:
     - patch
 
 build:
-  number: 0
+  number: 2
   noarch: python
   script: python setup.py install --single-version-externally-managed --record record.txt
+
 
 requirements:
   build:
@@ -40,3 +41,7 @@ about:
   summary: 'Library for developers to extract data from Microsoft Excel (tm) spreadsheet files'
   doc_url: http://xlrd.readthedocs.io/en/latest/
   dev_url: https://github.com/python-excel/xlrd/blob/master/docs/index.rst
+
+extra:
+  recipe-maintainers:
+   - cokelaer
