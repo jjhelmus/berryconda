@@ -1,7 +1,7 @@
 {% set name = "py" %}
-{% set version = "1.5.2" %}
+{% set version = "1.5.4" %}
 {% set hash_type = "sha256" %}
-{% set hash = "ca18943e28235417756316bfada6cd96b23ce60dd532642690dcfdaba988a76d" %}
+{% set hash = "3fd59af7435864e1a243790d322d763925431213b6b8529c6ca71081ace3bbf7" %}
 
 package:
   name: {{ name }}
@@ -13,14 +13,15 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  script: python -m pip install . --no-deps --ignore-installed
 
 requirements:
   build:
+    - pip
     - python
-    - setuptools
+    - setuptools_scm
   run:
     - python
 
@@ -38,3 +39,8 @@ about:
   license: MIT
   license_file: LICENSE
   summary: "library with cross-python path, ini-parsing, io, code, log facilities"
+
+extra:
+  recipe-maintainers:
+    - nicoddemus
+    - jakirkham
