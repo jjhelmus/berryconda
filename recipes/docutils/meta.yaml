@@ -1,19 +1,21 @@
 {%set name = "docutils" %}
 {%set version = "0.14" %}
+{%set compress_type = "tar.gz" %}
 {%set hash_type = "sha256" %}
 {%set hash_val = "51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274" %}
+{%set build_num = "0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  fn: {{ name }}-{{ version }}.{{ compress_type }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 0
+  number: {{ build_num }}
   script: python setup.py install
 
 requirements:
@@ -37,6 +39,7 @@ test:
     - docutils.utils.math
     - docutils.writers
     - docutils.writers.html4css1
+    - docutils.writers.html5_polyglot
     - docutils.writers.latex2e
     - docutils.writers.odf_odt
     - docutils.writers.pep_html
@@ -46,4 +49,17 @@ test:
 about:
   home: http://docutils.sourceforge.net/
   license: Public Domain Dedictation and BSD 2-Clause and PSF 2.1.1 and GPL 3.0
+  license_file: COPYING.txt
   summary: 'Docutils -- Python Documentation Utilities'
+  description: |
+    Docutils is an open-source text processing system for processing plaintext
+    documentation into useful formats, such as HTML, LaTeX, man-pages, open-
+    document, or XML.
+  doc_url: http://docutils.sourceforge.net/docs/index.html
+  doc_source_url: https://sourceforge.net/p/docutils/code/HEAD/tree/trunk/docutils/docs/index.txt
+  dev_url: http://svn.code.sf.net/p/docutils/code
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
+    - nehaljwani
