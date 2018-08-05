@@ -1,24 +1,22 @@
-{% set version = "0.7.1" %}
-{% set pkg_name = "imagesize" %}
-{% set sha256 = "0ab2c62b87987e3252f89d30b7cedbec12a01af9274af9ffa48108f2c13c6062" %}
+{% set version = "1.0.0" %}
 
 package:
-  name: {{ pkg_name }}
+  name: imagesize
   version: {{ version }}
 
 source:
-  fn: {{ pkg_name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ pkg_name[0] }}/{{ pkg_name }}/{{ pkg_name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/i/imagesize/imagesize-{{ version }}.tar.gz
+  sha256: 5b326e4678b6925158ccc66a9fa3122b6106d7c876ee32d7de6ce59385b96315
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
 
@@ -34,3 +32,7 @@ about:
     This module analyzes jpeg/jpeg2000/png/gif image header and
     return image size.
   dev_url: https://github.com/shibukawa/imagesize_py
+
+extra:
+  recipe-maintainers:
+    - chohner
