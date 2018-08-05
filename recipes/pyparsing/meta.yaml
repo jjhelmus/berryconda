@@ -5,17 +5,18 @@ package:
   version: {{ version }}
 
 source:
-  fn: pyparsing-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/pyparsing/pyparsing-{{ version }}.tar.gz
   sha256: 0832bcf47acd283788593e7a0f542407bd9550a55a8a8435214a1960e04bcb04
 
 build:
-  number: 0
-  script: python setup.py install
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
+    - pip
   run:
     - python
 
@@ -35,3 +36,8 @@ about:
     that client code uses to construct the grammar directly in Python code.
   doc_url: http://pyparsing.wikispaces.com/Documentation
   dev_url: https://svn.code.sf.net/p/pyparsing/code/
+
+extra:
+  recipe-maintainers:
+    - msarahan
+    - ocefpaf
