@@ -1,19 +1,22 @@
 {%set name = "click" %}
 {%set version = "6.7" %}
+{%set compress_type = "tar.gz" %}
 {%set hash_type = "sha256" %}
 {%set hash_val = "f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b" %}
+{%set build_num = "1" %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  fn: {{ name }}-{{ version }}.{{ compress_type }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 0
+  number: {{ build_num }}
+  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -26,7 +29,7 @@ requirements:
 
 test:
   imports:
-    - {{ name }}
+    - click
 
 about:
   home: http://click.pocoo.org/
@@ -36,3 +39,7 @@ about:
   summary: 'A simple wrapper around optparse for powerful command line utilities.'
   dev_url: https://github.com/pallets/click
   doc_url: http://click.pocoo.org/
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
