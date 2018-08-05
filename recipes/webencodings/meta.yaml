@@ -1,24 +1,25 @@
-{% set name = "webencodings" %}
 {% set version = "0.5.1" %}
 
 package:
-  name: {{ name }}
+  name: webencodings
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923
+  fn: webencodings-{{ version }}.tar.gz
+  url: https://github.com/gsnedders/python-webencodings/archive/v{{ version }}.tar.gz
+  sha256: 082367f568a7812aa5f6922ffe3d9d027cd83829dc32bcaac4c874eeed618000
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
+
   run:
     - python
 
@@ -27,6 +28,14 @@ test:
     - webencodings
 
 about:
-  home: https://github.com/SimonSapin/python-webencodings
+  home: https://github.com/gsnedders/python-webencodings
   license: BSD 3-Clause
-  summary: Character encoding aliases for legacy web content 
+  license_family: BSD
+  license_file: LICENSE
+  doc_url: https://pythonhosted.org/webencodings
+  dev_url: https://github.com/gsnedders/python-webencodings
+  summary: Character encoding aliases for legacy web content
+
+extra:
+  recipe-maintainers:
+    - jschueller
