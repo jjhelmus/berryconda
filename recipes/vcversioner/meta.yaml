@@ -10,11 +10,12 @@ source:
   md5: aab6ef5e0cf8614a1b1140ed5b7f107d
 
 build:
-  number: 0
-  script: pip install .
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
@@ -27,4 +28,10 @@ test:
 about:
   home: https://github.com/habnabit/vcversioner
   license: ISC
-  summary: Take version numbers from version control
+  summary: 'Take version numbers from version control.'
+
+extra:
+  recipe-maintainers:
+    - anguslees
+    - minrk
+    - ocefpaf
