@@ -12,11 +12,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: python setup.py install
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
   run:
     - python
@@ -35,3 +37,7 @@ about:
     compiler translates a Snowball script into another language - currently
     ISO C, Java and Python are supported.
   dev_url: https://github.com/shibukawa/snowball_py
+
+extra:
+  recipe-maintainers:
+    - chohner
