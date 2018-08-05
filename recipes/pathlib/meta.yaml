@@ -12,11 +12,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: python setup.py install
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
 
   run:
@@ -34,3 +36,7 @@ about:
   summary: 'Object-oriented filesystem paths'
   doc_url: https://pathlib.readthedocs.org/
   dev_url: https://bitbucket.org/pitrou/pathlib
+
+extra:
+  recipe-maintainers:
+    - proinsias
