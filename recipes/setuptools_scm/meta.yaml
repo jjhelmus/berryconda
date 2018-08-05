@@ -1,24 +1,22 @@
-{% set version = "1.15.7" %}
+{% set version = "3.0.6" %}
 
 package:
   name: setuptools_scm
   version: {{ version }}
 
 source:
-  fn: setuptools_scm-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/s/setuptools_scm/setuptools_scm-{{ version }}.tar.gz
-  sha256: e163e8a12d2121f77575773cfc2b5988275dc1f1d2541fdf780127c29dbbea9c
+  sha256: a9cd4250443f96947c35e4790513fc008b7cc91c1475b8b523e7c7dd69766437
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
     - pip
-    - setuptools
   run:
     - python
     - setuptools
@@ -30,4 +28,11 @@ test:
 about:
   home: https://github.com/pypa/setuptools_scm/
   license: MIT
+  # license_file: LICENSE
   summary: 'The blessed package to manage your versions by scm tags.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - kwilcox
+    - astaric
