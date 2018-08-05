@@ -34,3 +34,10 @@ about:
   home: http://ipython.org/
   license: BSD 3-clause
   summary: Configuration system for Python applications
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - pelson
+    - minrk
+    - SylvainCorlay
