@@ -1,8 +1,8 @@
-{% set name = "wsgiref" %}
-{% set version = "0.1.2" %}
-{% set compress_type = "zip" %}
-{% set hash_type = "sha256" %}
-{% set hash_val = "c7e610c800957046c04c8014aab8cce8f0b9f0495c8cd349e57c1f7cabf40e79" %}
+{%set name = "wsgiref" %}
+{%set version = "0.1.2" %}
+{%set compress_type = "zip" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "c7e610c800957046c04c8014aab8cce8f0b9f0495c8cd349e57c1f7cabf40e79" %}
 
 package:
   name: {{ name|lower }}
@@ -36,3 +36,7 @@ about:
   summary: 'WSGI (PEP 333) Reference Library'
   license_family: PSF
   doc_url: http://peak.telecommunity.com/wsgiref_docs/
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
