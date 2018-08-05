@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 2
   script: python setup.py install --single-version-externally-managed --record=record.txt
   entry_points:
     - chardetect = chardet.cli.chardetect:main
@@ -33,9 +33,20 @@ test:
 
 about:
   home: https://github.com/chardet/chardet
-  doc_url: http://chardet.readthedocs.org
-  dev_url: https://github.com/chardet/chardet
   license: LGPL2
   license_family: GPL
   license_file: LICENSE
   summary: Universal character encoding detector
+  description: |
+    chardet is a character encoding auto-detector in Python.
+  doc_url: http://chardet.readthedocs.org/
+  doc_source_url: https://github.com/chardet/chardet/blob/master/docs/index.rst
+  dev_url: https://github.com/chardet/chardet
+
+
+extra:
+  recipe-maintainers:
+    - dan-blanchard
+    - jschueller
+    - sigmavirus24
+    - nehaljwani
