@@ -1,4 +1,4 @@
-{% set version = "2017.7.27.1" %}
+{% set version = "2018.4.16" %}
 
 package:
   name: ca-certificates
@@ -7,26 +7,39 @@ package:
 source:
   fn: certifi-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/c/certifi/certifi-{{ version }}.tar.gz
-  sha256: 40523d2efb60523e113b44602298f0960e900388cf3bb6043f645cf57ea9e3f5
+  sha256: 13e698f54293db9f89122b0581843a782ad0934a4fe0172d2a980ba77fc61bb7
 
 build:
   number: 0
 
 test:
-  # use system provided curl for testing
-  #requires:
-  #  - curl
+  requires:
+    - curl
 
   commands:
     # Verify the certificates are there.
     - test -f "${PREFIX}/ssl/cacert.pem"                                      # [unix]
     - test -f "${PREFIX}/ssl/cert.pem"                                        # [unix]
+    - if not exist %LIBRARY_PREFIX%\\ssl\\cacert.pem exit 1                   # [win]
+    - if not exist %LIBRARY_PREFIX%\\ssl\\cert.pem exit 1                     # [win]
 
     # Use the certificates to download something.
     - curl --cacert "${PREFIX}/ssl/cacert.pem" https://www.google.com         # [unix]
+    - curl --cacert %LIBRARY_PREFIX%\\ssl\\cacert.pem https://www.google.com  # [win]
 
 about:
   home: https://github.com/conda-forge/ca-certificates-feedstock
   license: ISC
   license_file: LICENSE
   summary: Certificates for use with other packages.
+
+extra:
+  recipe-maintainers:
+     - jakirkham
+     - jjhelmus
+     - msarahan
+     - mwcraig
+     - ocefpaf
+     - patricksnape
+     - pelson
+     - scopatz
