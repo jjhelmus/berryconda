@@ -10,11 +10,13 @@ source:
   md5: f9c1fab00fd981be588fc32759f474e3
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
 
@@ -27,5 +29,11 @@ test:
 
 about:
   home: http://cheeseshop.python.org/pypi/simplegeneric
-  license: Zope Public License
+  license: Zope Public
   summary: "Simple generic functions (similar to Python's own len(), pickle.dump(), etc.)"
+
+extra:
+  recipe-maintainers:
+    - minrk
+    - msarahan
+    - pelson
