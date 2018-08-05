@@ -12,12 +12,12 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
   noarch: python
-  script: pip install --no-deps .
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
@@ -35,3 +35,7 @@ about:
   summary: 'A python module for writing pandoc filters'
 
   dev_url: https://github.com/jgm/pandocfilters
+
+extra:
+  recipe-maintainers:
+    - minrk
