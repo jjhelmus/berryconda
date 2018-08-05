@@ -7,23 +7,23 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.zip
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
   sha256: {{ sha256 }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
 
   run:
     - python
-    - decorator >=4.1.0
+    - setuptools
+    - decorator >=3.4.0
 
 test:
   imports:
@@ -70,3 +70,8 @@ about:
     networks.
   doc_url: http://networkx.github.io/documentation.html
   dev_url: https://github.com/networkx
+
+extra:
+  recipe-maintainers:
+    - synapticarbors
+    - ocefpaf
