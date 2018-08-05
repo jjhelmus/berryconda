@@ -35,3 +35,7 @@ about:
   home: https://github.com/testing-cabal/mock
   license: BSD 2-Clause
   summary: A library for testing in Python.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
