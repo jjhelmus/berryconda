@@ -12,8 +12,8 @@ source:
 
 build:
   number: 0
-  noarch: python
   script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
 
 requirements:
   build:
@@ -31,4 +31,11 @@ test:
 about:
   home: http://github.com/mrocklin/zict
   license: BSD 3-Clause
+  license_file: LICENSE.txt
   summary: 'Composable Dictionary Classes'
+
+
+extra:
+  recipe-maintainers:
+    - mrocklin
+    - pitrou
