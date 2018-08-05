@@ -31,6 +31,17 @@ test:
 
 about:
   home: https://github.com/agronholm/pythonfutures
-  license: BSD 2-Clause
+  license: PSF
   license_file: LICENSE
   summary: Backport of the concurrent.futures package from Python 3.2
+  description: |
+    concurrent.futures module provides a high-level interface for
+    asynchronously executing callables.
+  doc_url: http://pythonhosted.org/futures/
+  doc_source_url: https://github.com/agronholm/pythonfutures/blob/master/docs/index.rst
+  dev_url: https://github.com/agronholm/pythonfutures
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - nehaljwani
