@@ -1,24 +1,21 @@
-{% set name = "six" %}
 {% set version = "1.11.0" %}
-{% set sha256 = "70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9" %}
 
 package:
-  name: {{ name|lower }}
+  name: six
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/s/six/six-{{ version }}.tar.gz
+  sha256: 70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9
 
 build:
-  number: 0
-  script: python setup.py install
+  number: 1
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
-
+    - pip
   run:
     - python
 
@@ -38,4 +35,10 @@ about:
     both Python 2 and 3 without modification. six consists of only one Python
     file, so it is painless to copy into a project.
   doc_url: http://pythonhosted.org/six/
-  dev_url: https://bitbucket.org/gutworth/six
+  dev_url: https://github.com/benjaminp/six
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - ocefpaf
