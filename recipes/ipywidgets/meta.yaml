@@ -1,31 +1,30 @@
-{% set version = "7.1.1" %}
-{% set sha256 = "69e8c444e99601e6f9b9e9e596c87c19665fc73c2dd05cd507c94f35fba2959d" %}
+{% set version = "7.3.2" %}
+{% set sha256 = "3e8706b222a2a043035e3871b09037182ecd5513c647a2705500873fb19dbadd" %}
 
 package:
   name: ipywidgets
   version: {{ version }}
 
 source:
-  fn: ipywidgets-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/i/ipywidgets/ipywidgets-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
+  noarch: python
   number: 0
   script: python -m pip install --no-deps .
-  noarch: python
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
     - python
     - ipython >=4.0.0
     - ipykernel >=4.5.1
-    - traitlets >=4.3.1
+    - traitlets >=4.3.1,<5.0.0
     - nbformat >=4.2.0
-    - widgetsnbextension >=3.1.0,<4.0.0
+    - widgetsnbextension >=3.3.0,<3.4.0
 
 test:
   imports:
@@ -34,5 +33,21 @@ test:
 about:
   home: https://github.com/ipython/ipywidgets
   license: BSD 3-clause
-  license_file: COPYING.md
+  license_file: LICENSE
+  license_family: BSD
   summary: Jupyter Interactive Widgets
+  description: |
+    ipywidgets are interactive HTML widgets for Jupyter notebooks and the IPython kernel.
+  doc_url: https://ipywidgets.readthedocs.io/en/latest/
+  doc_source_url: https://github.com/jupyter-widgets/ipywidgets/blob/master/docs/source/index.rst
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - minrk
+    - pelson
+    - SylvainCorlay
+    - willingc
+    - jasongrout
+    - maartenbreddels
+    - pbugnion
