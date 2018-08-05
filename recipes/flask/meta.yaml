@@ -1,7 +1,7 @@
 {% set name = "Flask" %}
-{% set version = "0.11.1" %}
+{% set version = "1.0.2" %}
 {% set hash_type = "sha256" %}
-{% set hash = "b4713f2bfb9ebc2966b8a49903ae0d3984781d5c878591cf2f7b484d28756b0e" %}
+{% set hash = "2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48" %}
 
 package:
   name: {{ name|lower }}
@@ -13,27 +13,29 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
   entry_points:
     - flask = flask.cli:main
+  noarch: python
 
 requirements:
   build:
     - python
+    - pip
     - setuptools
 
   run:
     - python
-    - click >=2.0
-    - itsdangerous >=0.21
-    - jinja2 >=2.4
-    - werkzeug >=0.7
+    - click >=5.1
+    - itsdangerous >=0.24
+    - jinja2 >=2.10
+    - werkzeug >=0.14
 
 test:
   imports:
     - flask
-    - flask.ext
+    - flask.json
 
   commands:
     - flask --help
@@ -41,11 +43,20 @@ test:
 about:
   home: http://flask.pocoo.org
   license: BSD 3-Clause
+  license_family: BSD
   license_file: LICENSE
   summary: A microframework based on Werkzeug, Jinja2 and good intentions.
   description: |
     Flask is a microframework for Python based on Werkzeug and Jinja2. It's
     intended for getting started very quickly and was developed with best
     intentions in mind.
-  doc_url: http://flask.pocoo.org/docs/0.11
+  doc_url: http://flask.pocoo.org/docs/1.0/
+  doc_source_url: https://github.com/pallets/flask/blob/master/docs/index.rst
   dev_url: https://github.com/pallets/flask
+
+extra:
+  recipe-maintainers:
+    - goanpeca
+    - nehaljwani
+    - ukaratay
+    - marcelotrevisani
