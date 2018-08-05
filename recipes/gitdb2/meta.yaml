@@ -1,25 +1,23 @@
-{% set name = "gitdb2" %}
-{% set version = "2.0.3" %}
+{% set version = "2.0.4" %}
 
 package:
-  name: {{ name }}
+  name: gitdb2
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b60e29d4533e5e25bb50b7678bbc187c8f6bcff1344b4f293b2ba55c85795f09
+  fn: gitdb2-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/g/gitdb2/gitdb2-{{ version }}.tar.gz
+  sha256: bb4c85b8a58531c51373c89f92163b92f30f81369605a67cd52d1fc21246c044
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
-
+    - pip
   run:
     - python
     - smmap2
@@ -32,4 +30,10 @@ test:
 about:
   home: https://github.com/gitpython-developers/gitdb
   license: BSD 3-Clause
-  summary: 'Git Object Database'
+  license_file: LICENSE
+  summary: 'A pure-Python git object database'
+
+extra:
+  recipe-maintainers:
+    - ngoldbaum
+    - ocefpaf
