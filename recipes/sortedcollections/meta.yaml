@@ -1,6 +1,6 @@
 {% set name = "sortedcollections" %}
-{% set version = "0.5.3" %}
-{% set sha256 = "d56d6708e36aec959b08e64c3e5a0e01df518d6e6693d0f5b5c89529288edde6" %}
+{% set version = "1.0.1" %}
+{% set sha256 = "6b982f3c6ddcd3fe90d5af6c67c529692643b14a454c4886d975141a907b018b" %}
 
 package:
   name: {{ name|lower }}
@@ -12,12 +12,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
   run:
@@ -40,3 +41,10 @@ about:
                collections.
   doc_url: http://www.grantjenks.com/docs/sortedcollections/
   dev_url: https://github.com/grantjenks/sortedcollections
+  doc_source_url: https://github.com/grantjenks/sortedcollections/blob/master/docs/index.rst
+
+extra:
+  recipe-maintainers:
+    - grantjenks
+    - mrocklin
+    - nehaljwani
