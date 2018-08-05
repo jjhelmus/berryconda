@@ -1,20 +1,23 @@
-{% set version = "1.2.1" %}
+{% set name = "clyent" %}
+{% set version = "1.2.2" %}
 
 package:
-  name: clyent
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: clyent-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/c/clyent/clyent-{{ version }}.tar.gz
-  md5: a8a953a636cbd75021c3983f7ca60b5f
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/Anaconda-Platform/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: a4c33bd70fd3c53f133eb301db7b83acb7cbe6d1e405158b8f5582aa888d3aa3
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
   run:
@@ -26,9 +29,17 @@ test:
     - clyent
 
 about:
-  home: https://github.com/Anaconda-Server/clyent
-  license: BSD
+  home: https://github.com/Anaconda-Platform/clyent
+  license: BSD 3-Clause
   summary: Command line client library for windows and posix
   description: |
     Clyent is a python command line utility library for binstar,
     binstar-build, and chalmers.
+  doc_url: https://pypi.python.org/pypi/clyent
+  doc_source_url: https://github.com/Anaconda-Platform/clyent/blob/master/README.md
+  dev_url: hhttps://github.com/Anaconda-Platform/clyent
+
+extra:
+  recipe-maintainers:
+    - jjhelmus
+    - nehaljwani
