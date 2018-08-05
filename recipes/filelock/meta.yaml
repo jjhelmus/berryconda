@@ -11,12 +11,13 @@ source:
    sha256: 011327d4ed939693a5b28c0fdf2fd9bda1f68614c1d6d0643a89382ce9843a71
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
 
   run:
@@ -30,3 +31,8 @@ about:
   home: https://github.com/benediktschmitt/py-filelock
   license: Public Domain
   summary: 'A platform independent file lock.'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mariusvniekerk
