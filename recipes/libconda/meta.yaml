@@ -1,5 +1,5 @@
-{% set version = "4.0.0" %}
-{%set sha256 = "8cc07dc407527fdb4d028c8caf67757f6df08d045aa03e1ecd9796aa0489a3a2" %}
+{% set version = "4.0.2" %}
+{%set sha256 = "739af415c7cc35d9aa4a117871b7444a0681e641124f0ddd8e79ff34a25a9386" %}
 
 package:
   name: libconda
@@ -33,3 +33,7 @@ about:
   home: https://github.com/conda/libconda
   license: BSD 3-Clause
   summary: conda 4.0 based library
+
+extra:
+  recipe-maintainers:
+    - jakirkham
