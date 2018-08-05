@@ -1,35 +1,40 @@
-{% set version = "4.3.1" %}
-{% set md5 = "b3cddf7db529538d2d079d760a3a7ef2" %}
+{% set name = "isort" %}
+{% set version = "4.3.4" %}
+{% set sha256 = "b9c40e9750f3d77e6e4d441d8b0266cf555e7cdabdcff33c4fd06366ca761ef8" %}
 
 package:
-  name: isort
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: isort-{{version}}.tar.gz
-  url: https://pypi.io/packages/source/i/isort/isort-{{ version }}.tar.gz
-  md5: {{ md5 }}
+  url: https://pypi.io/packages/source/{{ name [0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
-    script: python setup.py install --single-version-externally-managed --record=record.txt
-    noarch: python
     number: 0
+    script: python -m pip install --no-deps --ignore-installed .
+    entry_points:
+    - isort = isort.main:main
 
 requirements:
   build:
     - python
-    - setuptools
-
+    - pip
   run:
     - python
+    - setuptools
+    - futures  # [py27]
 
 test:
   imports:
     - isort
+  commands:
+    - isort --help
 
 about:
   home: https://github.com/timothycrosley/isort
-  license: MIT License
+  license: MIT
+  license_file: LICENSE
   summary: 'A Python utility / library to sort Python imports.'
   description: |
     isort is a Python utility / library to sort imports alphabetically, and
@@ -38,4 +43,11 @@ about:
     imports. It currently cleanly supports Python 2.6 - 3.5 using pies to
     achieve this without ugly hacks and/or py2to3.
   doc_url: http://isort.readthedocs.io/en/latest/
+  doc_source_url: https://github.com/timothycrosley/isort/blob/develop/README.rst
   dev_url: https://github.com/timothycrosley/isort
+
+extra:
+  recipe-maintainers:
+    - goanpeca
+    - nicoddemus
+    - nehaljwani
