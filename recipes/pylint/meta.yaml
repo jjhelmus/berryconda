@@ -1,23 +1,20 @@
 {% set name = "pylint" %}
-{% set version = "1.8.2" %}
-{% set sha256 = "4fe3b99da7e789545327b75548cee6b511e4faa98afe268130fea1af4b5ec022" %}
+{% set version = "1.9.2" %}
+{% set sha256 = "fff220bcb996b4f7e2b0f6812fd81507b72ca4d8c4d05daf2655c333800cb9b3" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  {% set pypi_name = name.replace("_", "-") %}
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: python -m pip install --no-deps --ignore-installed .
   entry_points:
     - pylint = pylint:run_pylint
-    - pylint-gui = pylint:run_pylint_gui
     - epylint = pylint:run_epylint
     - pyreverse = pylint:run_pyreverse
     - symilar = pylint:run_symilar
@@ -25,15 +22,16 @@ build:
 requirements:
   build:
     - python
-    - setuptools
+    - pip
     - pytest-runner
 
   run:
     - python
-    - astroid <2.0,>=1.6
+    - astroid >=1.6,<2.0
     - backports.functools_lru_cache  # [py27]
     - configparser                   # [py27]
     - singledispatch                 # [py27]
+    - colorama                       # [win]
     - six
     - isort >=4.2.5
     - mccabe
@@ -49,18 +47,21 @@ test:
 
   commands:
     - pylint --help
-    # Needs to start a GUI with Tk.
-    # So running help is not even an option.
-    # Just check that it exists.
-    - which pylint-gui
     # Has no help option.
     # Running without arguments is an error.
     # So just check that it exists.
-    - which epylint
+    - which epylint     # [unix]
+    - where epylint     # [win]
     - pyreverse --help
     - symilar --help
 
 about:
   home: https://github.com/PyCQA/pylint
   license: GPL 2
+  license_file: COPYING
   summary: 'python code static checker'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - timleslie
