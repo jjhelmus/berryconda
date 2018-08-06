@@ -12,12 +12,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
   run:
@@ -37,3 +38,7 @@ about:
     pycparser is a complete parser of the C language, written in pure Python using the PLY parsing library.
     It parses C code into an AST and can serve as a front-end for C compilers or analysis tools.
   dev_url: https://github.com/eliben/pycparser
+
+extra:
+  recipe-maintainers:
+    - synapticarbors
