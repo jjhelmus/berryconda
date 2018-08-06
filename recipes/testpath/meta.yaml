@@ -1,21 +1,19 @@
 {% set name = "testpath" %}
 {% set version = "0.3.1" %}
-{% set wheel_tag = "py2.py3-none-any" %}
-{% set fn = "{}-{}-{}.whl".format(name, version, wheel_tag) %}
-{% set sha256 = "039fa6a6c9fd3488f8336d23aebbfead5fa602c4a47d49d83845f55a595ec1b4" %}
+{% set sha256 = "0d5337839c788da5900df70f8e01015aec141aa3fe7936cb0d0a2953f7ac7609" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ fn }}
-  url: https://pypi.io/packages/py2.py3/{{ name[0] }}/{{ name }}/{{ fn }}
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
-  script: pip install --no-deps {{ fn }}
+  script: pip install --no-deps .
 
 requirements:
   build:
@@ -32,6 +30,7 @@ test:
 about:
   home: https://testpath.readthedocs.io
   license: MIT
+  license_file: LICENSE
   license_family: MIT
   summary: Testpath is a collection of utilities for Python code working with files and commands.
   description: |
@@ -39,3 +38,8 @@ about:
     and tools for mocking system commands and recording calls to those.
   doc_url: https://testpath.readthedocs.io
   dev_url: https://github.com/jupyter/testpath
+
+extra:
+  recipe-maintainers:
+    - minrk
+    - takluyver
