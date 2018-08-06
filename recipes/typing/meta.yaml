@@ -1,0 +1,36 @@
+{% set version = "3.6.4" %}
+
+package:
+  name: typing
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/t/typing/typing-{{ version }}.tar.gz
+  sha256: d400a9344254803a2368533e4533a4200d21eb7b6b729c173bc38201a74db3f2
+
+build:
+  number: 2
+  skip: True  # [py>=36]
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+
+test:
+  imports:
+    - typing
+
+about:
+  home: https://docs.python.org/3.5/library/typing.html
+  license: PSF
+  license_file: LICENSE
+  summary: 'Type Hints for Python - backport for Python<3.5'
+
+extra:
+  recipe-maintainers:
+    - msarahan
+    - ocefpaf
