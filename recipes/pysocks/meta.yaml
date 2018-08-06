@@ -1,0 +1,45 @@
+{% set name = "PySocks" %}
+{% set version = "1.6.8" %}
+{% set compress_type= "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash = "3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672" %}
+{% set build = 1 %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.{{ compress_type }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
+  {{ hash_type }}: {{ hash }}
+
+build:
+  number: {{ build }}
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - win_inet_pton  # [win]
+
+test:
+  imports:
+    - socks
+
+about:
+  home: https://github.com/Anorov/PySocks
+  license_file: LICENSE
+  license: BSD 3-Clause
+  summary: 'A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information.'
+  license_family: BSD
+  doc_url: https://github.com/Anorov/PySocks/blob/master/README.md
+  dev_url: https://github.com/Anorov/PySocks
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
