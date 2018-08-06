@@ -1,42 +1,39 @@
-{%set name = "argcomplete" %}
-{%set version = "1.9.3" %}
+{% set version = "1.9.4" %}
 
 package:
-  name: {{ name }}
+  name: argcomplete
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  md5: 0d0c71c96a932977f60567566a6f5eac
+  fn: argcomplete-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/a/argcomplete/argcomplete-{{ version }}.tar.gz
+  md5: 9bb3b61a849f84723e63051240f74014
 
 build:
   number: 0
-  noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python setup.py install
 
 requirements:
   build:
     - python
     - setuptools
+
   run:
     - python
-    - setuptools
 
 test:
-  commands:
-    - activate-global-python-argcomplete --help
-    - register-python-argcomplete --help
   imports:
     - argcomplete
 
 about:
-  home: https://argcomplete.readthedocs.org/en/latest/
-  license: Apache
-  summary:  Bash tab completion of arguments for Python scripts
-  description: |
-   Argcomplete is an extensible command line tab completion of arguments
-   for Python scripts. It requires users to use bash or zsh as their
-   shell, and to use argparse to manage their command line arguments.
-  doc_url: https://argcomplete.readthedocs.org/en/latest/
+  home: https://github.com/kislyuk/argcomplete
+  license: Apache 2.0
+  summary: 'Bash tab completion for argparse'
+  license_family: Apache
+  license_file: LICENSE.rst
+  doc_url: https://argcomplete.readthedocs.io
   dev_url: https://github.com/kislyuk/argcomplete
+
+extra:
+  recipe-maintainers:
+    - asmeurer
