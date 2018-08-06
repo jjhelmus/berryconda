@@ -1,26 +1,23 @@
-{% set name = "chardet" %}
 {% set version = "3.0.4" %}
-{% set sha256 = "84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae" %}
 
 package:
-  name: {{ name }}
+  name: chardet
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/c/chardet/chardet-{{ version }}.tar.gz
+  sha256: 84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae
 
 build:
-  number: 2
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 3
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   entry_points:
     - chardetect = chardet.cli.chardetect:main
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
+    - pip
     - pytest-runner
   run:
     - python
