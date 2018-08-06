@@ -11,12 +11,13 @@ source:
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
-    - setuptools
     - python
+    - pip
 
   run:
     - python
@@ -30,4 +31,12 @@ test:
 about:
   home: http://toolz.readthedocs.org/
   license: BSD 3-Clause
+  license_file: LICENSE.txt
   summary: A functional standard library for Python.
+
+extra:
+  recipe-maintainers:
+    - mrocklin
+    - eriknw
+    - jcrist
+    - jakirkham
