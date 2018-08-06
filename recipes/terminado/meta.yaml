@@ -10,7 +10,6 @@ source:
 
 build:
   number: 0
-  noarch: python
   script: python setup.py install
 
 requirements:
@@ -18,7 +17,8 @@ requirements:
     - python
   run:
     - python
-    - ptyprocess
+    - ptyprocess  # [not win]
+    - pywinpty  # [win]
     - tornado >=4
 
 test:
@@ -29,9 +29,16 @@ test:
     - nose
 
   commands:
-    - nosetests terminado
+    # Failing test on osx: https://github.com/conda-forge/staged-recipes/pull/313#issuecomment-208426267
+    - nosetests terminado  # [not osx]
 
 about:
   home: http://github.com/mitsuhiko/markupsafe
   license: BSD 3-clause
   summary: Terminals served by tornado websockets
+
+extra:
+  recipe-maintainers:
+    - blink1073
+    - pelson
+    - takluyver 
