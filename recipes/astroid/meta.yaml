@@ -1,6 +1,6 @@
 {% set name = "astroid" %}
-{% set version = "1.6.1" %}
-{% set sha256 = "f0a0e386dbca9f93ea9f3ea6f32b37a24720502b7baa9cb17c3976a680d43a06" %}
+{% set version = "1.6.5" %}
+{% set sha256 = "fc9b582dba0366e63540982c3944a9230cbc6f303641c51483fa547dcc22393a" %}
 
 package:
   name: {{ name|lower }}
@@ -13,28 +13,21 @@ source:
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
-    - six
-    - lazy-object-proxy
-    - wrapt
-    - enum34  # [py27]
-    - singledispatch  # [py27]
-    - backports.functools_lru_cache  # [py27]
-
+    - pip
   run:
     - python
     - setuptools
+    - enum34  # [py2k]
+    - singledispatch  # [py2k]
+    - backports.functools_lru_cache  # [py2k]
     - six
     - lazy-object-proxy
     - wrapt
-    - enum34  # [py27]
-    - singledispatch  # [py27]
-    - backports.functools_lru_cache  # [py27]
 
 test:
   imports:
@@ -46,4 +39,10 @@ test:
 about:
   home: https://github.com/PyCQA/astroid
   license: LGPL 2.1
+  license_file: COPYING.LESSER
   summary: 'A abstract syntax tree for Python with inference support.'
+
+extra:
+  recipe-maintainers:
+    - ericdill
+    - jakirkham
