@@ -1,47 +1,59 @@
-{% set name = "pytest" %}
-{% set version = "3.2.2" %}
-{% set sha256 = "f46e49e0340a532764991c498244a60e3a37d7424a532b3ff1a6a7653f1a403a" %}
+{% set version = "3.7.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: pytest
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/p/pytest/pytest-{{ version }}.tar.gz
+  sha256: 86a8dbf407e437351cef4dba46736e9c5a6e3c3ac71b2e942209748e76ff2086
 
 build:
   number: 0
-  noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   entry_points:
     - py.test = py.test:main
+    - pytest = py.test:main
 
 requirements:
-  build:
+  host:
+    - pip
     - python
-    - py
-    - setuptools
     - setuptools_scm
   run:
+    - atomicwrites >=1.0
+    - attrs >=17.4.0
+    - colorama  # [win]
+    - funcsigs  # [py27]
+    - more-itertools >=4.0
+    - pathlib2  # [py<36]
+    - pluggy >=0.7
+    - py >=1.5.0
     - python
     - setuptools
-    - py >=1.4.29
+    - six >=1.10.0
 
 test:
   commands:
-    - py.test -h
+    - pytest -h
   imports:
     - pytest
 
 about:
-  home: http://pytest.org/
+  home: https://docs.pytest.org/en/latest/
   license: MIT
   license_file: LICENSE
   summary: 'Simple and powerful testing with Python.'
   description: |
     The pytest framework makes it easy to write small tests, yet scales to
     support complex functional testing for applications and libraries.
-  doc_url: http://pytest.org/latest/contents.html
+  doc_url: https://docs.pytest.org/en/latest/
   dev_url: https://github.com/pytest-dev/pytest/
+
+extra:
+  recipe-maintainers:
+    - flub
+    - goanpeca
+    - nicoddemus
+    - ocefpaf
+    - mingwandroid
