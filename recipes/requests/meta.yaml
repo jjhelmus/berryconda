@@ -10,7 +10,7 @@ source:
 
 build:
   number: 1
-  script: python -m pip install --no-deps --ignore-installed .
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   host:
@@ -31,7 +31,7 @@ about:
   home: http://python-requests.org
   license: Apache 2.0
   license_file: LICENSE
-  summary: 'Python HTTP for Humans.'
+  summary: 'Python HTTP for Humans'
 
 extra:
   recipe-maintainers:
