@@ -1,0 +1,55 @@
+{% set name = "future" %}
+{% set version = "0.16.0" %}
+{% set sha256 = "e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb" %}
+
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 2
+  script: python -m pip install --no-deps --ignore-installed .
+  entry_points:
+    - futurize = libfuturize.main:main
+    - pasteurize = libpasteurize.main:main
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  commands:
+    - futurize -h
+    - pasteurize -h
+
+  imports:
+    - future
+
+about:
+  home: http://python-future.org
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: Clean single-source support for Python 3 and 2
+  description: |
+    Python-future  is the missing compatibility layer between Python 2 and
+    Python 3. It allows you to use a single, clean Python 3.x-compatible
+    codebase to support both Python 2 and Python 3 with minimal overhead.
+  doc_url: http://python-future.org
+  dev_url: https://github.com/PythonCharmers/python-future
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mmysinger
