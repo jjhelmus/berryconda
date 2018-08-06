@@ -1,7 +1,7 @@
-{%set name = "pyflakes" %}
-{%set version = "1.6.0" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "8d616a382f243dbf19b54743f280b80198be0bca3a5396f1d2e1fca6223e8805" %}
+{% set name = "pyflakes" %}
+{% set version = "2.0.0" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "9a7662ec724d0120012f6e29d6248ae3727d821bba522a0e6b356eff19126a49" %}
 
 package:
   name: {{ name }}
@@ -15,12 +15,12 @@ source:
 build:
   number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
 
   run:
     - python
@@ -36,3 +36,10 @@ about:
   license_file: LICENSE
   summary: 'Pyflakes analyzes programs and detects various errors.'
   dev_url: https://github.com/PyCQA/pyflakes
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - sigmavirus24
+    - dopplershift
+    - ocefpaf
