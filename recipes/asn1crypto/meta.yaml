@@ -1,23 +1,22 @@
-{%set name = "asn1crypto" %}
-{%set version = "0.24.0" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "9d5c20441baf0cb60a4ac34cc447c6c189024b6b4c6cd7877034f4965c464e49" %}
+{% set version = "0.24.0" %}
 
 package:
-  name: {{ name }}
+  name: asn1crypto
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
+  fn: asn1crypto-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/a/asn1crypto/asn1crypto-{{ version }}.tar.gz
+  sha256: 9d5c20441baf0cb60a4ac34cc447c6c189024b6b4c6cd7877034f4965c464e49
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
 
@@ -27,20 +26,14 @@ requirements:
 test:
   imports:
     - asn1crypto
-    - asn1crypto.algos
-    - asn1crypto.cms 
-    - asn1crypto.crl
-    - asn1crypto.csr
-    - asn1crypto.keys
-    - asn1crypto.ocsp
-    - asn1crypto.pdf
-    - asn1crypto.pkcs12
-    - asn1crypto.tsp
-    - asn1crypto.x509
 
 about:
   home: https://github.com/wbond/asn1crypto
   license: MIT
-  summary: 'Python ASN.1 library with a focus on performance and a pythonic API'
-  license_family: MIT
-  doc_url: https://github.com/wbond/asn1crypto#documentation
+  # https://github.com/wbond/asn1crypto/issues/58
+  #license_file: LICENSE
+  summary: Python ASN.1 library with a focus on performance and a pythonic API
+
+extra:
+  recipe-maintainers:
+    - jschueller
