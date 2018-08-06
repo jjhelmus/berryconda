@@ -1,36 +1,44 @@
-{%set name = "jmespath" %}
-{%set version = "0.9.3" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "6a81d4c9aa62caf061cb517b4d9ad1dd300374cd4706997aff9cd6aedd61fc64" %}
+{% set name = "jmespath" %}
+{% set version = "0.9.3" %}
+{% set bundle = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "6a81d4c9aa62caf061cb517b4d9ad1dd300374cd4706997aff9cd6aedd61fc64" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  fn: {{ name }}-{{ version }}.{{ bundle }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ bundle }}
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
-  build:
+  host:
+    - pip
     - python
-    - setuptools
 
   run:
     - python
 
 test:
   imports:
-    - {{ name }}
+    - jmespath
 
 
 about:
   home: https://github.com/jmespath/jmespath.py
   license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
   summary: 'JSON Matching Expressions'
+  dev_url: https://github.com/jmespath/jmespath.py
+  
+extra:
+  recipe-maintainers:
+    - pmlandwehr
