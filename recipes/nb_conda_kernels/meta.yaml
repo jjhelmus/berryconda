@@ -1,0 +1,36 @@
+{% set version = "2.1.1" %}
+
+package:
+  name: nb_conda_kernels
+  version: {{ version }}
+
+source:
+  url: https://github.com/Anaconda-Platform/nb_conda_kernels/archive/{{ version }}.tar.gz
+  sha256: 71a3cf565eb1183ab0992d6364907c9bf063cdd3d7b4c287b3c44fa6dce9c69f
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - notebook >=4.2.0
+
+test:
+  imports:
+    - nb_conda_kernels
+
+about:
+  home: https://github.com/Anaconda-Platform/nb_conda_kernels
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: 'Launch Jupyter kernels for any installed conda environment'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - damianavila
+    - mcg1969
