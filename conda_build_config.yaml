@@ -2,3 +2,9 @@ python:
   - 2.7
   - 3.5
   - 3.6
+c_compiler:
+  - system_compiler_c
+cxx_compiler:
+  - system_compiler_cxx
+fortran_compiler:
+  - system_compiler_fort
