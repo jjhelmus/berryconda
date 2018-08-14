@@ -9,17 +9,18 @@ source:
   sha256: b4b8277cf33df2bfdd73da2bc4faab1b4b65b6d12e295aa6c70987642bcfb5c7
 
 build:
-  number: 0
+  number: 1
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
+    - pkg-config        # [unix]
+  host:
     - python
     - pip
     - nose >=1.0
   run:
     - python
-    - pkg-config        # [unix]
     - m2w64-pkg-config  # [win]
 
 test:
