@@ -6,7 +6,7 @@ build:
   number: 0
 
 outputs:
-  - name: activate_system_compilers
+  - name: system_compilers
     script: install-system_compilers.sh
     test:
       commands:
@@ -21,15 +21,15 @@ outputs:
 
   - name: system_compiler_c_{{ target_platform }}
     requirements:
-      - {{ pin_subpackage('activate_system_compilers', exact=True) }}
+      - {{ pin_subpackage('system_compilers', exact=True) }}
 
   - name: system_compiler_cxx_{{ target_platform }}
     requirements:
-      - {{ pin_subpackage('activate_system_compilers', exact=True) }}
+      - {{ pin_subpackage('system_compilers', exact=True) }}
 
   - name: system_compiler_fort_{{ target_platform }}
     requirements:
-      - {{ pin_subpackage('activate_system_compilers', exact=True) }}
+      - {{ pin_subpackage('system_compilers', exact=True) }}
     run_exports:
       strong:
         - libgfortran >=3.0  # [unix]
