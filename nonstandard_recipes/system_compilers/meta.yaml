@@ -1,0 +1,43 @@
+package:
+  name: fluffy
+  version: 1.0.0
+
+build:
+  number: 0
+
+outputs:
+  - name: system_compilers
+    script: install-system_compilers.sh
+    test:
+      commands:
+        # Verify the scripts are in-place.
+        {% for state in ["activate", "deactivate"] %}
+        - test -f "${PREFIX}/etc/conda/{{ state }}.d/system_compilers_{{ state }}.sh"
+        {% endfor %}
+        - source ${PREFIX}/etc/conda/activate.d/system_compilers_activate.sh
+        - if [ -z ${CC+x} ]; then echo "CC is unset after activation" && exit 1; else echo "CC is set to '$CC'"; fi
+        - source ${PREFIX}/etc/conda/deactivate.d/system_compilers_deactivate.sh
+        - if [ -z ${CC+x} ]; then echo "CC is unset after deactivation "; else echo "CC is set to '$CC' after deactivation" && exit 1; fi
+
+  - name: system_compiler_c_{{ target_platform }}
+    requirements:
+      - {{ pin_subpackage('system_compilers', exact=True) }}
+
+  - name: system_compiler_cxx_{{ target_platform }}
+    requirements:
+      - {{ pin_subpackage('system_compilers', exact=True) }}
+
+  - name: system_compiler_fort_{{ target_platform }}
+    requirements:
+      - {{ pin_subpackage('system_compilers', exact=True) }}
+    run_exports:
+      strong:
+        - libgfortran >=3.0  # [unix]
+
+about:
+  license: BSD 3-Clause
+  summary: A meta-package to enable the Raspbian system compilers.
+
+extra:
+  recipe-maintainers:
+    - jjhelmus
