@@ -1,24 +1,64 @@
-{% set version = "5.2.2" %}
+{% set version = "5.2.4" %}
 
 package:
   name: xz
   version: {{ version }}
 
 source:
-  fn:  xz-{{ version }}.tar.bz2
-  url: http://tukaani.org/xz/xz-{{ version }}.tar.gz
-  sha256: 73df4d5d34f0468bd57d09f2d8af363e95ed6cc3a4a86129d2f2c366259902a2
+  url: http://downloads.sourceforge.net/project/lzmautils/xz-{{ version }}.tar.bz2
+  sha256: 3313fd2a95f43d88e44264e6b015e7d03053e681860b0d5d3f9baca79c57b7bf
+  patches:
+    - 0001-Add-vs2008-support-via-cmake.patch
+    - 0002-Add-gettimeofday-for-VS2008.patch
 
 build:
-  number: 0
+  number: 1
+  run_exports:
+    # XZ's track record of backcompat is very good.  Keep default pins (next major version)
+    #    https://abi-laboratory.pro/tracker/timeline/xz/
+    - {{ pin_subpackage('xz') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - c99-to-c89  # [win and vc<14]
+    - cmake  # [win]
+    - make  # [not win]
+    - automake  # [not win]
+  host:
+    - msinttypes  # [win and vc<14]
 
 test:
   commands:
-    - xz --help
-    - unxz --help
-    - lzma --help
+    - xz --help  # [not win]
+    - unxz --help  # [not win]
+    - lzma --help  # [not win]
+    - xz.exe --help  # [win]
+    - unxz.exe --help  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\liblzma.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\liblzma.lib exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\liblzma_static.lib exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\lzma.h exit 1  # [win]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: http://tukaani.org/xz/
-  summary: 'The xz command is a very powerful program for compressing files.'
   license: LGPL-2.1 and GPL-2.0
+  license_file: COPYING
+  summary: Data compression software with high compression ratio
+  description: |
+    XZ Utils is free general-purpose data compression software with a high
+    compression ratio. XZ Utils were written for POSIX-like systems, but also
+    work on some not-so-POSIX systems.
+  doc_url: http://tukaani.org/xz/
+  doc_source_url: https://github.com/xz-mirror/xz/blob/master/README
+  dev_url: http://git.tukaani.org/
+
+extra:
+  recipe-maintainers:
+    - msarahan
+    - ocefpaf
+    - mingwandroid
+    - nehaljwani
+    - scopatz

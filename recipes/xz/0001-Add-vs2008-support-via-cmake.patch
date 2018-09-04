@@ -1,0 +1,724 @@
+diff -urN CMakeLists.txt CMakeLists.txt
+--- CMakeLists.txt	1969-12-31 16:00:00.000000000 -0800
++++ CMakeLists.txt	2018-04-14 16:22:17.371803700 -0700
+@@ -0,0 +1,467 @@
++cmake_minimum_required(VERSION 3.0)
++
++project(
++    xz 
++    VERSION 5.2.3
++    LANGUAGES C
++)
++
++include(FeatureSummary)
++
++set (SOVERSION 7.1.2)
++#option (BUILD_SHARED_LIBS "Build Shared Libraries" ON) 
++#option (BUILD_TESTS "Build Tests" ON) 
++
++if (MSVC)
++    if (NOT DEFINED ARCH)
++        string(TOLOWER ${MSVC_C_ARCHITECTURE_ID} ARCH)
++    endif()
++
++    add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
++    add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)
++
++    # use boost convention - you cant' get the VC compiler without VS
++    if (NOT DEFINED MSVCVER)
++        math(EXPR MSVCVER "(${MSVC_VERSION} / 10) - 60")
++    endif()
++    
++    # add the runtime version and target architecture into the DLL name per MS
++    # guidelines (Anaconda Distribtuoin mod: do not do this, we want the same
++    # filenames as the non-CMake build; we also add the lib prefix to the .dlls)
++    # set(MSVC_SHARED_SUFFIX_BASE "-${PROJECT_VERSION_MAJOR}-vc${MSVCVER}-mt-${ARCH}")
++    # set(CMAKE_SHARED_LIBRARY_SUFFIX "${MSVC_SHARED_SUFFIX_BASE}.dll")
++    set(CMAKE_SHARED_LIBRARY_PREFIX "lib")
++    set(CMAKE_STATIC_LIBRARY_PREFIX "lib")
++    set(CMAKE_IMPORT_LIBRARY_PREFIX "lib")
++
++    set(VER_PRODUCTNAME_STR "XZ Utils <http://tukaani.org/xz>")
++    set(VER_LEGALCOPYRIGHT_STR "Copyright (c) 2005-2015 Lasse Collin <lasse.collin@tukaani.org>")
++    set(VER_STR "${PROJECT_VERSION}")
++    set(VER_NUM "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH},0")
++
++    file(COPY 
++            windows/msvc2013/config.h
++            windows/msvc2013/unistd.h 
++          DESTINATION ${CMAKE_BINARY_DIR}
++        )
++        
++    configure_file(
++        lib/getopt.in.h
++        ${CMAKE_BINARY_DIR}/getopt.h
++         @ONLY
++        )
++    
++endif()
++
++function(add_win32_rc target)
++    get_target_property(VER_INTERNALNAME_STR ${target} OUTPUT_NAME)
++
++    if (VER_INTERNALNAME_STR MATCHES "VER_INTERNALNAME_STR-NOTFOUND")
++        set(VER_INTERNALNAME_STR "${target}")
++    endif()
++    get_target_property(VER_FILEDESCRIPTION_STR ${target} DESCRIPTION)
++
++    get_target_property(type ${target} TYPE)
++    if (${type} STREQUAL "EXECUTABLE")
++        set(VER_FILETYPE "VFT_APP")
++        set(VER_ORIGINALFILENAME_STR "${VER_INTERNALNAME_STR}${CMAKE_EXECUTABLE_SUFFIX}")
++    elseif (${type} STREQUAL "SHARED_LIBRARY")
++        set(VER_FILETYPE "VFT_DLL")
++        set(VER_ORIGINALFILENAME_STR "${CMAKE_SHARED_LIBRARY_PREFIX}${VER_INTERNALNAME_STR}${CMAKE_SHARED_LIBRARY_SUFFIX}")
++    endif()
++
++    set(OUT_FNAME "${CMAKE_CURRENT_BINARY_DIR}/${VER_INTERNALNAME_STR}.rc")
++    configure_file(
++         ${CMAKE_SOURCE_DIR}/windows/version.rc.cmakein
++         ${OUT_FNAME}
++         @ONLY
++     )         
++
++    target_sources(${target} PRIVATE ${OUT_FNAME})
++
++endfunction(add_win32_rc)
++
++
++set(lzma_api
++    src/liblzma/api/lzma/base.h
++    src/liblzma/api/lzma/bcj.h
++    src/liblzma/api/lzma/block.h
++    src/liblzma/api/lzma/check.h
++    src/liblzma/api/lzma/container.h
++    src/liblzma/api/lzma/delta.h
++    src/liblzma/api/lzma/filter.h
++    src/liblzma/api/lzma/hardware.h
++    src/liblzma/api/lzma/index.h
++    src/liblzma/api/lzma/index_hash.h
++    src/liblzma/api/lzma/lzma12.h
++    src/liblzma/api/lzma/stream_flags.h
++    src/liblzma/api/lzma/version.h
++    src/liblzma/api/lzma/vli.h
++    src/liblzma/api/lzma.h
++)
++
++set(lzma_src
++    #src/liblzma/check/crc64_x86.S
++    #src/liblzma/check/crc32_x86.S
++    ${lzma_api}
++    src/common/mythread.h
++    src/common/sysdefs.h
++    src/common/tuklib_common.h
++    src/common/tuklib_config.h
++    src/common/tuklib_cpucores.c
++    src/common/tuklib_cpucores.h
++    src/common/tuklib_exit.c
++    src/common/tuklib_exit.h
++    src/common/tuklib_gettext.h
++    src/common/tuklib_integer.h
++    src/common/tuklib_mbstr.h
++    src/common/tuklib_mbstr_fw.c
++    src/common/tuklib_mbstr_width.c
++    src/common/tuklib_open_stdxxx.c
++    src/common/tuklib_open_stdxxx.h
++    src/common/tuklib_physmem.c
++    src/common/tuklib_physmem.h
++    src/common/tuklib_progname.c
++    src/common/tuklib_progname.h
++    src/liblzma/check/check.c
++    src/liblzma/check/check.h
++    src/liblzma/check/crc32_fast.c
++    src/liblzma/check/crc32_table.c
++    src/liblzma/check/crc32_table_le.h
++    src/liblzma/check/crc64_fast.c
++    src/liblzma/check/crc64_table.c
++    src/liblzma/check/crc64_table_le.h
++    src/liblzma/check/crc_macros.h
++    src/liblzma/check/sha256.c
++    src/liblzma/common/alone_decoder.c
++    src/liblzma/common/alone_decoder.h
++    src/liblzma/common/alone_encoder.c
++    src/liblzma/common/auto_decoder.c
++    src/liblzma/common/block_buffer_decoder.c
++    src/liblzma/common/block_buffer_encoder.c
++    src/liblzma/common/block_buffer_encoder.h
++    src/liblzma/common/block_decoder.c
++    src/liblzma/common/block_decoder.h
++    src/liblzma/common/block_encoder.c
++    src/liblzma/common/block_encoder.h
++    src/liblzma/common/block_header_decoder.c
++    src/liblzma/common/block_header_encoder.c
++    src/liblzma/common/block_util.c
++    src/liblzma/common/common.c
++    src/liblzma/common/common.h
++    src/liblzma/common/easy_buffer_encoder.c
++    src/liblzma/common/easy_decoder_memusage.c
++    src/liblzma/common/easy_encoder.c
++    src/liblzma/common/easy_encoder_memusage.c
++    src/liblzma/common/easy_preset.c
++    src/liblzma/common/easy_preset.h
++    src/liblzma/common/filter_buffer_decoder.c
++    src/liblzma/common/filter_buffer_encoder.c
++    src/liblzma/common/filter_common.c
++    src/liblzma/common/filter_common.h
++    src/liblzma/common/filter_decoder.c
++    src/liblzma/common/filter_decoder.h
++    src/liblzma/common/filter_encoder.c
++    src/liblzma/common/filter_encoder.h
++    src/liblzma/common/filter_flags_decoder.c
++    src/liblzma/common/filter_flags_encoder.c
++    src/liblzma/common/hardware_cputhreads.c
++    src/liblzma/common/hardware_physmem.c
++    src/liblzma/common/index.c
++    src/liblzma/common/index.h
++    src/liblzma/common/index_decoder.c
++    src/liblzma/common/index_encoder.c
++    src/liblzma/common/index_encoder.h
++    src/liblzma/common/index_hash.c
++    src/liblzma/common/memcmplen.h
++    src/liblzma/common/outqueue.c
++    src/liblzma/common/outqueue.h
++    src/liblzma/common/stream_buffer_decoder.c
++    src/liblzma/common/stream_buffer_encoder.c
++    src/liblzma/common/stream_decoder.c
++    src/liblzma/common/stream_decoder.h
++    src/liblzma/common/stream_encoder.c
++    src/liblzma/common/stream_encoder_mt.c
++    src/liblzma/common/stream_flags_common.c
++    src/liblzma/common/stream_flags_common.h
++    src/liblzma/common/stream_flags_decoder.c
++    src/liblzma/common/stream_flags_encoder.c
++    src/liblzma/common/vli_decoder.c
++    src/liblzma/common/vli_encoder.c
++    src/liblzma/common/vli_size.c
++    src/liblzma/delta/delta_common.c
++    src/liblzma/delta/delta_common.h
++    src/liblzma/delta/delta_decoder.c
++    src/liblzma/delta/delta_decoder.h
++    src/liblzma/delta/delta_encoder.c
++    src/liblzma/delta/delta_encoder.h
++    src/liblzma/delta/delta_private.h
++    src/liblzma/lz/lz_decoder.c
++    src/liblzma/lz/lz_decoder.h
++    src/liblzma/lz/lz_encoder.c
++    src/liblzma/lz/lz_encoder.h
++    src/liblzma/lz/lz_encoder_hash.h
++    src/liblzma/lz/lz_encoder_hash_table.h
++    src/liblzma/lz/lz_encoder_mf.c
++    src/liblzma/lzma/fastpos.h
++    src/liblzma/lzma/fastpos_table.c
++    src/liblzma/lzma/lzma2_decoder.c
++    src/liblzma/lzma/lzma2_decoder.h
++    src/liblzma/lzma/lzma2_encoder.c
++    src/liblzma/lzma/lzma2_encoder.h
++    src/liblzma/lzma/lzma_common.h
++    src/liblzma/lzma/lzma_decoder.c
++    src/liblzma/lzma/lzma_decoder.h
++    src/liblzma/lzma/lzma_encoder.c
++    src/liblzma/lzma/lzma_encoder.h
++    src/liblzma/lzma/lzma_encoder_optimum_fast.c
++    src/liblzma/lzma/lzma_encoder_optimum_normal.c
++    src/liblzma/lzma/lzma_encoder_presets.c
++    src/liblzma/lzma/lzma_encoder_private.h
++    src/liblzma/rangecoder/price.h
++    src/liblzma/rangecoder/price_table.c
++    src/liblzma/rangecoder/range_common.h
++    src/liblzma/rangecoder/range_decoder.h
++    src/liblzma/rangecoder/range_encoder.h
++    src/liblzma/simple/arm.c
++    src/liblzma/simple/armthumb.c
++    src/liblzma/simple/ia64.c
++    src/liblzma/simple/powerpc.c
++    src/liblzma/simple/simple_coder.c
++    src/liblzma/simple/simple_coder.h
++    src/liblzma/simple/simple_decoder.c
++    src/liblzma/simple/simple_decoder.h
++    src/liblzma/simple/simple_encoder.c
++    src/liblzma/simple/simple_encoder.h
++    src/liblzma/simple/simple_private.h
++    src/liblzma/simple/sparc.c
++    src/liblzma/simple/x86.c
++    ${CMAKE_BINARY_DIR}/config.h
++)
++
++set(xz_src
++	src/common/tuklib_open_stdxxx.c
++	src/common/tuklib_open_stdxxx.h
++	src/common/tuklib_progname.c
++	src/common/tuklib_exit.c
++	src/common/tuklib_mbstr_width.c
++	src/common/tuklib_mbstr_fw.c
++    src/xz/args.c
++    src/xz/args.h
++    src/xz/coder.c
++    src/xz/coder.h
++    src/xz/file_io.c
++    src/xz/file_io.h
++    src/xz/hardware.c
++    src/xz/hardware.h
++    src/xz/list.c
++    src/xz/list.h
++    src/xz/main.c
++    src/xz/main.h
++    src/xz/message.c
++    src/xz/message.h
++    src/xz/mytime.c
++    src/xz/mytime.h
++    src/xz/options.c
++    src/xz/options.h
++    src/xz/private.h
++    src/xz/signals.c
++    src/xz/signals.h
++    src/xz/suffix.c
++    src/xz/suffix.h
++    src/xz/util.c
++    src/xz/util.h
++)
++
++set (unxz_src
++    src/xzdec/xzdec.c
++	src/common/tuklib_progname.c
++	src/common/tuklib_exit.c 
++	src/common/tuklib_progname.h
++	src/common/tuklib_exit.h
++ )
++
++set (lzmainfo_src
++    src/lzmainfo/lzmainfo.c
++	src/common/tuklib_progname.c
++	src/common/tuklib_exit.c 
++	src/common/tuklib_progname.h
++	src/common/tuklib_exit.h
++)
++
++set (get_opt_src
++    lib/getopt.c
++    lib/getopt1.c
++    lib/getopt_int.h
++    ${CMAKE_BINARY_DIR}/getopt.h
++)
++
++# TODO: generate file!
++#lib/getopt.in.h
++
++# lzma shared lib
++add_library(lzma SHARED ${lzma_src})
++ 
++set_property(TARGET lzma PROPERTY DESCRIPTION "LZMA data compression dynamic link library")
++
++set_target_properties(lzma PROPERTIES 
++          SOVERSION ${PROJECT_VERSION}
++          VERSION ${PROJECT_VERSION_MAJOR}
++)
++
++target_compile_definitions(lzma
++    PRIVATE DLL_EXPORT HAVE_CONFIG_H
++)
++
++target_include_directories(lzma
++    PRIVATE 
++        src/common 
++        src/liblzma
++        src/liblzma/common 
++        src/liblzma/lzma 
++        src/liblzma/lz 
++        src/liblzma/check 
++        src/liblzma/rangecoder 
++        src/liblzma/simple 
++        src/liblzma/delta
++        src/liblzma/api
++        ${CMAKE_BINARY_DIR}
++    PUBLIC src/liblzma/api
++)
++
++add_win32_rc(lzma)
++
++# lzma static lib
++add_library(lzma_static STATIC ${lzma_src})
++ 
++target_compile_definitions(lzma
++    PRIVATE DLL_EXPORT HAVE_CONFIG_H
++)
++
++target_include_directories(lzma_static
++    PRIVATE 
++        src/common 
++        src/liblzma
++        src/liblzma/common 
++        src/liblzma/lzma 
++        src/liblzma/lz 
++        src/liblzma/check 
++        src/liblzma/rangecoder 
++        src/liblzma/simple 
++        src/liblzma/delta
++        src/liblzma/api
++        ${CMAKE_BINARY_DIR}
++    PUBLIC src/liblzma/api
++)
++
++target_compile_definitions(lzma_static
++    PRIVATE LZMA_API_STATIC HAVE_CONFIG_H
++)
++target_compile_options(lzma_static PRIVATE -FIconfig.h)
++
++add_executable(xz_static ${xz_src} ${get_opt_src})
++target_compile_options(xz_static PRIVATE -FIconfig.h)
++
++target_compile_definitions(xz_static
++    PRIVATE LZMA_API_STATIC HAVE_CONFIG_H
++)
++target_link_libraries(xz_static lzma_static)
++
++target_include_directories(xz_static
++    PRIVATE 
++        src/common 
++        lib
++        ${CMAKE_BINARY_DIR}
++)
++
++add_executable(xz ${xz_src} ${get_opt_src})
++target_compile_options(xz PRIVATE -FIconfig.h)
++
++set_property(TARGET xz PROPERTY DESCRIPTION "xz data compression tool for .xz and .lzma files")
++
++target_compile_definitions(xz
++    PRIVATE HAVE_CONFIG_H
++)
++target_link_libraries(xz lzma)
++
++target_include_directories(xz
++    PRIVATE 
++        src/common 
++        lib
++        ${CMAKE_BINARY_DIR}
++)
++
++add_win32_rc(xz)
++
++# unxz tool
++add_executable(unxz ${unxz_src} ${get_opt_src})
++target_compile_options(unxz PRIVATE -FIconfig.h)
++
++set_property(TARGET unxz PROPERTY DESCRIPTION "unxz decompression tool for .xz files")
++
++target_compile_definitions(unxz
++    PRIVATE HAVE_CONFIG_H
++)
++target_link_libraries(unxz lzma)
++
++target_include_directories(unxz
++    PRIVATE 
++        src/common 
++        lib
++        ${CMAKE_BINARY_DIR}
++)
++
++add_win32_rc(unxz)
++
++# lzmadec tool
++add_executable(lzmadec ${unxz_src} ${get_opt_src})
++target_compile_options(lzmadec PRIVATE -FIconfig.h)
++
++set_property(TARGET lzmadec PROPERTY DESCRIPTION "lzmadec decompression tool for .lzma files")
++
++target_compile_definitions(lzmadec
++    PRIVATE HAVE_CONFIG_H LZMADEC
++)
++target_link_libraries(lzmadec lzma)
++
++target_include_directories(lzmadec
++    PRIVATE 
++        src/common 
++        lib
++        ${CMAKE_BINARY_DIR}
++)
++
++add_win32_rc(lzmadec)
++
++# lzmainfo tool
++add_executable(lzmainfo ${lzmainfo_src} ${get_opt_src})
++target_compile_options(lzmainfo PRIVATE -FIconfig.h)
++
++set_property(TARGET lzmainfo PROPERTY DESCRIPTION "lzmainfo shows information about .lzma files")
++
++target_compile_definitions(lzmainfo
++    PRIVATE HAVE_CONFIG_H
++)
++target_link_libraries(lzmainfo lzma)
++
++target_include_directories(lzmainfo
++    PRIVATE 
++        src/common 
++        lib
++        ${CMAKE_BINARY_DIR}
++)
++
++add_win32_rc(lzmainfo)
++
++#install(TARGETS lzma lzma_static xz xz_static unxz lzmadec lzmainfo EXPORT xz
++install(TARGETS lzma lzma_static xz xz_static unxz lzmainfo EXPORT xz
++    RUNTIME DESTINATION "bin"
++    ARCHIVE DESTINATION "lib"
++    LIBRARY DESTINATION "lib"
++    )
++
++install(DIRECTORY src/liblzma/api/ DESTINATION include
++    FILES_MATCHING PATTERN "*.h"
++)
++
++feature_summary(WHAT ALL)
+diff -urN windows/msvc2013/config.h windows/msvc2013/config.h
+--- windows/msvc2013/config.h	1969-12-31 16:00:00.000000000 -0800
++++ windows/msvc2013/config.h	2018-04-14 16:23:11.062931600 -0700
+@@ -0,0 +1,190 @@
++#define S_ISDIR(m) (((m) & S_IFDIR) == S_IFDIR)
++#define S_ISREG(m) (((m) & S_IFREG) == S_IFREG)
++
++#define S_IRUSR (_S_IREAD | _S_IWRITE)
++#define S_IWUSR (_S_IREAD | _S_IWRITE)
++
++#define mode_t int
++
++#define ssize_t intptr_t
++#define SSIZE_MAX INTPTR_MAX
++
++#if _MSC_VER < 1900
++#define snprintf _snprintf
++#endif
++#define strcasecmp _stricmp
++
++/* Prefix for symbols exported by tuklib_*.c files */
++#define TUKLIB_SYMBOL_PREFIX lzma_
++
++/* How many MiB of RAM to assume if the real amount cannot be determined. */
++#define ASSUME_RAM 128
++
++/* Define to 1 if crc32 integrity check is enabled. */
++#define HAVE_CHECK_CRC32 1
++
++/* Define to 1 if crc64 integrity check is enabled. */
++#define HAVE_CHECK_CRC64 1
++
++/* Define to 1 if sha256 integrity check is enabled. */
++#define HAVE_CHECK_SHA256 1
++
++/* Define to 1 if decoders are enabled. */
++#define HAVE_DECODERS 1
++
++/* Define to 1 if arm decoder is enabled. */
++#define HAVE_DECODER_ARM 1
++
++/* Define to 1 if armthumb decoder is enabled. */
++#define HAVE_DECODER_ARMTHUMB 1
++
++/* Define to 1 if delta decoder is enabled. */
++#define HAVE_DECODER_DELTA 1
++
++/* Define to 1 if ia64 decoder is enabled. */
++#define HAVE_DECODER_IA64 1
++
++/* Define to 1 if lzma1 decoder is enabled. */
++#define HAVE_DECODER_LZMA1 1
++
++/* Define to 1 if lzma2 decoder is enabled. */
++#define HAVE_DECODER_LZMA2 1
++
++/* Define to 1 if powerpc decoder is enabled. */
++#define HAVE_DECODER_POWERPC 1
++
++/* Define to 1 if sparc decoder is enabled. */
++#define HAVE_DECODER_SPARC 1
++
++/* Define to 1 if x86 decoder is enabled. */
++#define HAVE_DECODER_X86 1
++
++/* Define to 1 if encoders are enabled. */
++#define HAVE_ENCODERS 1
++
++/* Define to 1 if arm encoder is enabled. */
++#define HAVE_ENCODER_ARM 1
++
++/* Define to 1 if armthumb encoder is enabled. */
++#define HAVE_ENCODER_ARMTHUMB 1
++
++/* Define to 1 if delta encoder is enabled. */
++#define HAVE_ENCODER_DELTA 1
++
++/* Define to 1 if ia64 encoder is enabled. */
++#define HAVE_ENCODER_IA64 1
++
++/* Define to 1 if lzma1 encoder is enabled. */
++#define HAVE_ENCODER_LZMA1 1
++
++/* Define to 1 if lzma2 encoder is enabled. */
++#define HAVE_ENCODER_LZMA2 1
++
++/* Define to 1 if powerpc encoder is enabled. */
++#define HAVE_ENCODER_POWERPC 1
++
++/* Define to 1 if sparc encoder is enabled. */
++#define HAVE_ENCODER_SPARC 1
++
++/* Define to 1 if x86 encoder is enabled. */
++#define HAVE_ENCODER_X86 1
++
++/* Define to 1 if you have the <inttypes.h> header file. */
++#define HAVE_INTTYPES_H 1
++
++/* Define to 1 if you have the <limits.h> header file. */
++#define HAVE_LIMITS_H 1
++
++/* Define to 1 if you have the <memory.h> header file. */
++#define HAVE_MEMORY_H 1
++
++/* Define to 1 to enable bt2 match finder. */
++#define HAVE_MF_BT2 1
++
++/* Define to 1 to enable bt3 match finder. */
++#define HAVE_MF_BT3 1
++
++/* Define to 1 to enable bt4 match finder. */
++#define HAVE_MF_BT4 1
++
++/* Define to 1 to enable hc3 match finder. */
++#define HAVE_MF_HC3 1
++
++/* Define to 1 to enable hc4 match finder. */
++#define HAVE_MF_HC4 1
++
++#if _MSC_VER >= 1800
++/* Define to 1 if stdbool.h conforms to C99. */
++#define HAVE_STDBOOL_H 1
++#endif
++
++/* Define to 1 if you have the <stdint.h> header file. */
++#define HAVE_STDINT_H 1
++
++/* Define to 1 if you have the <stdlib.h> header file. */
++#define HAVE_STDLIB_H 1
++
++/* Define to 1 if you have the <string.h> header file. */
++#define HAVE_STRING_H 1
++
++/* Define to 1 or 0, depending whether the compiler supports simple visibility
++   declarations. */
++#define HAVE_VISIBILITY 0
++
++/* Define to 1 if the system has the type `_Bool'. */
++#if !defined(_MSC_VER) || (_MSC_VER >= 1800)
++#define HAVE__BOOL 1
++#else
++#define HAVE__BOOL 0
++#endif
++
++/* Define to 1 when using Windows Vista compatible threads. This uses features
++   that are not available on Windows XP. */
++#define MYTHREAD_VISTA 1
++
++/* Define to 1 when using Windows 95 (and thus XP) compatible threads. This
++   avoids use of features that were added in Windows Vista. */
++/* #undef MYTHREAD_WIN95 */
++
++/* Define to 1 to disable debugging code. */
++#define NDEBUG 1
++
++/* Name of package */
++#define PACKAGE "xz"
++
++/* Define to the address where bug reports for this package should be sent. */
++#define PACKAGE_BUGREPORT "lasse.collin@tukaani.org"
++
++/* Define to the full name of this package. */
++#define PACKAGE_NAME "XZ Utils"
++
++/* Define to the full name and version of this package. */
++#define PACKAGE_STRING "XZ Utils 5.2.3"
++
++/* Define to the one symbol short name of this package. */
++#define PACKAGE_TARNAME "xz"
++
++/* Define to the home page for this package. */
++#define PACKAGE_URL "http://tukaani.org/xz/"
++
++/* Define to the version of this package. */
++#define PACKAGE_VERSION "5.2.3"
++
++/* The size of `size_t', as computed by sizeof. */
++#ifdef _WIN64
++#define SIZEOF_SIZE_T 8
++#else
++#define SIZEOF_SIZE_T 4
++#endif
++
++
++/* Define to 1 if you have the ANSI C header files. */
++#define STDC_HEADERS 1
++
++/* Define to 1 if the system supports fast unaligned access to 16-bit and
++   32-bit integers. */
++#define TUKLIB_FAST_UNALIGNED_ACCESS 1
++
++
++/* Version number of package */
++#define VERSION "5.2.3"
++
+diff -urN windows/msvc2013/unistd.h windows/msvc2013/unistd.h
+--- windows/msvc2013/unistd.h	1969-12-31 16:00:00.000000000 -0800
++++ windows/msvc2013/unistd.h	2018-04-14 16:23:11.062931600 -0700
+@@ -0,0 +1 @@
++#include <io.h>
+diff -urN windows/version.rc.cmakein windows/version.rc.cmakein
+--- windows/version.rc.cmakein	1969-12-31 16:00:00.000000000 -0800
++++ windows/version.rc.cmakein	2018-04-14 16:23:30.875468500 -0700
+@@ -0,0 +1,49 @@
++//
++#include <Winver.h>
++/////////////////////////////////////////////////////////////////////////////
++//
++// Version
++//
++#define MY_COMPANY     "The Tukaani Project <http://tukaani.org/>\0"
++
++#define VER_FILEVERSION             @VER_NUM@
++#define VER_FILEVERSION_STR         "@VER_STR@\0"
++
++#define VER_PRODUCTVERSION          @VER_NUM@
++#define VER_PRODUCTVERSION_STR      "@VER_STR@\0"
++
++#ifndef DEBUG
++#define VER_DEBUG                   0
++#else
++#define VER_DEBUG                   VS_FF_DEBUG
++#endif
++
++VS_VERSION_INFO VERSIONINFO
++FILEVERSION    	VER_FILEVERSION
++PRODUCTVERSION 	VER_PRODUCTVERSION
++FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
++FILEFLAGS      	(VER_DEBUG)
++FILEOS         	VOS__WINDOWS32
++FILETYPE       	@VER_FILETYPE@
++FILESUBTYPE    	VFT2_UNKNOWN
++BEGIN
++    BLOCK "StringFileInfo"
++    BEGIN
++        BLOCK "040904E4"
++        BEGIN
++            VALUE "CompanyName", MY_COMPANY
++            VALUE "FileDescription",  "@VER_FILEDESCRIPTION_STR@\0"
++            VALUE "FileVersion",      VER_FILEVERSION_STR
++            VALUE "InternalName",     "@VER_INTERNALNAME_STR@\0"
++            VALUE "LegalCopyright",   "@VER_LEGALCOPYRIGHT_STR@\0"
++            VALUE "OriginalFilename", "@VER_ORIGINALFILENAME_STR@\0"
++            VALUE "ProductName",      "@VER_PRODUCTNAME_STR@\0"
++            VALUE "ProductVersion",   VER_PRODUCTVERSION_STR
++        END
++    END
++    BLOCK "VarFileInfo"
++    BEGIN
++        VALUE "Translation", 0x409, 1252
++    END
++END
++
