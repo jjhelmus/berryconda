@@ -1,0 +1,54 @@
+diff -Naur autoconf-2.69.orig/bin/autoheader.in autoconf-2.69/bin/autoheader.in
+--- autoconf-2.69.orig/bin/autoheader.in	2012-04-24 23:37:26.000000000 -0300
++++ autoconf-2.69/bin/autoheader.in	2016-12-08 13:50:07.557236089 -0300
+@@ -1,4 +1,4 @@
+-#! @PERL@
++#!@PERL@
+ # -*- Perl -*-
+ # @configure_input@
+ 
+diff -Naur autoconf-2.69.orig/bin/autom4te.in autoconf-2.69/bin/autom4te.in
+--- autoconf-2.69.orig/bin/autom4te.in	2012-04-24 23:37:26.000000000 -0300
++++ autoconf-2.69/bin/autom4te.in	2016-12-08 13:50:02.397235832 -0300
+@@ -1,4 +1,4 @@
+-#! @PERL@ -w
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff -Naur autoconf-2.69.orig/bin/autoreconf.in autoconf-2.69/bin/autoreconf.in
+--- autoconf-2.69.orig/bin/autoreconf.in	2012-04-24 19:00:28.000000000 -0300
++++ autoconf-2.69/bin/autoreconf.in	2016-12-08 13:49:57.085235567 -0300
+@@ -1,4 +1,4 @@
+-#! @PERL@ -w
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff -Naur autoconf-2.69.orig/bin/autoscan.in autoconf-2.69/bin/autoscan.in
+--- autoconf-2.69.orig/bin/autoscan.in	2012-04-24 23:37:26.000000000 -0300
++++ autoconf-2.69/bin/autoscan.in	2016-12-08 13:49:51.541235291 -0300
+@@ -1,4 +1,4 @@
+-#! @PERL@ -w
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff -Naur autoconf-2.69.orig/bin/autoupdate.in autoconf-2.69/bin/autoupdate.in
+--- autoconf-2.69.orig/bin/autoupdate.in	2012-04-24 23:37:26.000000000 -0300
++++ autoconf-2.69/bin/autoupdate.in	2016-12-08 13:49:45.765235003 -0300
+@@ -1,4 +1,4 @@
+-#! @PERL@ -w
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 
+diff -Naur autoconf-2.69.orig/bin/ifnames.in autoconf-2.69/bin/ifnames.in
+--- autoconf-2.69.orig/bin/ifnames.in	2012-04-24 23:37:26.000000000 -0300
++++ autoconf-2.69/bin/ifnames.in	2016-12-08 13:49:39.269234680 -0300
+@@ -1,4 +1,4 @@
+-#! @PERL@ -w
++#!@PERL@
+ # -*- perl -*-
+ # @configure_input@
+ 

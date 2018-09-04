@@ -1,0 +1,47 @@
+{% set version = "2.69" %}
+{% set build = 7 %}
+{% set sha256 = "954bd69b391edc12d6a4a51a2dd1476543da5c6bbf05a95b59dc0dd6fd4c2969" %}
+
+package:
+  name: autoconf
+  version: {{ version }}
+
+source:
+  fn: autoconf-{{ version }}.tar.gz
+  url: http://ftp.gnu.org/gnu/autoconf/autoconf-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+  patches:
+    - shebang.patch
+    # This patch fixes "503: autoscan" test failure.
+    # From http://lists.gnu.org/archive/html/bug-autoconf/2013-01/msg00060.html
+    - autoscan-fix.patch
+
+build:
+  number: {{ build }}
+  skip: true  # [win]
+
+requirements:
+  host:
+    - m4
+    - perl
+  run:
+    - m4
+    - perl
+
+test:
+  commands:
+    - autoconf --help
+
+about:
+  home: http://www.gnu.org/software/autoconf/
+  license: GPL-3.0
+  license_family: GPL
+  license_file: COPYING
+  summary: >
+             Extensible M4 macros that produce shell scripts to configure
+             software source code packages.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ocefpaf
