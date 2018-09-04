@@ -1,0 +1,36 @@
+{% set version = "1.4.18" %}
+
+package:
+  name: m4
+  version: {{ version }}
+
+source:
+  fn: m4-{{ version }}.tar.gz
+  url: http://ftp.gnu.org/gnu/m4/m4-{{ version }}.tar.gz
+  sha256: ab2633921a5cd38e48797bf5521ad259bdc4b979078034a3b790d7fec5493fab
+
+build:
+  number: 0
+  skip: True  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - make
+
+test:
+  commands:
+    - m4 --help
+    - m4 --version
+    - conda inspect linkages -p $PREFIX m4  # [not win]
+    - conda inspect objects -p $PREFIX m4  # [osx]
+
+about:
+  home: http://www.gnu.org/software/m4/
+  license: GPL-3.0
+  license_file: COPYING
+  summary: 'Implementation of the traditional Unix macro processor.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
