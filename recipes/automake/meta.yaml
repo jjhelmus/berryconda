@@ -1,0 +1,43 @@
+{% set version = "1.15.1" %}
+{% set build = 1 %}
+{% set sha256 = "988e32527abe052307d21c8ca000aa238b914df363a617e38f4fb89f5abf6260" %}
+
+package:
+  name: automake
+  version: {{ version }}
+
+source:
+  url: http://ftp.gnu.org/gnu/automake/automake-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: {{ build }}
+  skip: true  # [win]
+
+requirements:
+  host:
+    - m4
+    - autoconf
+    - perl
+  run:
+    - m4
+    - autoconf
+    - perl
+
+test:
+  commands:
+    - automake --help
+
+about:
+  home: http://www.gnu.org/software/automake/
+  license: GPL-2.0
+  license_family: GPL
+  license_file: COPYING
+  summary: >
+             Tool for automatically generating Makefile.in files compliant with
+             the GNU Coding Standards.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ocefpaf
