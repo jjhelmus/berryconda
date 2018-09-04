@@ -1,4 +1,4 @@
-{% set version = "5.9" %}
+{% set version = "6.1" %}
 
 package:
   name: ncurses
@@ -7,18 +7,30 @@ package:
 source:
   fn: ncurses-{{ version }}.tar.gz
   url: http://ftp.gnu.org/pub/gnu/ncurses/ncurses-{{ version }}.tar.gz
-  md5: 8cb9c412e5f2d96bc6f459aa8c6282a1
+  md5: 98c889aaf8d23910d2b92d65be2e737a
   patches:
-    # http://lists.gnu.org/archive/html/bug-ncurses/2011-04/txtkWQqiQvcZe.txt
-    - fix.patch
     # http://lists.gnu.org/archive/html/bug-ncurses/2015-01/msg00016.html
     - ncurses-5.9-gcc-5.patch
 
 build:
-  number: 0
+  skip: true  # [win]
+  number: 1
   detect_binary_files_with_prefix: true
 
+requirements:
+  build:
+    - pkg-config
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+
 test:
+  requires:
+    - pkg-config
+  # files:
+    # - run_test.sh         # [osx]
+    # Python test will not pass until it is recompiled against ncurses 6.1
+    # - run_test.py         # [osx]
   commands:
     # Test libraries
     {% set ncurses_libraries = [
@@ -31,8 +43,10 @@ test:
     {% for each_ncurses_library in ncurses_libraries %}
     - test -f ${PREFIX}/lib/{{ each_ncurses_library }}.a
     - test -f ${PREFIX}/lib/{{ each_ncurses_library }}w.a
-    - test -f ${PREFIX}/lib/{{ each_ncurses_library }}.so
-    - test -f ${PREFIX}/lib/{{ each_ncurses_library }}w.so
+    - test -f ${PREFIX}/lib/{{ each_ncurses_library }}.dylib    # [osx]
+    - test -f ${PREFIX}/lib/{{ each_ncurses_library }}w.dylib   # [osx]
+    - test -f ${PREFIX}/lib/{{ each_ncurses_library }}.so       # [linux]
+    - test -f ${PREFIX}/lib/{{ each_ncurses_library }}w.so      # [linux]
     {% endfor %}
 
     # Test include directories
@@ -67,6 +81,31 @@ test:
     - test -L ${PREFIX}/include/ncursesw/{{ each_ncurses_header }}
     - test -f ${PREFIX}/include/{{ each_ncurses_header }}
     {% endfor %}
+
+    # Test pkg-config files
+    {% set ncurses_pc_files = [
+        "form",
+        "menu",
+        "ncurses++",
+        "ncurses",
+        "panel",
+        "tinfo"
+    ] %}
+    {% for each_ncurses_pc_file in ncurses_pc_files %}
+    - test -f ${PREFIX}/lib/pkgconfig/{{ each_ncurses_pc_file }}.pc
+    - test -f ${PREFIX}/lib/pkgconfig/{{ each_ncurses_pc_file }}w.pc
+    {% endfor %}
+
+    # Test ncurses library arguments.
+    - pkg-config ncurses --libs | grep "^-L${PREFIX}/lib .*-lncurses -ltinfo$"
+    - pkg-config tinfo --libs | grep "^-L${PREFIX}/lib .*-ltinfo$"
+    - pkg-config ncursesw --libs | grep "^-L${PREFIX}/lib .*-lncursesw -ltinfow$"
+    - pkg-config tinfow --libs | grep "^-L${PREFIX}/lib .*-ltinfow$"
+
+    # Usage tests
+    # - bash run_test.sh    # [osx]
+    # Python test will not pass until it is recompiled against ncurses 6.1
+    # - python run_test.py  # [osx]
 
 about:
   home: http://www.gnu.org/software/ncurses/

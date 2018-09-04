@@ -15,12 +15,15 @@ do
 	    --without-ada \
 	    --without-manpages \
 	    --with-shared \
+	    --with-pkg-config \
+	    --with-pkg-config-libdir=$PREFIX/lib/pkgconfig \
 	    --disable-overwrite \
 	    --enable-symlinks \
 	    --enable-termcap \
+	    --enable-pc-files \
 	    --with-termlib \
 	    $WIDEC_OPT
-    make -j$CPU_COUNT
+    make -j ${CPU_COUNT}
     make install
     make clean
     make distclean
