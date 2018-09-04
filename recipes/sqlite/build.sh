@@ -1,23 +1,26 @@
 #!/bin/bash
 
-if [ `uname -m` == ppc64le ]; then
-    B="--build=ppc64le-linux"
-fi
-if [ `uname -m` == armv7l ]; then
-    B="--build=armv7l-linux"
-fi
-if [ `uname -m` == armv6l ]; then
-    B="--build=armv6l-linux"
+export LDFLAGS="$LDFLAGS $(pkg-config --libs ncurses)"
+export CPPFLAGS="$CPPFLAGS $(pkg-config --cflags-only-I ncurses)"
+export CFLAGS="$CFLAGS $(pkg-config --cflags-only-I ncurses)"
+
+if [ $(uname -m) == ppc64le ]; then
+    export B="--build=ppc64le-linux"
 fi
 
-./configure $B --enable-threadsafe \
+./configure SQLITE_ENABLE_RTREE=1 \
+            $B --enable-threadsafe \
+            --enable-json1 \
             --enable-tempstore \
             --enable-shared=yes \
+            --enable-readline \
+            --disable-editline \
             --disable-tcl \
-            --disable-readline \
-            --prefix=$PREFIX
-make -j${CPU_COUNT}
+            --prefix="${PREFIX}"
+
+make
 make check
 make install
 
-rm -rf  $PREFIX/share
+# We can remove this when we start using the new conda-build.
+find $PREFIX -name '*.la' -delete
