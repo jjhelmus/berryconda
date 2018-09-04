@@ -1,25 +1,24 @@
-{% set version = "0.29.1" %}
+{% set version = "0.29.2" %}
 
 package:
   name: pkg-config
   version: {{ version }}
 
 source:
-  fn: pkg-config-{{ version }}.tar.gz
   url: https://pkg-config.freedesktop.org/releases/pkg-config-{{ version }}.tar.gz
-  sha256: beb43c9e064555469bd4390dcfd8030b1536e0aa103f08d7abf7ae8cac0cb001
+  sha256: 6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591
 
 build:
-  number: 0
-  detect_binary_files_with_prefix: true
+  number: 3
+  skip: True  # [win]
+  detect_binary_files_with_prefix: True
 
 requirements:
   build:
-    - zlib 1.2*
-    # use the system python
-    #- python
-  run:
-    - zlib 1.2*
+    - {{ compiler('c') }}
+    - automake
+  host:
+    - libiconv  # [osx]
 
 test:
   commands:
@@ -28,4 +27,20 @@ test:
 about:
   home: http://www.freedesktop.org/wiki/Software/pkg-config/
   license: GPL 2
+  license_file: COPYING
   summary: Interface for querying installed libraries for use during compilation.
+
+  description: |
+    pkg-config is a script to make putting together all the build
+    flags when compiling/linking a lot easier.
+  doc_url: https://people.freedesktop.org/~dbn/pkg-config-guide.html
+  dev_url: https://cgit.freedesktop.org/pkg-config
+  doc_source_url:
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mdboom
+    - ocefpaf
+    - tacaswell
+    - mingwandroid
