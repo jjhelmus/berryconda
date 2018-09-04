@@ -1,8 +1,12 @@
 #!/bin/bash
 
-CFLAGS="-fPIC" ./configure --shared --prefix=$PREFIX
+export CFLAGS="${CFLAGS} -fPIC"
+export CXXFLAGS="${CXXFLAGS} -fPIC"
 
-make -j${CPU_COUNT}
+./configure --prefix=${PREFIX}  \
+            --shared
+
+make -j${CPU_COUNT} ${VERBOSE_AT}
 make check
 make install
 

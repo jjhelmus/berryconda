@@ -10,15 +10,40 @@ source:
     sha256: c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1
 
 build:
-    number: 0
+    number: 1003
+    run_exports:
+        # mostly OK, but some scary symbol removal.  Let's try for trusting them.
+        #    https://abi-laboratory.pro/tracker/timeline/zlib/
+        - {{ pin_subpackage('zlib', max_pin='x.x') }}
+
+requirements:
+    build:
+        - cmake  # [win]
+        - msinttypes  # [win and vc<14]
+        - {{ compiler('c') }}
 
 test:
     commands:
-        - test -f ${PREFIX}/lib/libz.a
+        - test -f ${PREFIX}/lib/libz.a  # [unix]
+        - conda inspect linkages -p ${PREFIX} zlib  # [linux]
 
 about:
     home: http://zlib.net/
-    license: zlib (http://zlib.net/zlib_license.html)
+    # http://zlib.net/zlib_license.html
+    license: zlib
     summary: Massively spiffy yet delicately unobtrusive compression library
     license_family: Other
     license_file: license.txt
+    
+    description: |
+      zlib is designed to be a free, general-purpose, lossless data-compression
+      library for use on virtually any computer hardware and operating system.
+    doc_url: http://zlib.net/manual.html
+    dev_url: https://github.com/madler/zlib
+
+extra:
+    recipe-maintainers:
+        - groutr
+        - msarahan
+        - ocefpaf
+        - mingwandroid
