@@ -1,0 +1,13 @@
+diff -urN work.orig/crypto/perlasm/x86nasm.pl work/crypto/perlasm/x86nasm.pl
+--- work.orig/crypto/perlasm/x86nasm.pl	2017-05-25 05:54:34.000000000 -0700
++++ work/crypto/perlasm/x86nasm.pl	2017-09-16 03:13:17.039264900 -0700
+@@ -83,7 +83,9 @@
+ %ifidn __OUTPUT_FORMAT__,obj
+ section	code	use32 class=code align=64
+ %elifidn __OUTPUT_FORMAT__,win32
++%ifndef __YASM_MAJOR__
+ \$\@feat.00 equ 1
++%endif
+ section	.text	code align=64
+ %else
+ section	.text	code

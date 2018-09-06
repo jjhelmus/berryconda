@@ -1,4 +1,4 @@
-{% set version = "1.0.2o" %}
+{% set version = "1.0.2p" %}
 
 package:
   name: openssl
@@ -6,22 +6,27 @@ package:
 
 source:
   url: http://www.openssl.org/source/openssl-{{ version }}.tar.gz
-  sha256: ec3f5c9714ba0fd45cb4e087301eb1336c317e0d20b575a125050470e8089e4d
+  sha256: 50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00
 
 build:
   number: 0
-  no_link: lib/libcrypto.so.1.0.0
-  detect_binary_files_with_prefix: True
-  has_prefix_files:
-    - bin/c_rehash
-    - include/openssl/opensslconf.h
-    - lib/pkgconfig/libcrypto.pc
-    - lib/pkgconfig/libssl.pc
-    - lib/pkgconfig/openssl.pc
+  no_link: lib/libcrypto.so.1.0.0        # [linux]
+  no_link: lib/libcrypto.1.0.0.dylib     # [osx]
+  has_prefix_files:                      # [unix]
+    - bin/c_rehash                       # [unix]
+    - include/openssl/opensslconf.h      # [unix]
+    - lib/pkgconfig/libcrypto.pc         # [unix]
+    - lib/pkgconfig/libssl.pc            # [unix]
+    - lib/pkgconfig/openssl.pc           # [unix]
+  run_exports:
+    - {{ pin_subpackage('openssl', max_pin='x.x.x') }}
 
 requirements:
   build:
-    # use system provided perl
+    - {{ compiler('c') }}
+    - yasm               # [win32]
+    - perl
+    - make               # [unix]
   run:
     - ca-certificates
 
