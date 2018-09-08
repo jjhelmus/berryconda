@@ -1,0 +1,72 @@
+diff -urN libtool-2.4.6.orig/build-aux/ltmain.in libtool-2.4.6/build-aux/ltmain.in
+--- libtool-2.4.6.orig/build-aux/ltmain.in	2017-11-05 00:51:10.047177354 +0000
++++ libtool-2.4.6/build-aux/ltmain.in	2017-11-05 02:22:19.707233842 +0000
+@@ -5308,6 +5308,11 @@
+ 	arg=$func_stripname_result
+ 	;;
+ 
++      -Wl,--as-needed)
++	deplibs="$deplibs $arg"
++	continue
++	;;
++
+       -Wl,*)
+ 	func_stripname '-Wl,' '' "$arg"
+ 	args=$func_stripname_result
+@@ -5612,6 +5617,7 @@
+ 
+     case $linkmode in
+     lib)
++	as_needed_flag=
+ 	passes="conv dlpreopen link"
+ 	for file in $dlfiles $dlprefiles; do
+ 	  case $file in
+@@ -5623,6 +5629,7 @@
+ 	done
+ 	;;
+     prog)
++	as_needed_flag=
+ 	compile_deplibs=
+ 	finalize_deplibs=
+ 	alldeplibs=false
+@@ -5692,6 +5699,15 @@
+ 	lib=
+ 	found=false
+ 	case $deplib in
++	-Wl,--as-needed)
++	  if test prog,link = "$linkmode,$pass" ||
++	     test lib,link = "$linkmode,$pass"; then
++	    as_needed_flag="$deplib "
++	  else
++	    deplibs="$deplib $deplibs"
++	  fi
++	  continue
++	  ;;
+ 	-mt|-mthreads|-kthread|-Kthread|-pthread|-pthreads|--thread-safe \
+         |-threads|-fopenmp|-openmp|-mp|-xopenmp|-omp|-qsmp=*)
+ 	  if test prog,link = "$linkmode,$pass"; then
+@@ -8109,6 +8125,13 @@
+ 	  test "X$libobjs" = "X " && libobjs=
+ 	fi
+ 
++	# A bit hacky. I had wanted to add \$as_needed_flag to archive_cmds instead, but that
++	# comes from libtool.m4 which is part of the project being built. This should put it
++	# in the right place though.
++	if test lib,link = "$linkmode,$pass" && test -n "$as_needed_flag"; then
++	  libobjs=$as_needed_flag$libobjs
++	fi
++
+ 	save_ifs=$IFS; IFS='~'
+ 	for cmd in $cmds; do
+ 	  IFS=$sp$nl
+@@ -8341,8 +8364,8 @@
+       compile_deplibs=$new_libs
+ 
+ 
+-      func_append compile_command " $compile_deplibs"
+-      func_append finalize_command " $finalize_deplibs"
++      func_append compile_command " $as_needed_flag $compile_deplibs"
++      func_append finalize_command " $as_needed_flag $finalize_deplibs"
+ 
+       if test -n "$rpath$xrpath"; then
+ 	# If the user specified any rpath flags, then add them.
