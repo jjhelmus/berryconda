@@ -1,0 +1,5 @@
+zeromq:
+  - ">=4.2.5,<4.3"
+pin_run_as_build:
+  zeromq:
+    max_pin: x.x
