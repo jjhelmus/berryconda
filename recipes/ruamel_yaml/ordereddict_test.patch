@@ -1,0 +1,15 @@
+--- a/_test/test_yamlfile.py
++++ b/_test/test_yamlfile.py
+@@ -58,11 +58,11 @@
+     @pytest.mark.skipif(
+         sys.version_info >= (3, 0) or platform.python_implementation() != 'CPython',
+         reason='ruamel.yaml not available',
+     )
+     def test_dump_ruamel_ordereddict(self):
+-        from ruamel.ordereddict import ordereddict
++        ordereddict = pytest.importorskip('ruamel.ordereddict').ordereddict
+         import ruamel.yaml  # NOQA
+ 
+         # OrderedDict mapped to !!omap
+         x = ordereddict([('a', 1), ('b', 2)])
+         res = ruamel.yaml.dump(x, Dumper=ruamel.yaml.RoundTripDumper, default_flow_style=False)

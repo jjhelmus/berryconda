@@ -1,32 +1,51 @@
+{% set version = "0.15.63" %}
+# The version_info tuple in __init__.py must also be updated
+
 package:
   name: ruamel_yaml
-  version: 0.11.14
+  version: {{ version }}
 
 source:
-  fn: ruamel_yaml-0.11.7.tar.gz
-  url: https://bitbucket.org/kalefranz/yaml/get/1CBC6A8.tar.gz
-  sha256: a705cb1f0eea40d17da713161af3ed00ffa724e401fbd49f35f979bd9529cd00
+  url: https://bitbucket.org/ruamel/yaml/get/{{ version }}.tar.gz
+  sha256: 98d9855a79f2b8ab1382571479b0a6e39b8e1094c2a0651f26efd9f99891fa49
+  patches:
+    - ordereddict_test.patch
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  no_link: .*\.(pyd|dll)   # [win]
 
 requirements:
   build:
+    - {{ compiler("c") }}
+    - posix                # [win]
+
+  host:
     - python
-    - setuptools
+    - pip
+    - cython
     - yaml
 
   run:
     - python
-    - setuptools
     - yaml
 
 test:
+  requires:
+    - pytest
+
   imports:
-    - ruamel.yaml
+    - ruamel_yaml
+    - ruamel_yaml.ext._ruamel_yaml
 
 about:
-  home: https://bitbucket.org/kalefranz/yaml
+  home: https://bitbucket.org/ruamel/yaml
   license: MIT
-  summary: A fork of ruamel.yaml.
+  license_family: MIT
+  license_file: LICENSE
+  summary: A patched copy of ruamel.yaml.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mbargull
