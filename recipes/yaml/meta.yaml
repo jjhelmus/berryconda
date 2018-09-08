@@ -1,28 +1,62 @@
-{% set version = "0.1.6" %}
+{% set version = "0.1.7" %}
 
 package:
   name: yaml
   version: {{ version }}
 
 source:
-  fn: yaml-{{ version }}.tar.gz
   url: http://pyyaml.org/download/libyaml/yaml-{{ version }}.tar.gz
-  md5: 5fe00cda18ca5daeb43762b80c38e06e
+  sha256: 8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729
   patches:
+    # Change CMakeLists so that we can build static and shared libraries.
+    # See this PR ( https://github.com/yaml/libyaml/pull/10 ) for details.
+    - CMakeLists.txt.patch
 
 build:
-  number: 0
+  number: 1
+  run_exports:
+    # good recent history, but not much info on how they treat minor ver:
+    #   https://abi-laboratory.pro/tracker/timeline/yaml/
+    - {{ pin_subpackage('yaml', max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - cmake              # [win]
+    - pkg-config         # [unix]
+    - libtool            # [unix]
+  host:
+  run:
 
 test:
   commands:
     # Check headers.
-    - test -f "${PREFIX}/include/yaml.h"
+    - test -f "${PREFIX}/include/yaml.h"              # [unix]
+    - if not exist "%LIBRARY_INC%\\yaml.h" exit 1     # [win]
 
     # Check libraries.
-    - test -f "${PREFIX}/lib/libyaml.a"
-    - test -f "${PREFIX}/lib/libyaml.so"
+    - test -f "${PREFIX}/lib/libyaml.a"               # [unix]
+    - test -f "${PREFIX}/lib/libyaml.dylib"           # [osx]
+    - test -f "${PREFIX}/lib/libyaml.so"              # [linux]
+    - if not exist "%LIBRARY_LIB%\\yaml_static.lib" exit 1  # [win]
+    - if not exist "%LIBRARY_LIB%\\yaml.lib" exit 1   # [win]
+    - if not exist "%LIBRARY_BIN%\\yaml.dll" exit 1   # [win]
 
 about:
-  home: http://pyyaml.org/wiki/LibYAML'
+  home: http://pyyaml.org/wiki/LibYAML
   license: MIT
-  summary: A C library for parsing and emitting YAML.
+  summary: A C library for parsing and emitting YAML
+  description: |
+    YAML is a human friendly data serialization standard for all programming
+    languages.
+  doc_url: http://www.yaml.org/spec/1.2/spec.html
+  doc_source_url: https://github.com/yaml/www.yaml.org/tree/master/docs
+  dev_url: https://github.com/yaml
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - pelson
+    - mingwandroid
+    - ocefpaf
