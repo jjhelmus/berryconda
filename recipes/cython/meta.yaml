@@ -1,17 +1,16 @@
-{% set version = "0.26" %}
+{% set version = "0.28.5" %}
 
 package:
   name: cython
   version: {{ version }}
 
 source:
-  fn: Cython-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/C/Cython/Cython-{{ version }}.tar.gz
-  sha256: 4c24e2c22ddaed624d35229dc5db25049e9e225c6f64f3364326836cad8f2c66
+  sha256: b64575241f64f6ec005a4d4137339fb0ba5e156e826db2fdb5f458060d9979e0
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python -m pip install --no-deps --ignore-installed .
   entry_points:
     - cython = Cython.Compiler.Main:setuptools_main
     - cythonize = Cython.Build.Cythonize:main
@@ -19,8 +18,11 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
 
@@ -41,3 +43,12 @@ about:
     extensions for Python as easy as Python itself.
   doc_url: http://cython.org/#documentation
   dev_url: https://github.com/cython/cython
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - ocefpaf
+    - synapticarbors
+    - isuruf
+    - scopatz
