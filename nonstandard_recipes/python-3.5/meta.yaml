@@ -1,4 +1,4 @@
-{% set version = "3.5.5" %}
+{% set version = "3.5.6" %}
 
 package:
   name: python
@@ -7,7 +7,7 @@ package:
 source:
   fn: Python-{{ version }}.tgz
   url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
-  md5: 7c825b747d25c11e669e99b912398585
+  md5: 99a7e803633a627b264a42ce976d8c19
 
 build:
   number: 0
@@ -21,23 +21,25 @@ build:
   ignore_prefix_files:
     - lib/libpython3.5m.so.1.0
     - lib/python3.5/lib-dynload/*.so
+  # We delete the shared libraries.
+  ignore_run_exports:
+    - bzip2
 
 requirements:
   build:
-    - bzip2 1.0.*
-    - openssl 1.0.*
-    - readline 6.3*
-    - sqlite 3.15.*
-    - tk 8.6.*
-    - xz 5.2.*
-    - zlib 1.2.*
-  run:
-    - openssl 1.0.*
-    - readline 6.3*
-    - sqlite 3.15.*
-    - tk 8.6.*
-    - xz 5.2.*
-    - zlib 1.2.*
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+    - pkg-config
+  host:
+    - bzip2
+    - sqlite
+    - xz
+    - zlib
+    - openssl
+    - readline
+    - tk
+    - ncurses
 
 test:
   commands:
