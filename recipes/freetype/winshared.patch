@@ -1,0 +1,23 @@
+--- CMakeLists.txt.orig	2016-05-12 09:17:47.267112600 +1000
++++ CMakeLists.txt	2016-05-12 09:39:15.610773900 +1000
+@@ -114,9 +114,9 @@
+ project(freetype)
+ 
+ 
+-if (WIN32 AND NOT MINGW AND BUILD_SHARED_LIBS)
+-  message(FATAL_ERROR "Building shared libraries on Windows needs MinGW")
+-endif ()
++#if (WIN32 AND NOT MINGW AND BUILD_SHARED_LIBS)
++#  message(FATAL_ERROR "Building shared libraries on Windows needs MinGW")
++#endif ()
+ 
+ # Disallow in-source builds
+ if ("${PROJECT_BINARY_DIR}" STREQUAL "${PROJECT_SOURCE_DIR}")
+@@ -329,6 +329,7 @@
+   ${BASE_SRCS}
+ )
+ 
++set_target_properties(freetype PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+ 
+ if (BUILD_SHARED_LIBS)
+   set_target_properties(freetype PROPERTIES

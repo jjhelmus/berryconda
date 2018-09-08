@@ -1,0 +1,25 @@
+From 2b39eae5fa4b6f6c329e7297f2f8ad9579338ed5 Mon Sep 17 00:00:00 2001
+From: Nehal J Wani <nehaljw.kkd1@gmail.com>
+Date: Thu, 26 Jul 2018 15:42:28 -0500
+Subject: [PATCH 2/2] Win: Specify RUNTIME destination for dll
+
+xref: https://cmake.org/pipermail/cmake/2010-June/037461.html
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3f583373a..5aefb27ff 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -469,6 +469,7 @@ if (NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL)
+       EXPORT freetype-targets
+       LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+       ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+       FRAMEWORK DESTINATION Library/Frameworks
+       COMPONENT libraries)
+   install(
+-- 
+2.17.0
+

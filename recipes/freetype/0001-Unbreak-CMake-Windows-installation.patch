@@ -1,0 +1,33 @@
+From 660afb5ce81ccf3271ec80b6475ec8b16d862a25 Mon Sep 17 00:00:00 2001
+From: Nikolaus Waxweiler <madigens@gmail.com>
+Date: Wed, 2 May 2018 23:19:55 +0100
+Subject: [PATCH] Unbreak CMake Windows installation
+
+* CMakeLists.txt: Generate ftconfig.h on non-UNIX.
+---
+ CMakeLists.txt | 7 +++++--
+ ChangeLog      | 7 +++++++
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ad8ded0bb..6f3fef7d5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -229,9 +229,12 @@ if (UNIX)
+   endif ()
+   string(REPLACE "/undef " "#undef "
+     FTCONFIG_H "${FTCONFIG_H}")
+-  file(WRITE "${PROJECT_BINARY_DIR}/include/freetype/config/ftconfig.h"
+-    "${FTCONFIG_H}")
++else()
++  file(READ "${PROJECT_SOURCE_DIR}/include/freetype/config/ftconfig.h"
++    FTCONFIG_H)
+ endif ()
++file(WRITE "${PROJECT_BINARY_DIR}/include/freetype/config/ftconfig.h"
++  "${FTCONFIG_H}")
+ 
+ 
+ # Create the options file
+-- 
+2.15.0
+
