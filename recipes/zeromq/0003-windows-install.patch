@@ -1,0 +1,18 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d2535b1..75e42e5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -978,12 +978,7 @@ endif ()
+ 
+ include(CMakePackageConfigHelpers)
+ 
+-if (WIN32)
+-  set(ZEROMQ_CMAKECONFIG_INSTALL_DIR "CMake" CACHE STRING "install path for ZeroMQConfig.cmake")
+-else()
+-  # GNUInstallDirs "DATADIR" wrong here; CMake search path wants "share".
+-  set(ZEROMQ_CMAKECONFIG_INSTALL_DIR "share/cmake/${PROJECT_NAME}" CACHE STRING "install path for ZeroMQConfig.cmake")
+-endif()
++set(ZEROMQ_CMAKECONFIG_INSTALL_DIR "share/cmake/${PROJECT_NAME}" CACHE STRING "install path for ZeroMQConfig.cmake")
+ 
+ if (NOT CMAKE_VERSION VERSION_LESS 3.0)
+   export(EXPORT ${PROJECT_NAME}-targets

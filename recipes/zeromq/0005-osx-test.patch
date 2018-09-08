@@ -1,0 +1,20 @@
+diff --git a/Makefile.am b/Makefile.am
+index fc9fd30..e3b0966 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -357,7 +357,6 @@ endif
+ #
+ test_apps = \
+ 	tests/test_ancillaries \
+-	tests/test_system \
+ 	tests/test_pair_inproc \
+ 	tests/test_pair_tcp \
+ 	tests/test_reqrep_inproc \
+@@ -686,7 +685,6 @@ endif
+ if !ON_MINGW
+ if !ON_CYGWIN
+ test_apps += \
+-	tests/test_shutdown_stress \
+ 	tests/test_ipc_wildcard \
+ 	tests/test_pair_ipc \
+ 	tests/test_rebind_ipc \

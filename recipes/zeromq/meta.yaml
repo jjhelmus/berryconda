@@ -1,35 +1,73 @@
-{% set version = "4.1.6" %}
-{% set ver_maj_min_str = "-".join(version.split(".")[:2]) %}
+{% set name = "zeromq" %}
+{% set version = "4.2.5" %}
+{% set sha256 = "cc9090ba35713d59bb2f7d7965f877036c49c5558ea0c290b0dcc6f2a17e489f" %}
 
 package:
-  name: zeromq
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: zeromq-{{ version }}.tar.gz
-  url: https://github.com/zeromq/zeromq{{ ver_maj_min_str }}/releases/download/v{{ version }}/zeromq-{{ version }}.tar.gz
-  sha1: b956df8c6f77c174683b51fbee67f99c94945651
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/zeromq/libzmq/releases/download/v{{ version }}/zeromq-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
   patches:
-    # Patch to avoid a failing test on Linux. See issue for details.
-    # https://github.com/zeromq/libzmq/issues/1462
-    - Makefile.am.linux.patch  # [linux]
+    - rm-clang-format.patch
+    - 0003-windows-install.patch
+    - 0005-osx-test.patch  # [osx]
 
 build:
-  number: 0
+  number: 5
+  run_exports:
+    # ZeroMQ have a terribe track record of SONAME management between minor
+    # versions and across the two supported build systems unfortunately.
+    #    https://abi-laboratory.pro/tracker/timeline/zeromq/
+    - {{ pin_subpackage('zeromq', max_pin='x.x.x') }}
 
 requirements:
   build:
-    - libsodium
-
+    - automake                     # [osx]
+    - autoconf                     # [osx]
+    - cmake                        # [win]
+    - libtool                      # [osx]
+    - pkg-config                   # [unix]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - libsodium  # [not (win and vc<14)]
+    # need non-empty host to trigger the right cb3 behavior
+    - vc  # [win and vc<14]
   run:
     - libsodium
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/libzmq.a
-    - test -f ${PREFIX}/lib/libzmq.so
+    - test -f ${PREFIX}/lib/libzmq.a         # [unix]
+    - test -f ${PREFIX}/lib/libzmq.so        # [linux]
+    - test -f ${PREFIX}/lib/libzmq.so.5      # [linux]
+    - test -f ${PREFIX}/lib/libzmq.dylib     # [osx]
+    - test -f ${PREFIX}/lib/libzmq.5.dylib   # [osx]
+    # verify libsodium is linked
+    - otool -L ${PREFIX}/lib/libzmq.dylib | grep sodium  # [osx]
+    - ldd ${PREFIX}/lib/libzmq.so | grep sodium  # [linux]
+    - test -f ${PREFIX}/lib/cmake/ZeroMQ/ZeroMQConfig.cmake         # [unix]
+    - test -f ${PREFIX}/lib/cmake/ZeroMQ/ZeroMQConfigVersion.cmake  # [unix]
+    - ${PREFIX}/bin/curve_keygen  # [unix]
+    - if exist %LIBRARY_LIB%\libzmq-mt-s-{{ version | replace('.', '_') }}.lib (exit 0) else (exit 1)  # [win]
+    - if exist %LIBRARY_BIN%\libzmq-mt-{{ version | replace('.', '_') }}.dll (exit 0) else (exit 1)    # [win]
+    - if exist %LIBRARY_LIB%\libzmq-mt-{{ version | replace('.', '_') }}.lib (exit 0) else (exit 1)    # [win]
+    - if exist %LIBRARY_BIN%\libzmq.dll (exit 0) else (exit 1)                                         # [win]
+    - if exist %LIBRARY_LIB%\libzmq.lib (exit 0) else (exit 1)                                         # [win]
+    - if exist %LIBRARY_PREFIX%\cmake\ZeroMQ\ZeroMQConfig.cmake (exit 0) else (exit 1)           # [win]
+    - if exist %LIBRARY_PREFIX%\cmake\ZeroMQ\ZeroMQConfigVersion.cmake (exit 0) else (exit 1)    # [win]
 
 about:
   home: http://zeromq.org
   license: LGPL 3
   summary: A high-performance asynchronous messaging library.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - minrk
+    - SylvainCorlay
+    - JohanMabille
