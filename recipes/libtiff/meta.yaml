@@ -1,35 +1,60 @@
-{% set version = "4.0.6" %}
+{% set version = "4.0.9" %}
 
 package:
   name: libtiff
   version: {{ version }}
 
 source:
-  fn: tiff-{{ version }}.tar.gz
-  url: http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
-  sha256: 4d57a50907b510e3049a4bba0d7888930fdfc16ce49f1bf693e5b6247370d68c
+  url: http://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
+  sha256: 6e7bdeec2c310734e734d19aae3a71ebe37a4d842e0e23dbb1b8921c0026cfcd
+  patches:
+    - 0001-CVE-2017-9935.patch
+    - 0002-CVE-2017-18013.patch
+    - 0003-CVE-2018-5784.patch
+    - 0004-CVE-2017-11613_part1.patch
+    - 0005-CVE-2017-11613_part2.patch
+    - 0006-CVE-2018-7456.patch
+    - 0007-CVE-2017-17095.patch
 
 build:
-  number: 0
+  number: 2
+  # Does a very good job of maintaining compatibility.
+  #    https://abi-laboratory.pro/tracker/timeline/libtiff/
+  run_exports:
+    - {{ pin_subpackage('libtiff', max_pin='x') }}
 
 requirements:
   build:
-    - zlib 1.2.*
-    - jpeg 9*
-    - xz 5.2.*
+    - cmake  # [win]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - zlib
+    - jpeg
+    - xz  # [not win]
   run:
-    - zlib 1.2.*
-    - jpeg 9*
-    - xz 5.2.*
+    - zlib
+    - jpeg
+    - xz  # [not win]
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/libtiff.a
-    - test -f ${PREFIX}/lib/libtiffxx.a
-    - test -f ${PREFIX}/lib/libtiff.so
-    - test -f ${PREFIX}/lib/libtiffxx.so
+    - test -f ${PREFIX}/lib/libtiff.a  # [not win]
+    - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
+    - test -f ${PREFIX}/lib/libtiff${SHLIB_EXT}  # [not win]
+    - test -f ${PREFIX}/lib/libtiffxx${SHLIB_EXT}  # [not win]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: http://www.remotesensing.org/libtiff/
   license: HPND
+  license_file: COPYRIGHT
   summary: 'Support for the Tag Image File Format (TIFF).'
+
+extra:
+   recipe-maintainers:
+    - jakirkham
+    - ocefpaf
+    - stuarteberg
+    - msarahan
