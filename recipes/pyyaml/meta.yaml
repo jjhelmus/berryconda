@@ -1,26 +1,30 @@
-{% set version = "3.11" %}
+{% set version = "3.13" %}
 
 package:
   name: pyyaml
   version: {{ version }}
 
 source:
-  fn: PyYAML-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/P/PyYAML/PyYAML-{{ version }}.tar.gz
-  md5: f50e08ef0fe55178479d3a618efe21db
+  sha256: 3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf
+  patches:
+    - 0001-Ensure-we-do-not-end-up-wih-CRLF-line-endings-on-tes.patch
 
 build:
-  number: 0
+  number: 1
   script:
-    - python setup.py --with-libyaml build_ext --include-dirs="${PREFIX}/include" --library-dirs="${PREFIX}/lib"
+    - python setup.py --with-libyaml build_ext --include-dirs="${PREFIX}/include" --library-dirs="${PREFIX}/lib"  # [unix]
+    - python setup.py --with-libyaml build_ext --include-dirs="%LIBRARY_INC%" --library-dirs="%LIBRARY_LIB%"      # [win]
     - python setup.py install
     - python setup.py test
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
+    - cython
     - yaml
-
   run:
     - python
     - yaml
@@ -32,5 +36,17 @@ test:
 
 about:
   home: http://pyyaml.org/wiki/PyYAML
+  license_file: LICENSE
   license: MIT
+  license_family: MIT
   summary: YAML parser and emitter for Python
+  dev_url: https://github.com/yaml/pyyaml
+  doc_url: http://pyyaml.org/wiki/PyYAML
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - jjhelmus
+    - msarahan
+    - pelson
+    - ocefpaf
