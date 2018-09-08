@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Remove bzip2's shared library if present,
+# as we only want to link to it statically.
+# This is important in cases where conda
+# tries to update bzip2.
+find "${PREFIX}/lib" -name "libbz2*${SHLIB_EXT}*" | xargs rm -fv {}
+
 python ${RECIPE_DIR}/brand_python.py
 
 # Remove test data and ensurepip stubs to save space

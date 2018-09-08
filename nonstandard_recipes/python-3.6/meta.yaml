@@ -10,7 +10,7 @@ source:
   md5: 9a080a86e1a8d85e45eee4b1cd0a18a2
 
 build:
-  number: 0
+  number: 1
   no_link:
     - bin/python3.6
   script_env:
@@ -21,23 +21,25 @@ build:
   ignore_prefix_files:
     - lib/libpython3.6m.so.1.0
     - lib/python3.6/lib-dynload/*.so
+  # We delete the shared libraries.
+  ignore_run_exports:
+      - bzip2
 
 requirements:
   build:
-    - bzip2 1.0.*
-    - openssl 1.0.*
-    - readline 6.3*
-    - sqlite 3.15.*
-    - tk 8.6.*
-    - xz 5.2.*
-    - zlib 1.2.*
-  run:
-    - openssl 1.0.*
-    - readline 6.3*
-    - sqlite 3.15.*
-    - tk 8.6.*
-    - xz 5.2.*
-    - zlib 1.2.*
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+    - pkg-config
+  host:
+    - bzip2
+    - sqlite
+    - xz
+    - zlib
+    - openssl
+    - readline
+    - tk
+    - ncurses
 
 test:
   commands:
