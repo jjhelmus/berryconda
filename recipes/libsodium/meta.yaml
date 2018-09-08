@@ -1,4 +1,4 @@
-{% set version = "1.0.10" %}
+{% set version = "1.0.16" %}
 
 package:
   name: libsodium
@@ -7,17 +7,53 @@ package:
 source:
   fn: libsodium-{{ version }}.tar.gz
   url: https://github.com/jedisct1/libsodium/releases/download/{{ version }}/libsodium-{{ version }}.tar.gz
-  sha1: f34f78330cf1a4f69acce5f3fc2ada2d4098c7f4
+  sha256: eeadc7e1e1bcef09680fb4837d448fbdf57224978f865ac1c16745868fbd0533
 
 build:
+  skip: true  # [win and py>35]
   number: 0
+  features:
+    - vc9     # [win and py27]
+    - vc10    # [win and py34]
+    - vc14    # [win and py>=35]
+
+requirements:
+  build:
+    - python      # [win]
+    - msinttypes  # [win and py27]
+  run:
+    - vc 9   # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py>=35]
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/libsodium.a
-    - test -f ${PREFIX}/lib/libsodium.so
+    - test -f ${PREFIX}/include/sodium.h         # [unix]
+    - test -f ${PREFIX}/lib/libsodium.a          # [unix]
+    - test -f ${PREFIX}/lib/libsodium.dylib      # [osx]
+    - test -f ${PREFIX}/lib/libsodium.so         # [linux]
+
+    - if not exist %LIBRARY_INC%\sodium.h              exit 1  # [win]
+    - if not exist %LIBRARY_INC%\sodium\version.h      exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\libsodium.dll         exit 1  # [win]
+    - if not exist %LIBRARY_LIB%\libsodium.lib         exit 1  # [win]
+    - if not exist %LIBRARY_LIB%\libsodium_static.lib  exit 1  # [win]
 
 about:
-  home: https://github.com/jedisct1/libsodium
+  home: http://libsodium.org
   license: ISC
+  license_file: LICENSE
   summary: A modern and easy-to-use crypto library.
+  description: |
+    Sodium is a new, easy-to-use software library for encryption, decryption,
+    signatures, password hashing and more. It is a portable, cross-compilable,
+    installable, packageable fork of NaCl, with a compatible API, and an
+    extended API to improve usability even further. Its goal is to provide all
+    of the core operations needed to build higher-level cryptographic tools.
+  doc_url: https://download.libsodium.org/doc
+  dev_url: https://github.com/jedisct1/libsodium
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - minrk
