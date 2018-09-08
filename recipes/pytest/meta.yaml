@@ -1,4 +1,4 @@
-{% set version = "3.7.1" %}
+{% set version = "3.7.4" %}
 
 package:
   name: pytest
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pytest/pytest-{{ version }}.tar.gz
-  sha256: 86a8dbf407e437351cef4dba46736e9c5a6e3c3ac71b2e942209748e76ff2086
+  sha256: 2d7c49e931316cc7d1638a3e5f54f5d7b4e5225972b3c9838f3584788d27f349
 
 build:
   number: 0
