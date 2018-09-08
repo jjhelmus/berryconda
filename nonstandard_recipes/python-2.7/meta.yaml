@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   no_link:
     - bin/python2.7
   script_env:
@@ -21,21 +21,24 @@ build:
   ignore_prefix_files:
     - lib/libpython2.7.so.1.0
     - lib/python2.7/lib-dynload/*.so
+  # We delete the shared libraries
+  ignore_run_export:
+    - bzip2
 
 requirements:
   build:
-    - bzip2 1.0.*
-    - openssl 1.0.*
-    - readline 6.3*
-    - sqlite 3.15.*
-    - tk 8.6.*
-    - zlib 1.2.*
-  run:
-    - openssl 1.0.*
-    - readline 6.3*
-    - sqlite 3.15.*
-    - tk 8.6.*
-    - zlib 1.2.*
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+    - pkg-config
+  host:
+    - bzip2
+    - sqlite
+    - zlib
+    - openssl
+    - readline
+    - tk
+    - ncurses
 
 test:
   commands:
