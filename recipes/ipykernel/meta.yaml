@@ -1,18 +1,17 @@
-{% set version = "4.8.2" %}
+{% set version = "4.9.0" %}
 
 package:
   name: ipykernel
   version: {{ version }}
 
 source:
-  fn: ipykernel-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/i/ipykernel/ipykernel-{{ version }}.tar.gz
-  sha256: c091449dd0fad7710ddd9c4a06e8b9e15277da306590bc07a3a1afa6b4453c8f
+  sha256: c5a498c70f7765c34f3397cf943b069057f5bef4e0218e4cfbb733e9f38fa5fa
 
 build:
   number: 0
   script:
-    - pip install --no-deps .
+    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
     - python -m ipykernel install --prefix $PREFIX  # [not win]
     - python -m ipykernel install --prefix %PREFIX%  # [win]
 
