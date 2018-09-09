@@ -1,4 +1,4 @@
-{% set version = "1.0.0" %}
+{% set version = "1.1.0" %}
 
 package:
   name: imagesize
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/i/imagesize/imagesize-{{ version }}.tar.gz
-  sha256: 5b326e4678b6925158ccc66a9fa3122b6106d7c876ee32d7de6ce59385b96315
+  sha256: f3832918bc3c66617f92e35f5d70729187676313caa60c187eb0f28b8fe5e3b5
 
 build:
   noarch: python
-  number: 1
+  number: 0
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
