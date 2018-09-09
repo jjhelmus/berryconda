@@ -1,6 +1,6 @@
 {% set name = "anaconda-client" %}
-{% set version = "1.6.3" %}
-{% set checksum = "e24339e172e79554c2045209c54366a39fb37f6ceeede738cde7cb324de464f3" %}
+{% set version = "1.7.1" %}
+{% set checksum = "9f1d1e9dbf7f85de0ff2d6f64f1fcabd89d9b4886abc549067599f7ae4929c37" %}
 
 package:
   name: {{ name }}
@@ -14,7 +14,7 @@ source:
 build:
   number: 0
   noarch: python
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python -m pip install --no-deps --ignore-installed .
   entry_points:
     - anaconda = binstar_client.scripts.cli:main
     - binstar = binstar_client.scripts.cli:main
@@ -23,21 +23,18 @@ build:
 requirements:
   build:
     - python
-    - setuptools
-    - clyent
-    - requests >=2.0
-    - pyyaml
-    - python-dateutil
-    - pytz
+    - pip
 
   run:
     - python
-    - clyent
-    - conda
-    - requests >=2.0
-    - pyyaml
-    - python-dateutil
+    - setuptools
+    - clyent >=1.2.0
+    - nbformat >=4.4.0
+    - pyyaml >=3.12
+    - python-dateutil >=2.6.1
     - pytz
+    - requests >=2.9.1
+    - six
 
 test:
   imports:
@@ -60,4 +57,9 @@ test:
 about:
   home: https://github.com/Anaconda-Platform/anaconda-client
   license: BSD 3-Clause
+  license_file: LICENSE.md
   summary: Anaconda Cloud command line client library
+
+extra:
+  recipe-maintainers:
+    - jakirkham
