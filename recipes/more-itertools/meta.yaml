@@ -1,8 +1,8 @@
 {% set name = "more-itertools" %}
-{% set version = "4.2.0" %}
+{% set version = "4.3.0" %}
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash = "2b6b9893337bfd9166bee6a62c2b0c9fe7735dcf85948b387ec8cba30e85d8e8" %}
+{% set hash = "c476b5d3a34e12d40130bc2f935028b5f636df8f372dc2c1c01dc19681b2039e" %}
 
 package:
   name: {{ name|lower }}
@@ -13,7 +13,7 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
-  number: 1
+  number: 0
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
