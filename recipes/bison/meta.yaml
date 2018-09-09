@@ -1,0 +1,39 @@
+{% set version = "3.0.5" %}
+
+package:
+  name: bison
+  version: {{ version }}
+
+source:
+  url: http://ftp.gnu.org/gnu/bison/bison-{{ version }}.tar.gz
+  sha256: cd399d2bee33afa712bac4b1f4434e20379e9b4099bce47189e09a7675a2d566
+
+build:
+  skip: true  # [win]
+  number: 1
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+    - m4
+    - perl
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - flex
+
+test:
+  commands:
+    - yacc --help   # [unix]
+    - bison --help  # [unix]
+
+about:
+  home: https://www.gnu.org/software/bison/
+  license: GPL-3.0
+  license_file: COPYING
+  summary: General purpose parser generator converting annotated context-free grammar to a deterministic LR/GLR parser.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ocefpaf
