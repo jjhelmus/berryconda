@@ -1,0 +1,62 @@
+{% set version = "1.16.1" %}
+
+package:
+  name: krb5
+  version: {{ version }}
+
+source:
+  url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
+  sha256: d46a676bd6cfe58b8684ffd881bc7ed2c9c90cb43ccfa45a9500530e84aa262b
+  patches:
+    - eafnosupport.patch  # [win and vc<14]
+    - jsoneoverflow.patch  # [win and vc<14]
+    - afxres.patch  # [win and vc<14]
+    - lshutil.patch  # [win and vc<14]
+
+build:
+  number: 1000
+  run_exports:
+    # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
+    - {{ pin_subpackage('krb5', max_pin='x.x') }}
+  missing_dso_whitelist:          # [osx]
+    - /usr/lib/libresolv.9.dylib  # [osx]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - bison  # [not win]
+    - autoconf  # [not win]
+    - posix  # [win]
+    - perl  5.20.*   # [win]
+    - pkg-config  # [unix]
+    - make   # [unix]
+    - python 2.7
+  host:
+    - msinttypes  # [win and vc<14]
+    - libedit  # [unix]
+    - openssl
+    - tk
+  run:
+    - {{ pin_compatible('libedit') }}  # [unix]
+    - openssl
+    - tk
+    - python 2.7.*  # [win and vc == 9]
+
+test:
+  commands:
+    - conda inspect linkages -p $PREFIX krb5  # [not win]
+    - conda inspect objects -p $PREFIX krb5  # [osx]
+
+about:
+  home: http://web.mit.edu/kerberos/
+  license: MIT
+  license_file: doc/notice.rst
+  summary: 'A network authentication protocol.'
+
+extra:
+  recipe-maintainers:
+    - pelson
+    - ocefpaf
+    - mingwandroid
+    - mariusvniekerk

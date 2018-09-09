@@ -1,0 +1,11 @@
+--- src\windows\leashdll\lshutil.cpp.orig	2016-06-22 11:58:01.510783600 +1000
++++ src\windows\leashdll\lshutil.cpp	2016-06-22 11:58:10.542033600 +1000
+@@ -96,7 +96,7 @@
+ public:
+     STDMETHODIMP Clone(IEnumString **ppclone)
+     {
+-        LPTSTR *data = m_aStrings.data();
++        LPTSTR *data = &m_aStrings[0];
+         ULONG count = m_aStrings.size();
+         *ppclone = new DynEnumString(count, data);
+         return S_OK;

@@ -1,0 +1,7 @@
+--- src\windows\Makefile.in.orig	2016-06-22 13:02:55.949260200 +1000
++++ src\windows\Makefile.in	2016-06-22 13:03:23.793010200 +1000
+@@ -1,3 +1,3 @@
+ BUILDTOP=..
+ NO_OUTPRE=1
+-SUBDIRS= lib leashdll leash cns ms2mit kfwlogon
++SUBDIRS= lib cns ms2mit kfwlogon

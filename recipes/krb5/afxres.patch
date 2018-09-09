@@ -1,0 +1,9 @@
+--- src\include\afxres.h	1970-01-01 10:00:00.000000000 +1000
++++ src\include\afxres.h	2016-06-22 09:59:16.781442500 +1000
+@@ -0,0 +1,6 @@
++
++// afxres.h is something that comes with MFC
++// create a fake version.
++// see http://stackoverflow.com/questions/3566018/cannot-open-include-file-afxres-h-in-vc2010-express
++#include "WinResrc.h"
++#define IDC_STATIC  -1

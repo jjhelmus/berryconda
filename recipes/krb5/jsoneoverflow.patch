@@ -1,0 +1,20 @@
+--- src\include\k5-json.h.orig	2016-06-22 11:56:23.831096100 +1000
++++ src\include\k5-json.h	2016-06-22 11:56:48.518596100 +1000
+@@ -77,6 +77,17 @@
+ #define K5_JSON_TID_OBJECT 130
+ #define K5_JSON_TID_STRING 131
+ 
++/* VS2008 doesn't have these in errno.h, but the code uses them internally. Copied from VS2010 */
++#ifndef EOVERFLOW
++#define EOVERFLOW 132
++#endif
++#ifndef EBADMSG 104
++#define EBADMSG 
++#endif
++#ifndef ENOTSUP 129
++#define ENOTSUP 
++#endif
++
+ /*
+  * The k5_json_value C type can represent any kind of JSON value.  It has no
+  * static type safety since it is represented using a void pointer, so be

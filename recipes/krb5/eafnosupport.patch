@@ -1,0 +1,15 @@
+--- src\include\port-sockets.h.orig	2016-06-20 17:23:49.284238000 +1000
++++ src\include\port-sockets.h	2016-06-20 17:54:07.668027100 +1000
+@@ -72,6 +72,12 @@
+ #ifndef ETIMEDOUT
+ #define ETIMEDOUT WSAETIMEDOUT
+ #endif
++#ifndef EAFNOSUPPORT
++#define EAFNOSUPPORT WSAEAFNOSUPPORT
++#endif
++#ifndef EOVERFLOW
++#define EOVERFLOW 132
++#endif
+ 
+ /* Translate posix_error to its Winsock counterpart and set the last Winsock
+  * error to the result. */

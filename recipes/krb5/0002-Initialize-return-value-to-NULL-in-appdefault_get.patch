@@ -1,0 +1,25 @@
+From 33e7f7d7daf852e63945fdc22a229929c8e62892 Mon Sep 17 00:00:00 2001
+From: Nehal J Wani <nehaljw.kkd1@gmail.com>
+Date: Sun, 28 Jan 2018 03:02:57 -0500
+Subject: [PATCH 2/2] Initialize return value to NULL in appdefault_get()
+
+---
+ src/lib/krb5/krb/appdefault.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/lib/krb5/krb/appdefault.c b/src/lib/krb5/krb/appdefault.c
+index 73fd260..3f7dc23 100644
+--- a/src/lib/krb5/krb/appdefault.c
++++ b/src/lib/krb5/krb/appdefault.c
+@@ -44,6 +44,8 @@ appdefault_get(krb5_context context, const char *appname, const krb5_data *realm
+     krb5_error_code retval;
+     const char * realmstr =  realm?realm->data:NULL;
+ 
++    *ret_value = NULL;
++
+     if (!context || (context->magic != KV5M_CONTEXT))
+         return KV5M_CONTEXT;
+ 
+-- 
+1.8.3.1
+

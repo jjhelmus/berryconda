@@ -1,0 +1,49 @@
+From 6aae6617152737b0084f0039bf85418e210e76a8 Mon Sep 17 00:00:00 2001
+From: Ben Kaduk <kaduk@mit.edu>
+Date: Wed, 10 Aug 2016 23:25:47 -0500
+Subject: [PATCH 1/2] Fix build with -O3 on ppc64el
+
+Ubuntu runs ppc64el builds with -O3, which elicited a few warnings
+from gcc that were not generated elsewhere, as documented at
+https://bugs.launchpad.net/ubuntu/+source/krb5/+bug/1592841 .
+
+Initialize the output variable at the top of a couple of helper functions
+to silence the uninitialized-variable warnings.
+
+ticket: 8475 (new)
+target_version: 1.14-next
+target_version: 1.13-next
+tags: pullup
+---
+ src/lib/krb5/os/sendto_kdc.c | 2 ++
+ src/tests/asn.1/trval.c      | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/src/lib/krb5/os/sendto_kdc.c b/src/lib/krb5/os/sendto_kdc.c
+index 3b3b438..de729cc 100644
+--- a/src/lib/krb5/os/sendto_kdc.c
++++ b/src/lib/krb5/os/sendto_kdc.c
+@@ -171,6 +171,8 @@ get_curtime_ms(time_ms *time_out)
+ {
+     struct timeval tv;
+ 
++    *time_out = 0;
++
+     if (gettimeofday(&tv, 0))
+         return errno;
+     *time_out = (time_ms)tv.tv_sec * 1000 + tv.tv_usec / 1000;
+diff --git a/src/tests/asn.1/trval.c b/src/tests/asn.1/trval.c
+index e924fd8..c14bcde 100644
+--- a/src/tests/asn.1/trval.c
++++ b/src/tests/asn.1/trval.c
+@@ -180,6 +180,7 @@ int trval2(fp, enc, len, lev, rlen)
+     int rlen_ext = 0;
+ 
+     r = OK;
++    *rlen = -1;
+ 
+     if (len < 2) {
+         fprintf(fp, "missing id and length octets (%d)\n", len);
+-- 
+1.8.3.1
+

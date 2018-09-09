@@ -1,0 +1,23 @@
+--- src\Makefile.in.orig	2016-06-20 15:33:36.173818900 +1000
++++ src\Makefile.in	2016-06-22 14:35:10.610631100 +1000
+@@ -501,12 +501,6 @@
+ 	$(INSTALLDBGSYMS) appl\gss-sample\$(OUTPRE)gss-client.pdb "$(KRB_INSTALL_DIR)\bin\."
+ 	copy windows\ms2mit\$(OUTPRE)*.exe "$(KRB_INSTALL_DIR)\bin\."
+ 	$(INSTALLDBGSYMS) windows\ms2mit\$(OUTPRE)*.pdb "$(KRB_INSTALL_DIR)\bin\."
+-	copy windows\leashdll\$(OUTPRE)*.lib "$(KRB_INSTALL_DIR)\lib\."
+-	copy windows\leashdll\$(OUTPRE)*.dll "$(KRB_INSTALL_DIR)\bin\."
+-	$(INSTALLDBGSYMS) windows\leashdll\$(OUTPRE)*.pdb "$(KRB_INSTALL_DIR)\bin\."
+-	copy windows\leash\$(OUTPRE)*.exe "$(KRB_INSTALL_DIR)\bin\."
+-	$(INSTALLDBGSYMS) windows\leash\$(OUTPRE)*.pdb "$(KRB_INSTALL_DIR)\bin\."
+-	copy windows\leash\$(OUTPRE)*.chm "$(KRB_INSTALL_DIR)\bin\."
+ 	copy windows\kfwlogon\$(OUTPRE)*.lib "$(KRB_INSTALL_DIR)\lib\."
+ 	copy windows\kfwlogon\$(OUTPRE)*.exe "$(KRB_INSTALL_DIR)\bin\."
+ 	copy windows\kfwlogon\$(OUTPRE)*.dll "$(KRB_INSTALL_DIR)\bin\."
+@@ -536,7 +530,6 @@
+ 	$(INSTALLDBGSYMS) clients\kdeltkt\$(OUTPRE)kdeltkt.pdb "$(KRB_INSTALL_DIR)\bin\."
+ 	$(INSTALLDBGSYMS) clients\kpasswd\$(OUTPRE)kpasswd.pdb "$(KRB_INSTALL_DIR)\bin\."
+ 	$(INSTALLDBGSYMS) clients\kswitch\$(OUTPRE)kswitch.pdb "$(KRB_INSTALL_DIR)\bin\."
+-	copy windows\leash\htmlhelp\*.chm "$(KRB_INSTALL_DIR)\bin\."
+ 
+ check-prerecurse: runenv.py
+ 	$(RM) $(SKIPTESTS)
