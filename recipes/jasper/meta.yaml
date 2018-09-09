@@ -10,14 +10,16 @@ source:
   sha256: 6b905a9c2aca2e275544212666eefc4eb44d95d0a57e4305457b407fe63f9494
 
 build:
-  number: 4
+  number: 5
   skip: True  # [win]
 
 requirements:
   build:
-    - jpeg 9*
+    - {{ compiler('c') }}
+  host:
+    - jpeg
   run:
-    - jpeg 9*
+    - jpeg
 
 test:
   commands:
