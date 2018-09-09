@@ -1,38 +1,34 @@
-{% set name = "entrypoints" %}
 {% set version = "0.2.3" %}
-{% set wheel_tag = "py2.py3-none-any" %}
-{% set fn = "{}-{}-{}.whl".format(name, version, wheel_tag) %}
-{% set sha256 = "10ad569bb245e7e2ba425285b9fa3e8178a0dc92fc53b1e1c553805e15a8825b" %}
 
 package:
-    name: entrypoints
-    version: {{ version }}
+  name: entrypoints
+  version: {{ version }}
 
 source:
-    fn: {{ fn }}
-    url: https://pypi.io/packages/py2.py3/{{ name[0] }}/{{ name }}/{{ fn }}
-    sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/e/entrypoints/entrypoints-{{ version }}.tar.gz
+  sha256: d2d587dde06f99545fb13a383d2cd336a8ff1f359c5839ce3a64c917d10c029f
 
 build:
-    number: 1
-    script: pip install --no-deps {{ fn }}
+  number: 2
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-    build:
-        - python
-        - pip
-    run:
-        - python
-        - configparser  # [py2k or py34]
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - configparser >=3.5  # [py27]
 
 test:
-    imports:
-        - entrypoints
+  imports:
+    - entrypoints
 
 about:
-    home: https://entrypoints.readthedocs.io/
-    license: MIT
-    summary: Discover and load entry points from installed packages
+  home: https://entrypoints.readthedocs.io/
+  license: MIT
+  license_file: LICENSE
+  summary: Discover and load entry points from installed packages
 
 extra:
   recipe-maintainers:
