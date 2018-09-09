@@ -1,0 +1,59 @@
+{% set version = "1.8.0" %}
+
+package:
+  name: libssh2
+  version: {{ version }}
+
+source:
+  url: https://www.libssh2.org/download/libssh2-{{ version }}.tar.gz
+  sha256: 39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4
+
+build:
+  number: 2
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+  host:
+    # This breals a dependency cycle:
+    # curl->libssh2->cmake->curl
+    - cmake-binary
+    - openssl
+    - zlib
+  run:
+    - openssl
+    - zlib
+
+test:
+  commands:
+    - test -f $PREFIX/include/libssh2.h              # [not win]
+    - test -f $PREFIX/include/libssh2_publickey.h    # [not win]
+    - test -f $PREFIX/include/libssh2_sftp.h         # [not win]
+
+    - test -f $PREFIX/lib/libssh2.a                  # [not win]
+    - test -f $PREFIX/lib/libssh2.so                 # [linux]
+    - test -f $PREFIX/lib/libssh2.dylib              # [osx]
+
+    - if not exist %LIBRARY_INC%\\libssh2.h           exit 1  # [win]
+    - if not exist %LIBRARY_INC%\\libssh2_publickey.h exit 1  # [win]
+    - if not exist %LIBRARY_INC%\\libssh2_sftp.h      exit 1  # [win]
+    - if not exist %LIBRARY_LIB%\\libssh2.lib         exit 1  # [win]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: https://www.libssh2.org/
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: COPYING
+  summary: 'the SSH library'
+
+  description: |
+    libssh2 is a library implementing the SSH2 protocol, available under the revised BSD license.
+  dev_url: https://github.com/libssh2/libssh2
+
+extra:
+  recipe-maintainers:
+    - shadowwalkersb
+    - nehaljwani
+    - ocefpaf
