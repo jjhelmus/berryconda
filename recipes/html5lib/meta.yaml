@@ -1,26 +1,22 @@
-{% set name = "html5lib" %}
 {% set version = "1.0.1" %}
-{% set sha256 = "66cb0dcfdbbc4f9c3ba1a63fdb511ffdbd4f513b2b6d81b80cd26ce6b3fb3736" %}
 
 package:
-  name: {{ name }}
+  name: html5lib
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/h/html5lib/html5lib-{{ version }}.tar.gz
+  sha256: 66cb0dcfdbbc4f9c3ba1a63fdb511ffdbd4f513b2b6d81b80cd26ce6b3fb3736
 
 build:
-  noarch: python
   number: 0
-  script: pip install --no-deps .
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
     - pip
-
   run:
     - python
     - six >=1.9
@@ -53,3 +49,4 @@ extra:
   recipe-maintainers:
     - jakirkham
     - minrk
+    - ocefpaf
