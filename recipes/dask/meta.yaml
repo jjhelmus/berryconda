@@ -1,4 +1,4 @@
-{% set version = "0.18.2" %}
+{% set version = "0.19.0" %}
 
 package:
   name: dask
@@ -14,11 +14,11 @@ requirements:
 
   run:
     - python
-    - bokeh
+    - bokeh >=0.13.0
     - cloudpickle >=0.2.1
     - cytoolz >=0.7.3
     - dask-core {{ version }}
-    - distributed >=1.22.0
+    - distributed >=1.23.0
     - numpy >=1.11.0
     - pandas >=0.19.0
     - partd >=0.3.8
