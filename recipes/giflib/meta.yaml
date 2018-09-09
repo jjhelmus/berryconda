@@ -9,27 +9,44 @@ source:
   sha256: 34a7377ba834397db019e8eb122e551a49c98f49df75ec3fcc92b9a794a4f6d1
 
 build:
-  number: 0
-  skip: True  # [win]
+  number: 1
+  # the sln file from the URL below is gone :-/
+  # http://www.chemformatter.com/build-with-visual-studio-2015/giflib/giflib-5.1.4-vs14.zip
+  skip: true  # [win]
+  run_exports:
+    # SONAME changes at minor revs.
+    #    https://abi-laboratory.pro/tracker/timeline/giflib/
+    - {{ pin_subpackage('giflib', max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
 
 test:
   commands:
-    - gif2rgb -h
-    - gifbuild -h
-    - gifclrmp -h
-    - gifecho -h
-    - giffix -h
-    - gifinto -h
-    - giftext -h
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+    - gif2rgb -h  # [not win]
+    - gifbuild -h  # [not win]
+    - gifclrmp -h  # [not win]
+    - gifecho -h  # [not win]
+    - giffix -h  # [not win]
+    - gifinto -h  # [not win]
+    - giftext -h  # [not win]
+    - gif2rgb.exe -h  # [win]
+    - gifbuild.exe -h  # [win]
+    - gifclrmp.exe -h  # [win]
+    - gifecho.exe -h  # [win]
+    - giffix.exe -h  # [win]
+    - gifinto.exe -h  # [win]
+    - giftext.exe -h  # [win]
 
 about:
   home: http://giflib.sourceforge.net
   license: MIT
+  license_file: COPYING
   summary: Library for reading and writing gif images
 
 extra:
   recipe-maintainers:
     - ocefpaf
     - 183amir
+    - msarahan
