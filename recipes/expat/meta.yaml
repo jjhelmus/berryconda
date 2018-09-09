@@ -1,0 +1,43 @@
+{% set version = "2.2.5" %}
+{% set ver = version|replace(".", "_") %}
+
+package:
+  name: expat
+  version: {{ version }}
+
+source:
+  url: https://github.com/libexpat/libexpat/releases/download/R_{{ ver }}/expat-{{ version }}.tar.bz2
+  sha256: d9dc32efba7e74f788fcc4f212a43216fc37cf5f23f4c2339664d473353aedf6
+
+build:
+  number: 2
+  run_exports:
+    # changes soname at major versions, default settings OK
+    # https://abi-laboratory.pro/tracker/timeline/expat/
+    - {{ pin_subpackage('expat') }}
+
+requirements:
+  build:
+    - cmake  # [win]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - msinttypes  # [win and vc<14]
+
+test:
+  commands:
+    - xmlwf -h
+
+about:
+  home: http://expat.sourceforge.net/
+  license: MIT
+  license_file: COPYING
+  summary: 'Expat XML parser library in C'
+
+extra:
+  recipe-maintainers:
+    - kwilcox
+    - ocefpaf
+    - pelson
+    - mingwandroid
+    - msarahan
