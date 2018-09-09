@@ -18,6 +18,8 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
     - setuptools
 
@@ -27,8 +29,18 @@ requirements:
 test:
   imports:
     - lazy_object_proxy
+    - lazy_object_proxy.cext
 
 about:
   home: https://github.com/ionelmc/python-lazy-object-proxy
   license: BSD 2-Clause
+  license_file: LICENSE
   summary: 'A fast and thorough lazy object proxy.'
+  doc_url: https://python-lazy-object-proxy.readthedocs.org
+  doc_source_url: https://github.com/ionelmc/python-lazy-object-proxy/blob/master/docs/index.rst
+  dev_url: https://github.com/ionelmc/python-lazy-object-proxy
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - nehaljwani
