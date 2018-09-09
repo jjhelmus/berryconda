@@ -1,27 +1,21 @@
-{%set name = "docutils" %}
-{%set version = "0.14" %}
-{%set compress_type = "tar.gz" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274" %}
-{%set build_num = "0" %}
+{% set version = "0.14" %}
 
 package:
-  name: {{ name }}
+  name: docutils
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
-  {{ hash_type }}: {{ hash_val }}
+  url: https://pypi.io/packages/source/d/docutils/docutils-{{ version }}.tar.gz
+  sha256: 51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274
 
 build:
-  number: {{ build_num }}
-  script: python setup.py install
+  number: 1
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
-
+    - pip
   run:
     - python
 
@@ -63,3 +57,4 @@ extra:
   recipe-maintainers:
     - pmlandwehr
     - nehaljwani
+    - ocefpaf
