@@ -1,34 +1,53 @@
-{% set version = "7.49.1" %}
+{% set version = "7.61.0" %}
 
 package:
   name: curl
   version: {{ version }}
 
 source:
-  fn: curl-{{ version }}.tar.bz2
   url: http://curl.haxx.se/download/curl-{{ version }}.tar.bz2
-  sha256: eb63cec4bef692eab9db459033f409533e6d10e20942f4b060b32819e81885f1
+  sha256: 5f6f336921cf5b84de56afbd08dfb70adeef2303751ffb3e570c936c6d656c9c
+  patches:
+    ###################################################
+    # Raised issue upstream on this issue.            #
+    #                                                 #
+    # xref: https://github.com/curl/curl/issues/2394  #
+    ###################################################
+    - drop_failing_tests_macos.diff  # [osx]
 
 build:
-  number: 0
+  number: 1
+  detect_binary_files_with_prefix: True
 
 requirements:
   build:
-    - openssl 1.0.*
-    - zlib 1.2.*
+    - perl  # [unix]
+    - pkg-config  # [unix]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    # python is a build requirement on Windows to resolve features.
+    # perl is required to run the tests on nix*.
+    - krb5
+    - libssh2
+    - openssl        # [unix]
+    - zlib
   run:
-    - openssl 1.0.*
-    - zlib 1.2.*
+    - krb5
+    - libssh2
+    - openssl          # [unix]
+    - zlib
 
 test:
-
   commands:
-    - curl --help
-    - curl-config --features
-    - curl-config --protocols
-
-    # Try downloading something from https to make sure the certs are used correctly.
+    - curl --version
+    - curl-config --features  # [not win]
+    - curl-config --protocols  # [not win]
     - curl https://raw.githubusercontent.com/conda-forge/curl-feedstock/master/LICENSE
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+    - nm $PREFIX/lib/libcurl$SHLIB_EXT | grep libssh2_scp_recv2  # [linux]
+    - ldd $PREFIX/lib/libcurl.so  # [linux]
 
 about:
   home: http://curl.haxx.se/
@@ -36,3 +55,9 @@ about:
   license_family: MIT
   license_file: COPYING
   summary: tool and library for transferring data with URL syntax
+
+extra:
+  recipe-maintainers:
+    - msarahan
+    - jakirkham
+    - ocefpaf

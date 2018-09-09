@@ -1,0 +1,233 @@
+diff --git tests/data/Makefile.in tests/data/Makefile.in
+index 5b5f1f1..ed03f29 100644
+--- tests/data/Makefile.in
++++ tests/data/Makefile.in
+@@ -530,7 +530,7 @@ test2024 test2025 test2026 test2027 test2028 test2029 test2030 test2031 \
+ test2032 test2033 test2034 test2035 test2036 test2037 test2038 test2039 \
+ test2040 test2041 test2042 test2043 test2044 test2045 test2046 test2047 \
+ test2048 test2049 test2050 test2051 test2052 test2053 test2054 test2055 \
+-test2056 test2057 test2058 test2059 test2060 test2061 test2062 test2063 \
++test2058 test2059 test2060 test2061 test2062 test2063 \
+ test2064 test2065 test2066 test2067 test2068 test2069 \
+ \
+ test2070 test2071 test2072 test2073
+diff --git tests/data/Makefile.inc tests/data/Makefile.inc
+index 9635d12..99a51e4 100644
+--- tests/data/Makefile.inc
++++ tests/data/Makefile.inc
+@@ -187,7 +187,7 @@ test2024 test2025 test2026 test2027 test2028 test2029 test2030 test2031 \
+ test2032 test2033 test2034 test2035 test2036 test2037 test2038 test2039 \
+ test2040 test2041 test2042 test2043 test2044 test2045 test2046 test2047 \
+ test2048 test2049 test2050 test2051 test2052 test2053 test2054 test2055 \
+-test2056 test2057 test2058 test2059 test2060 test2061 test2062 test2063 \
++test2058 test2059 test2060 test2061 test2062 test2063 \
+ test2064 test2065 test2066 test2067 test2068 test2069 \
+ \
+ test2070 test2071 test2072 test2073
+diff --git tests/data/test2056 tests/data/test2056
+deleted file mode 100644
+index f00e212..0000000
+--- tests/data/test2056
++++ /dev/null
+@@ -1,87 +0,0 @@
+-<testcase>
+-<info>
+-<keywords>
+-HTTP
+-HTTP GET
+-HTTP Negotiate auth (stub krb5)
+-</keywords>
+-</info>
+-# Server-side
+-<reply>
+-<!-- First request, expect 401 Negotiate -->
+-<data>
+-HTTP/1.1 401 Authorization Required
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate
+-Content-Length: 13
+-
+-Not yet sir!
+-</data>
+-<!-- Second request, expect success in one shot -->
+-<data1>
+-HTTP/1.1 200 Things are fine in server land
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate RA==
+-Content-Length: 15
+-
+-Nice auth sir!
+-</data1>
+-<datacheck>
+-HTTP/1.1 401 Authorization Required
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate
+-Content-Length: 13
+-
+-HTTP/1.1 200 Things are fine in server land
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate RA==
+-Content-Length: 15
+-
+-Nice auth sir!
+-</datacheck>
+-</reply>
+-
+-# Client-side
+-<client>
+-<server>
+-http
+-</server>
+-<name>
+-HTTP Negotiate authentication (stub krb5)
+-</name>
+-<features>
+-GSS-API
+-ld_preload
+-!debug
+-</features>
+-<setenv>
+-LD_PRELOAD=%PWD/libtest/.libs/libstubgss.so
+-CURL_STUB_GSS_CREDS="KRB5_Alice"
+-</setenv>
+-<command>
+--u: --negotiate http://%HOSTIP:%HTTPPORT/2056
+-</command>
+-</client>
+-
+-# Verify data after the test has been "shot"
+-<verify>
+-<strip>
+-^User-Agent:.*
+-</strip>
+-<protocol>
+-GET /2056 HTTP/1.1
+-Host: %HOSTIP:%HTTPPORT
+-Accept: */*
+-
+-GET /2056 HTTP/1.1
+-Host: %HOSTIP:%HTTPPORT
+-Authorization: Negotiate IktSQjVfQWxpY2UiOkhUVFBAMTI3LjAuMC4xOjE6QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==
+-Accept: */*
+-
+-</protocol>
+-</verify>
+-</testcase>
+diff --git tests/data/test2057 tests/data/test2057
+deleted file mode 100644
+index 5625051..0000000
+--- tests/data/test2057
++++ /dev/null
+@@ -1,108 +0,0 @@
+-<testcase>
+-<info>
+-<keywords>
+-HTTP
+-HTTP GET
+-HTTP Negotiate auth (stub ntlm)
+-</keywords>
+-</info>
+-# Server-side
+-<reply>
+-<!-- First request, expect 401 Negotiate -->
+-<data>
+-HTTP/1.1 401 Authorization Required
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate
+-Content-Length: 13
+-
+-Not yet sir!
+-</data>
+-<!-- Second request, expect 401 (ntlm challenge) -->
+-<data1>
+-HTTP/1.1 401 Authorization Required
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate Qw==
+-Content-Length: 19
+-
+-Still not yet sir!
+-</data1>
+-<!-- Third request, expect success  -->
+-<data2>
+-HTTP/1.1 200 Things are fine in server land
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate RA==
+-Content-Length: 15
+-
+-Nice auth sir!
+-</data2>
+-<datacheck>
+-HTTP/1.1 401 Authorization Required
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate
+-Content-Length: 13
+-
+-HTTP/1.1 401 Authorization Required
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate Qw==
+-Content-Length: 19
+-
+-HTTP/1.1 200 Things are fine in server land
+-Server: Microsoft-IIS/7.0
+-Content-Type: text/html; charset=iso-8859-1
+-WWW-Authenticate: Negotiate RA==
+-Content-Length: 15
+-
+-Nice auth sir!
+-</datacheck>
+-</reply>
+-
+-# Client-side
+-<client>
+-<server>
+-http
+-</server>
+-<name>
+-HTTP Negotiate authentication (stub ntlm)
+-</name>
+-<features>
+-GSS-API
+-ld_preload
+-!debug
+-</features>
+-<setenv>
+-LD_PRELOAD=%PWD/libtest/.libs/libstubgss.so
+-CURL_STUB_GSS_CREDS="NTLM_Alice"
+-</setenv>
+-<command>
+--u: --negotiate http://%HOSTIP:%HTTPPORT/2057
+-</command>
+-</client>
+-
+-# Verify data after the test has been "shot"
+-<verify>
+-<strip>
+-^User-Agent:.*
+-</strip>
+-<protocol>
+-GET /2057 HTTP/1.1
+-Host: %HOSTIP:%HTTPPORT
+-Accept: */*
+-
+-GET /2057 HTTP/1.1
+-Host: %HOSTIP:%HTTPPORT
+-Authorization: Negotiate Ik5UTE1fQWxpY2UiOkhUVFBAMTI3LjAuMC4xOjI6QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==
+-Accept: */*
+-
+-GET /2057 HTTP/1.1
+-Host: %HOSTIP:%HTTPPORT
+-Authorization: Negotiate Ik5UTE1fQWxpY2UiOkhUVFBAMTI3LjAuMC4xOjM6QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==
+-Accept: */*
+-
+-</protocol>
+-</verify>
+-</testcase>
