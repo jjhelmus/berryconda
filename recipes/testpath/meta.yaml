@@ -1,22 +1,19 @@
-{% set name = "testpath" %}
 {% set version = "0.3.1" %}
-{% set sha256 = "0d5337839c788da5900df70f8e01015aec141aa3fe7936cb0d0a2953f7ac7609" %}
 
 package:
-  name: {{ name }}
+  name: testpath
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/t/testpath/testpath-{{ version }}.tar.gz
+  sha256: 0d5337839c788da5900df70f8e01015aec141aa3fe7936cb0d0a2953f7ac7609
 
 build:
-  number: 0
-  script: pip install --no-deps .
+  number: 1
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
@@ -43,3 +40,4 @@ extra:
   recipe-maintainers:
     - minrk
     - takluyver
+    - ocefpaf
