@@ -1,5 +1,5 @@
-{% set version = "4.5.9" %}
-{% set checksum = "de688d19f38146d9d66af4ebc9079bd328a582f38c635f6edc85a16b5339b227" %}
+{% set version = "4.5.11" %}
+{% set checksum = "99080c5fc43a76ae7dc082943a793a62cb3d4ec66f3986ff0216d22f1594401f" %}
 
 package:
   name: conda
