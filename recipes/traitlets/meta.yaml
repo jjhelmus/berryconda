@@ -1,18 +1,16 @@
 {% set version = "4.3.2" %}
-{% set sha256 = "9c4bd2d267b7153df9152698efb1050a5d84982d3384a37b2c1f7723ba3e7835" %}
 
 package:
   name: traitlets
   version: {{ version }}
 
 source:
-  fn: traitlets-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/t/traitlets/traitlets-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 9c4bd2d267b7153df9152698efb1050a5d84982d3384a37b2c1f7723ba3e7835
 
 build:
   number: 0
-  script: pip install --no-deps .
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   build:
@@ -23,7 +21,7 @@ requirements:
     - ipython_genutils
     - six
     - decorator
-    - enum34  # [py2k or py33]
+    - enum34  # [py<34]
 
 test:
   imports:
@@ -32,7 +30,8 @@ test:
 
 about:
   home: http://ipython.org/
-  license: BSD 3-clause
+  license: BSD-3-Clause
+  license_file: COPYING.md
   summary: Configuration system for Python applications
 
 extra:
@@ -41,3 +40,4 @@ extra:
     - pelson
     - minrk
     - SylvainCorlay
+    - ocefpaf
