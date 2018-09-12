@@ -1,7 +1,7 @@
 {% set name = "py" %}
-{% set version = "1.5.4" %}
+{% set version = "1.6.0" %}
 {% set hash_type = "sha256" %}
-{% set hash = "3fd59af7435864e1a243790d322d763925431213b6b8529c6ca71081ace3bbf7" %}
+{% set hash = "06a30435d058473046be836d3fc4f27167fd84c45b99704f2fb5509ef61f9af1" %}
 
 package:
   name: {{ name }}
