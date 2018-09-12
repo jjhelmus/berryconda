@@ -1,4 +1,4 @@
-{% set version = "1.7.5" %}
+{% set version = "1.7.8" %}
 
 package:
   name: sphinx
@@ -6,11 +6,14 @@ package:
 
 source:
   url: https://pypi.io/packages/source/S/Sphinx/Sphinx-{{ version }}.tar.gz
-  sha256: d45480a229edf70d84ca9fae3784162b1bc75ee47e480ffe04a4b7f21a95d76d
+  sha256: a07050845cc9a2f4026a6035cc8ed795a5ce7be6528bbc82032385c10807dfe7
 
 build:
   number: 0
-  script: python -m pip install --no-deps --ignore-installed .
+  script:
+  # Workaround for unicode name.
+  - rmdir /Q /S tests\roots\test-images  # [win and py27]
+  - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   entry_points:
     - sphinx-build = sphinx.cmd.build:main
     - sphinx-quickstart = sphinx.cmd.quickstart:main
@@ -18,7 +21,7 @@ build:
     - sphinx-autogen = sphinx.ext.autosummary.generate:main
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
@@ -59,3 +62,4 @@ extra:
   recipe-maintainers:
     - chohner
     - jakirkham
+    - ocefpaf
