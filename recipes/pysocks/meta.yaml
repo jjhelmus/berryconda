@@ -1,28 +1,21 @@
-{% set name = "PySocks" %}
 {% set version = "1.6.8" %}
-{% set compress_type= "tar.gz" %}
-{% set hash_type = "sha256" %}
-{% set hash = "3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672" %}
-{% set build = 1 %}
 
 package:
-  name: {{ name|lower }}
+  name: pysocks
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
-  {{ hash_type }}: {{ hash }}
+  url: https://pypi.io/packages/source/P/PySocks/PySocks-{{ version }}.tar.gz
+  sha256: 3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672
 
 build:
-  number: {{ build }}
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 2
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
-    - setuptools
-
+    - pip
   run:
     - python
     - win_inet_pton  # [win]
@@ -43,3 +36,4 @@ about:
 extra:
   recipe-maintainers:
     - pmlandwehr
+    - ocefpaf
