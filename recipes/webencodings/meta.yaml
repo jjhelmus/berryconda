@@ -5,21 +5,18 @@ package:
   version: {{ version }}
 
 source:
-  fn: webencodings-{{ version }}.tar.gz
   url: https://github.com/gsnedders/python-webencodings/archive/v{{ version }}.tar.gz
   sha256: 082367f568a7812aa5f6922ffe3d9d027cd83829dc32bcaac4c874eeed618000
 
 build:
-  noarch: python
   number: 1
-  script: python -m pip install --no-deps --ignore-installed .
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   host:
-    - pip
     - python
-    - setuptools
-
+    - pip
   run:
     - python
 
@@ -39,3 +36,4 @@ about:
 extra:
   recipe-maintainers:
     - jschueller
+    - ocefpaf
