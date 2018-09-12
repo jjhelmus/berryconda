@@ -1,28 +1,34 @@
+{% set name = "pycosat" %}
 {% set version = "0.6.3" %}
 
 package:
-  name: pycosat
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: pycosat-{{ version }}.zip
-  url: https://pypi.io/packages/source/p/pycosat/pycosat-{{ version }}.zip
-  md5: 51eb7cfe19cf704d4f0c476da61200c0
+  fn: pycosat-{{ version }}.tar.gz
+  url: https://github.com/ContinuumIO/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: abcaf3d6afb332b0d8363590d0aaa81f00f71142900fbae2608f7d595d5e4492
 
 build:
-  number: 0
+  number: 1
   script: python setup.py install
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
+    - msinttypes  # [win and py2k]
     - python
 
   run:
     - python
 
 test:
-  source_files:
-    - "*"
+  files:
+    - qg3-08.cnf
+    - uf20-098.cnf
+    - sudoku.py
 
   imports:
     - pycosat
@@ -30,4 +36,22 @@ test:
 about:
   home: https://github.com/ContinuumIO/pycosat
   license: MIT
+  license_file: LICENSE
   summary: Bindings to picosat (a SAT solver)
+  description: |
+    PicoSAT is a popular SAT solver written by Armin Biere in pure C. This
+    package provides efficient Python bindings to picosat on the C level, i.e.
+    when importing pycosat, the picosat solver becomes part of the Python
+    process itself.
+  doc_url: https://pypi.python.org/pypi/pycosat
+  doc_source_url: https://github.com/ContinuumIO/pycosat/blob/master/README.rst
+  dev_url: https://github.com/ContinuumIO/pycosat
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - kalefranz
+    - mcg1969
+    - msarahan
+    - pelson
+    - nehaljwani
