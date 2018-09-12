@@ -1,5 +1,4 @@
-{% set version = "3.4.0" %}
-{% set sha256 = "c9d6e426a1d79d132b57b93b368feba2c66eb7b0fd34bdb901716b4b88e94497" %}
+{% set version = "3.4.1" %}
 
 package:
   name: widgetsnbextension
@@ -7,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/w/widgetsnbextension/widgetsnbextension-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 8b3b32f522507744096609bc9a36cc0cc83fe8b61ba16f16eebb83d7d79e2686
 
 build:
   number: 0
-  script: python -m pip install --no-deps --ignore-installed .
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   host:
@@ -46,3 +45,4 @@ extra:
     - SylvainCorlay
     - willingc
     - pbugnion
+    - ocefpaf
