@@ -1,8 +1,8 @@
 {% set name = "botocore" %}
-{% set version = "1.10.75" %}
+{% set version = "1.11.6" %}
 {% set bundle = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash = "82055917cb431c1cee7c737189a170cc92ffc3824a6da504e8d3ff4df9fa2eab" %}
+{% set hash = "bd85f6491207b632c76fc6ca3e74b5d75a48c7f06f68ae5e98e794e6be10bc06" %}
 
 package:
   name: {{ name|lower }}
@@ -28,6 +28,7 @@ requirements:
     - jmespath >=0.7.1,<1.0.0
     - python-dateutil >=2.1,<3.0.0
     - docutils >=0.10
+    - urllib3 >=1.20,<1.24
 
 test:
   imports:
