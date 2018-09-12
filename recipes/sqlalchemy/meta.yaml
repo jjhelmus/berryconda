@@ -1,33 +1,66 @@
+{% set version = "1.2.11" %}
+
 package:
   name: sqlalchemy
-  version: 1.1.4
+  version: {{ version }}
 
 source:
-  fn: SQLAlchemy-1.1.4.tar.gz
-  url: https://pypi.python.org/packages/ca/ca/c2436fdb7bb75d772d9fa17ba60c4cfded6284eed053a7274b2beb96596a/SQLAlchemy-1.1.4.tar.gz
-  md5: be5af1bebe595206b71b513a14836e4f
+  url: https://pypi.io/packages/source/S/SQLAlchemy/SQLAlchemy-{{ version }}.tar.gz
+  sha256: ef6569ad403520ee13e180e1bfd6ed71a0254192a934ec1dbd3dbf48f4aa9524
+
+build:
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
 
 test:
+  requires:
+    - mock  # [py27]
   imports:
     - sqlalchemy
-    - sqlalchemy.cprocessors
-    - sqlalchemy.cresultproxy
-    - sqlalchemy.cutils
+    - sqlalchemy.connectors
+    - sqlalchemy.databases
+    - sqlalchemy.dialects
+    - sqlalchemy.dialects.firebird
+    - sqlalchemy.dialects.mssql
+    - sqlalchemy.dialects.mysql
+    - sqlalchemy.dialects.oracle
+    - sqlalchemy.dialects.postgresql
+    - sqlalchemy.dialects.sqlite
+    - sqlalchemy.dialects.sybase
+    - sqlalchemy.engine
+    - sqlalchemy.event
+    - sqlalchemy.ext
+    - sqlalchemy.ext.declarative
+    - sqlalchemy.orm
+    - sqlalchemy.sql
+    - sqlalchemy.testing
+    - sqlalchemy.testing.plugin
+    - sqlalchemy.util
 
 about:
   home: http://www.sqlalchemy.org/
   license: MIT
   license_file: LICENSE
-  summary: Database Abstraction Library
+  summary: 'Database Abstraction Library.'
   description: |
     SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that
     gives application developers the full power and flexibility of SQL.
   doc_url: http://docs.sqlalchemy.org/en/rel_1_0/
   dev_url: https://bitbucket.org/zzzeek/sqlalchemy/
+  doc_source_url: https://github.com/zzzeek/sqlalchemy/blob/master/doc/build/index.rst
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - mcs07
+    - nehaljwani
+    - igortg
