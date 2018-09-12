@@ -16,13 +16,17 @@ source:
     # https://github.com/dlitz/pycrypto/pull/46
     - pycrypto_PR_46.diff
     # Try a patch to fix Windows builds.
+    # https://github.com/dlitz/pycrypto/pull/199
     - pycrypto_PR_199.diff
     # Fixing a Windows testing issue.
+    # https://github.com/dlitz/pycrypto/pull/200
     - pycrypto_PR_200.diff
 
 build:
-  number: 0
+  number: 1
   script:
+    - set CL=/FI"%VCINSTALLDIR%\\INCLUDE\\stdint.h" %CL%  # [win and py>=35]
+    - export LDFLAGS="-headerpad_max_install_names"       # [osx]
     - python setup.py install test
 
 requirements:
@@ -59,3 +63,7 @@ about:
   home: http://www.pycrypto.org/
   license: Public Domain
   summary: Cryptographic modules for Python.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
