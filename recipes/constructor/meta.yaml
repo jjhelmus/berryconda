@@ -1,5 +1,5 @@
-{% set version = "1.5.0" %}
-{%set sha256 = "1c5125365c3544ec620b19e9de3ec3d9c5d1becc3d2213b3bc7378a303efd89e" %}
+{% set version = "2.1.0" %}
+{% set sha256 = "46e7ecbd5aa3b529c2f6720785655fcbc1b9925bee972e2f0dbc39e40980b10a" %}
 
 package:
   name: constructor
@@ -12,24 +12,27 @@ source:
 
 build:
   number: 0
-  script: python setup.py install
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+  entry_points:
+    - constructor = constructor.main:main
 
 requirements:
   build:
     - python
+    - setuptools
 
   run:
     - python
-    - libconda
-    - pycosat >=0.6.1
+    - conda
+    - ruamel_yaml
+    - pillow >=3.1     # [win]
+    - nsis >=3.01      # [win]
 
 test:
   imports:
     - constructor
-
   commands:
     - constructor --test
-    - constructor --help
 
 about:
   home: http://github.com/conda/constructor
@@ -37,3 +40,7 @@ about:
   license_family: BSD
   license_file: LICENSE.txt
   summary: create installer from conda packages
+
+extra:
+  recipe-maintainers:
+    - jakirkham
