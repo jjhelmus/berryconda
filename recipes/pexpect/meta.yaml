@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  script: python -m pip install --no-deps --ignore-installed .
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   build:
@@ -27,6 +27,7 @@ test:
 about:
   home: http://pexpect.sourceforge.net/
   license: ISC
+  license_file: LICENSE
   summary: 'Pexpect makes Python a better tool for controlling other applications.'
 
 extra:
