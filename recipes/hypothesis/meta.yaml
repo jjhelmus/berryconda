@@ -1,0 +1,69 @@
+{% set pkgname = "hypothesis" %}
+{% set version = "3.71.3" %}
+{% set sha256 = "7112e161bdc615fe8a9912887eded3a3c77708086082d8817a29a322a34fd3f1" %}
+
+package:
+  name: {{ pkgname }}
+  version: {{ version }}
+
+source:
+  fn: {{ pkgname }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ pkgname[0] }}/{{ pkgname }}/{{ pkgname }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .  --verbose
+
+requirements:
+  build:
+    - python
+    - pip
+    - setuptools
+  run:
+    - python
+    - attrs
+    - coverage
+    - enum34  # [py<34]
+
+{% set pytestcmd = "python -m pytest " %}  
+{% set pytestcmd = "python -m pytest -n 0 " %}  # [py35]
+
+test:
+  requires:
+    - pytest >=3.1, !=3.7.3
+    - pytest-xdist
+    - numpy
+    - pandas
+    - pytz
+    - faker
+    - mock
+    - flaky
+    - ipaddress  # [py2k]
+  imports:
+    - hypothesis
+    - hypothesis.extra
+    - hypothesis.strategies
+    - hypothesis.stateful
+  commands:
+    - git clone https://github.com/HypothesisWorks/hypothesis.git src
+    - cd src/hypothesis-python
+    - {{ pytestcmd }} tests/cover
+    - {{ pytestcmd }} tests/datetime
+    - {{ pytestcmd }} tests/fakefactory
+    - {{ pytestcmd }} tests/numpy
+    - {{ pytestcmd }} tests/pandas
+    - {{ pytestcmd }} tests/py2  # [py2k]
+    - {{ pytestcmd }} tests/py3  # [py3k]
+    - {{ pytestcmd }} tests/pytest -p pytester --runpytest subprocess
+
+about:
+  home: https://github.com/HypothesisWorks/hypothesis-python
+  license: MPL 2.0
+  summary: 'A library for property based testing'
+
+extra:
+  recipe-maintainers:
+    - ericmjl
+    - jochym
+    - tadeu
