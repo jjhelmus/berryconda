@@ -1,0 +1,41 @@
+From 76d41d530fc904cdd7e0d33d6ba61117b581e12a Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Sat, 12 May 2018 08:15:05 -0500
+Subject: [PATCH 6/9] Fix tests for Windows VS2008 (define __func__ as
+ __FUNCTION__)
+
+.. also adds a missing include config.h for the snprintf macro
+---
+ config.h.cmake.in          | 3 +++
+ nc_test/tst_def_var_fill.c | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/config.h.cmake.in b/config.h.cmake.in
+index 35be9ca4..489c2fe3 100644
+--- a/config.h.cmake.in
++++ b/config.h.cmake.in
+@@ -57,6 +57,9 @@ are set when opening a binary file on Windows. */
+     #endif
+    #endif
+ 
++   #if _MSC_VER<1900
++    #define __func__ __FUNCTION__
++   #endif
+ 
+    #define strdup _strdup
+    #define fdopen _fdopen
+diff --git a/nc_test/tst_def_var_fill.c b/nc_test/tst_def_var_fill.c
+index ee4ba6d3..248dcbbd 100644
+--- a/nc_test/tst_def_var_fill.c
++++ b/nc_test/tst_def_var_fill.c
+@@ -7,6 +7,7 @@
+  * Author: Wei-keng Liao.
+  */
+ 
++#include "config.h"
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-- 
+2.15.0
+

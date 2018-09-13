@@ -1,0 +1,38 @@
+From 44321081ee6fdcf3e86931baab284089af8acefd Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Sun, 24 Dec 2017 19:00:57 +0000
+Subject: [PATCH 4/9] Prefer getenv("TOPSRCDIR") over STRINGIFY(TOPSRCDIR)
+
+Because STRINGIFY is greedy and will convert all parts of the string that match
+any define. In my case I had -D"TOPSRCDIR=/opt/conda-linux-32/.." which got
+converted to "conda-1-32/.." since linux is defined as 1.
+---
+ ncdap_test/t_srcdir.h | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/ncdap_test/t_srcdir.h b/ncdap_test/t_srcdir.h
+index 406ebffe..d38bc09a 100644
+--- a/ncdap_test/t_srcdir.h
++++ b/ncdap_test/t_srcdir.h
+@@ -5,11 +5,14 @@ static const char*
+ gettopsrcdir(void)
+ {
+     const char* topsrcdir;
+-    topsrcdir = STRINGIFY(TOPSRCDIR);
++    topsrcdir = getenv("TOPSRCDIR");
+     if(topsrcdir == NULL) {
+-        fprintf(stderr,"*** FAIL: $abs_top_srcdir not defined\n");
+-        exit(1);
+-    }    
++        topsrcdir = STRINGIFY(TOPSRCDIR);
++        if(topsrcdir == NULL) {
++            fprintf(stderr,"*** FAIL: Neither $abs_top_srcdir nor env var TOPSRCDIR defined\n");
++            exit(1);
++        }
++    }
+     fprintf(stderr,"topsrcdir=%s\n",topsrcdir);
+     return topsrcdir;
+ }
+-- 
+2.15.0
+

@@ -1,0 +1,40 @@
+From e6417c0209ffcd5b080005355ef2794c93220da7 Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Sat, 12 May 2018 16:52:56 -0500
+Subject: [PATCH 7/9] Fix broken test
+
+---
+ ncdump/tst_nccopy4.sh | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/ncdump/tst_nccopy4.sh b/ncdump/tst_nccopy4.sh
+index 6784664c..01da96c0 100755
+--- a/ncdump/tst_nccopy4.sh
++++ b/ncdump/tst_nccopy4.sh
+@@ -19,6 +19,7 @@ TESTFILES='tst_comp tst_comp2 tst_enum_data tst_fillbug
+ # Run these programs to create some test files.
+ ${execdir}/tst_comp2
+ ${execdir}/tst_compress
++${execdir}/tst_chunking
+ 
+ echo "*** Testing netCDF-4 features of nccopy on ncdump/*.nc files"
+ for i in $TESTFILES ; do
+@@ -31,7 +32,6 @@ ${NCDUMP} copy_of_$i.nc > copy_of_$i.cdl
+     rm copy_of_$i.nc copy_of_$i.cdl tmp.cdl
+ done
+ # echo "*** Testing compression of deflatable files ..."
+-./tst_compress
+ echo "*** Test nccopy -d1 can compress a classic format file ..."
+ $NCCOPY -d1 tst_inflated.nc tst_deflated.nc
+ if test `wc -c < tst_deflated.nc` -ge  `wc -c < tst_inflated.nc`; then
+@@ -73,7 +73,6 @@ ${NCDUMP} copy_of_$i.nc > copy_of_$i.cdl
+     diff copy_of_$i.cdl tmp.cdl
+     rm copy_of_$i.nc copy_of_$i.cdl tmp.cdl
+ done
+-./tst_chunking
+ echo "*** Test that nccopy -c can chunk and unchunk files"
+ $NCCOPY tst_chunking.nc tmp.nc
+ ${NCDUMP} tmp.nc > tmp.cdl
+-- 
+2.15.0
+

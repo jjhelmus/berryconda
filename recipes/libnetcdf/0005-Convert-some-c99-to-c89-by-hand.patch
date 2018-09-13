@@ -1,0 +1,124 @@
+From 5b54157c8c982a9f5c98fbbd0379c853f5d5c8c5 Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Fri, 11 May 2018 17:13:39 -0500
+Subject: [PATCH 5/9] Convert some c99 to c89 (by hand)
+
+---
+ libdispatch/drc.c          | 6 ++++--
+ libdispatch/nchashmap.c    | 6 ++++--
+ libsrc4/nc4hdf.c           | 1 +
+ nc_test/tst_def_var_fill.c | 3 ++-
+ oc2/ocnode.c               | 3 ++-
+ 5 files changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/libdispatch/drc.c b/libdispatch/drc.c
+index e2de99de..ffe6c60b 100644
+--- a/libdispatch/drc.c
++++ b/libdispatch/drc.c
+@@ -19,6 +19,7 @@ See LICENSE.txt for license information.
+ #include "ncrc.h"
+ #include "nclog.h"
+ #include "ncwinpath.h"
++#include <stdint.h>
+ 
+ #define RCFILEENV "DAPRCFILE"
+ 
+@@ -366,9 +367,10 @@ rclocate(const char* key, const char* hostport)
+     if(hostport == NULL) hostport = "";
+ 
+     for(found=0,i=0;i<nclistlength(rc);i++) {
+-	triple = (NCTriple*)nclistget(rc,i);
+-        size_t hplen = (triple->host == NULL ? 0 : strlen(triple->host));
+         int t;
++        size_t hplen;
++	triple = (NCTriple*)nclistget(rc,i);
++        hplen = (triple->host == NULL ? 0 : strlen(triple->host));
+         if(strcmp(key,triple->key) != 0) continue; /* keys do not match */
+         /* If the triple entry has no url, then use it
+            (because we have checked all other cases)*/
+diff --git a/libdispatch/nchashmap.c b/libdispatch/nchashmap.c
+index 584c0b19..0a42b35e 100644
+--- a/libdispatch/nchashmap.c
++++ b/libdispatch/nchashmap.c
+@@ -150,11 +150,12 @@ NC_hashmapadd(NC_hashmap* hash, void* data, const char* key)
+ 
+     for(;;) {
+ 	size_t index, hashkey;
++	NC_hentry* entry;
+ 	if(!locate(hash,key,&index,&hashkey,1)) {
+ 	    rehash(hash);
+ 	    continue; /* try on larger table */
+ 	}
+-        NC_hentry* entry = &hash->table[index];
++        entry = &hash->table[index];
+ 	if(entry->flags & ACTIVE) {
+ 	    /* key already exists in table => overwrite */
+ 	    entry->data = data;
+@@ -263,8 +264,9 @@ findPrimeGreaterThan(size_t val)
+       v = (unsigned int)val;
+ 
+       for(;;) {
++	int m;
+ 	if(L >= R) break;
+-            int m = (L + R) / 2;
++            m = (L + R) / 2;
+ 	/* is this an acceptable prime? */
+             if(NC_primes[m-1] < v && NC_primes[m] >= v)
+ 	    return NC_primes[m]; /* acceptable*/
+diff --git a/libsrc4/nc4hdf.c b/libsrc4/nc4hdf.c
+index 597f7ebc..2943c1ac 100644
+--- a/libsrc4/nc4hdf.c
++++ b/libsrc4/nc4hdf.c
+@@ -20,6 +20,7 @@
+ #include "nc4dispatch.h"
+ #include <H5DSpublic.h>
+ #include <math.h>
++#include <inttypes.h>
+ 
+ #ifdef HAVE_INTTYPES_H
+ #define __STDC_FORMAT_MACROS
+diff --git a/nc_test/tst_def_var_fill.c b/nc_test/tst_def_var_fill.c
+index 30d256b1..ee4ba6d3 100644
+--- a/nc_test/tst_def_var_fill.c
++++ b/nc_test/tst_def_var_fill.c
+@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
+     size_t start[2], count[2];
+     int formats[5]={NC_FORMAT_CLASSIC, NC_FORMAT_64BIT_OFFSET, NC_FORMAT_CDF5,
+                     NC_FORMAT_NETCDF4, NC_FORMAT_NETCDF4_CLASSIC};
++    char *cmd_str;
+ 
+     if (argc > 2) {
+         printf("Usage: %s [filename]\n",argv[0]);
+@@ -51,7 +52,7 @@ int main(int argc, char** argv) {
+     if (argc == 2) snprintf(filename, 256, "%s", argv[1]);
+     else           strcpy(filename, "tst_def_var_fill.nc");
+ 
+-    char *cmd_str = (char*)malloc(strlen(argv[0]) + 256);
++    cmd_str = (char*)malloc(strlen(argv[0]) + 256);
+     sprintf(cmd_str, "*** TESTING C   %s for def_var_fill ", basename(argv[0]));
+     printf("%-66s ------ ", cmd_str); fflush(stdout);
+     free(cmd_str);
+diff --git a/oc2/ocnode.c b/oc2/ocnode.c
+index 46604837..9e84d940 100644
+--- a/oc2/ocnode.c
++++ b/oc2/ocnode.c
+@@ -393,6 +393,7 @@ mergedods1(OCnode* dds, OCnode* dods)
+ 	OCnode* attnode = (OCnode*)nclistget(dods->subnodes,i);
+ 	if(attnode->octype == OC_Attribute) {
+ 	    OCattribute* att;
++	    char* newname;
+ 	    /* prefix the attribute name with the name of the attribute
+                set plus "."
+             */
+@@ -400,7 +401,7 @@ mergedods1(OCnode* dds, OCnode* dods)
+                          + strlen(dods->name)
+ 			 + strlen(".");
+ 	    len++; /*strlcat nul*/
+-	    char* newname = (char*)malloc(len+1);
++	    newname = (char*)malloc(len+1);
+ 	    if(newname == NULL) return OC_ENOMEM;
+ 	    strncpy(newname,dods->name,len);
+ 	    strlcat(newname,".",len);
+-- 
+2.15.0
+

@@ -1,0 +1,11 @@
+--- netcdf-c-4.6.1.orig/hdf4_test/run_get_hdf4_files.sh	2018-03-18 21:24:27.000000000 -0300
++++ netcdf-c-4.6.1/hdf4_test/run_get_hdf4_files.sh	2018-07-25 18:27:24.357763781 -0300
+@@ -21,7 +21,7 @@
+ for f1 in $file_list
+ do
+     if ! test -f $f1; then
+-	wget "ftp://ftp.unidata.ucar.edu/pub/netcdf/sample_data/hdf4/$f1.gz"
++	curl -O  "ftp://ftp.unidata.ucar.edu/pub/netcdf/sample_data/hdf4/$f1.gz"
+ 	gunzip $f1.gz
+     fi
+ done

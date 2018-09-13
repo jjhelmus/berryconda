@@ -1,34 +1,77 @@
-{% set version = "4.4.1.1" %}
+{% set version = "4.6.1" %}
 
 package:
   name: libnetcdf
   version: {{ version }}
 
 source:
-  fn: v{{ version }}.tar.gz
   url: https://github.com/Unidata/netcdf-c/archive/v{{ version }}.tar.gz
-  sha256: 7f040a0542ed3f6d27f3002b074e509614e18d6c515b2005d1537fec01b24909
+  sha256: a2fabf27c72a5ee746e3843e1debbaad37cd035767eaede2045371322211eebb
+  patches:
+    - 0001-Fix-bug-Index-exceeds-dimension-bound.patch
+    - 0002-run_get_hdf4_files.sh-Use-curl-if-wget-fails-macOS-d.patch
+    - 0003-Add-find_package-Threads-REQUIRED-to-CMakeLists.txt.patch
+    - 0004-Prefer-getenv-TOPSRCDIR-over-STRINGIFY-TOPSRCDIR.patch
+    - 0005-Convert-some-c99-to-c89-by-hand.patch
+    - 0006-Fix-tests-for-Windows-VS2008-define-__func__-as-__FU.patch
+    - 0007-Fix-broken-test.patch
+    - 0008-Finish-the-missing-code-to-handle-VS-in-test_common..patch
+    - prevent_MS_runtime_libs_being_installed_again.patch  # [win]
+    # https://github.com/Unidata/netcdf4-python/issues/836
+    - higher_timeout.patch
 
 build:
-  number: 0
+  number: 8
+  run_exports:
+    #   https://abi-laboratory.pro/tracker/timeline/netcdf/
+    - {{ pin_subpackage('libnetcdf') }}
 
 requirements:
   build:
+    - cmake
+    - make  # [not win]
+    - pkg-config  # [not win]
+    - {{ compiler('c') }}
+  host:
+    - msinttypes  # [win and vc<14]
+    - bzip2
     - curl
-    - zlib 1.2.*
-    - hdf5 1.8.17|1.8.17.*
+    - zlib
+    - hdf4
+    - hdf5
+    - jpeg
   run:
+    - bzip2
     - curl
-    - zlib 1.2.*
-    - hdf5 1.8.17|1.8.17.*
+    - zlib
+    - hdf4
+    - hdf5
+    - jpeg
+    # Curl should be pulling this... Investigate it later.
+    - libssh2  # [win]
 
 test:
   commands:
-    - nc-config --all
-    - test -f ${PREFIX}/lib/libnetcdf.a
-    - test -f ${PREFIX}/lib/libnetcdf.so
+    - test -f ${PREFIX}/lib/libnetcdf.a  # [not win]
+    - test -f ${PREFIX}/lib/libnetcdf${SHLIB_EXT}  # [not win]
+    - nc-config --all  # [not win]
+    # All these endpotins failed at some point due to various reasons.
+    - ncdump -h "http://geoport-dev.whoi.edu/thredds/dodsC/estofs/atlantic"
+    - ncdump -h "https://data.nodc.noaa.gov/thredds/dodsC/ioos/sccoos/scripps_pier/scripps_pier-2016.nc"
+    - ncdump -h "http://oos.soest.hawaii.edu/thredds/dodsC/hioos/model/atm/ncep_pac/NCEP_Pacific_Atmospheric_Model_best.ncd"
+    - ncdump -h "http://oos.soest.hawaii.edu/thredds/dodsC/usgs_dem_10m_tinian"
+    - ncdump -h "https://www.ncei.noaa.gov/thredds/dodsC/namanl/201609/20160929/namanl_218_20160929_1800_006.grb"
 
 about:
   home: http://www.unidata.ucar.edu/software/netcdf/
   license: MIT
-  summary: 'Libraries and data formats that support array-oriented scientific data.'
+  license_file: COPYRIGHT
+  summary: 'Libraries and data formats that support array-oriented scientific data'
+
+extra:
+  recipe-maintainers:
+    - groutr
+    - kmuehlbauer
+    - ocefpaf
+    - mingwandroid
+    - msarahan

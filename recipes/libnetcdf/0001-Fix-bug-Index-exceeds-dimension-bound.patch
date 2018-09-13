@@ -1,0 +1,107 @@
+From efe2fa727e05f5b7c232ff74bf0396e5f5ea8091 Mon Sep 17 00:00:00 2001
+From: Dennis Heimbigner <dmh@ucar.edu>
+Date: Fri, 16 Mar 2018 13:54:33 -0600
+Subject: [PATCH] Fix bug: Index exceeds dimension bound
+
+Fix github issue https://github.com/Unidata/netcdf-c/issues/899
+which came from e-support UOY-859712.
+
+The problem was that the vlen_max parameter
+to libsrc/var.c#NC_check_vlen was of type size_t.
+However, it is being called, sometimes, with values
+of size X_INT64_MAX. The resulting truncation was
+causing dimension failures as noted in the e-support
+report.
+
+Fix is to change the vlen_max argument (and some
+local variables in NC_check_vlen) to be of declared
+as unsigned long long.
+---
+ cf                           | 2 +-
+ include/nc3internal.h        | 2 +-
+ libsrc/nc3internal.c         | 2 +-
+ libsrc/var.c                 | 6 +++---
+ ncdump/tst_ncgen4_classic.sh | 4 ++--
+ 5 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/cf b/cf
+index 84b259b1..e6406fdd 100644
+--- a/cf
++++ b/cf
+@@ -117,7 +117,7 @@ FLAGS="$FLAGS --enable-logging"
+ #FLAGS="$FLAGS --disable-properties-attribute"
+ #FLAGS="$FLAGS --disable-silent-rules"
+ #FLAGS="$FLAGS --with-testservers=remotestserver.localhost:8083"
+-FLAGS="$FLAGS --enable-filter-testing"
++#FLAGS="$FLAGS --enable-filter-testing"
+ 
+ if test "x$PAR4" != x1 ; then
+ FLAGS="$FLAGS --disable-parallel4"
+diff --git a/include/nc3internal.h b/include/nc3internal.h
+index 8d7af753..b952f2bd 100644
+--- a/include/nc3internal.h
++++ b/include/nc3internal.h
+@@ -229,7 +229,7 @@ extern int
+ NC_findvar(const NC_vararray *ncap, const char *name, NC_var **varpp);
+ 
+ extern int
+-NC_check_vlen(NC_var *varp, size_t vlen_max);
++NC_check_vlen(NC_var *varp, unsigned long long vlen_max);
+ 
+ extern int
+ NC_lookupvar(NC3_INFO* ncp, int varid, NC_var **varp);
+diff --git a/libsrc/nc3internal.c b/libsrc/nc3internal.c
+index f9130f31..6a30016f 100644
+--- a/libsrc/nc3internal.c
++++ b/libsrc/nc3internal.c
+@@ -702,7 +702,7 @@ NC_check_vlens(NC3_INFO *ncp)
+     /* maximum permitted variable size (or size of one record's worth
+        of a record variable) in bytes.  This is different for format 1
+        and format 2. */
+-    size_t vlen_max;
++    unsigned long long vlen_max;
+     size_t ii;
+     size_t large_vars_count;
+     size_t rec_vars_count;
+diff --git a/libsrc/var.c b/libsrc/var.c
+index 199472d4..bf2a0961 100644
+--- a/libsrc/var.c
++++ b/libsrc/var.c
+@@ -515,8 +515,8 @@ out :
+  * systems with LFS it should be 2^32 - 4.
+  */
+ int
+-NC_check_vlen(NC_var *varp, size_t vlen_max) {
+-    size_t prod=varp->xsz;	/* product of xsz and dimensions so far */
++NC_check_vlen(NC_var *varp, unsigned long long vlen_max) {
++    unsigned long long prod=varp->xsz;	/* product of xsz and dimensions so far */
+ 
+     int ii;
+ 
+@@ -524,7 +524,7 @@ NC_check_vlen(NC_var *varp, size_t vlen_max) {
+     for(ii = IS_RECVAR(varp) ? 1 : 0; ii < varp->ndims; ii++) {
+       if(!varp->shape)
+         return 0; /* Shape is undefined/NULL. */
+-      if (varp->shape[ii] > vlen_max / prod) {
++      if (varp->shape[ii] > (size_t)(vlen_max / prod)) {
+         return 0;		/* size in bytes won't fit in a 32-bit int */
+       }
+       prod *= varp->shape[ii];
+diff --git a/ncdump/tst_ncgen4_classic.sh b/ncdump/tst_ncgen4_classic.sh
+index e72f3f4a..0dfdff02 100755
+--- a/ncdump/tst_ncgen4_classic.sh
++++ b/ncdump/tst_ncgen4_classic.sh
+@@ -14,8 +14,8 @@ export verbose
+ 
+ echo "*** Performing diff/cycle tests for classic format: k=1"
+ KFLAG=1 ; export KFLAG
+-bash -x  ${srcdir}/tst_ncgen4_diff.sh
+-bash -x  ${srcdir}/tst_ncgen4_cycle.sh
++bash ${srcdir}/tst_ncgen4_diff.sh
++bash ${srcdir}/tst_ncgen4_cycle.sh
+ echo "SUCCESS!!"
+ exit 0
+ 
+-- 
+2.17.0
+

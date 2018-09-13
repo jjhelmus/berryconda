@@ -1,0 +1,25 @@
+From 6a5f5bceeb8d08eec9edc99d375219db6c3fb3a7 Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Wed, 20 Dec 2017 22:25:48 +0000
+Subject: [PATCH 3/9] Add find_package(Threads REQUIRED) to CMakeLists.txt
+
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4858eb1d..93e2806a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -691,6 +691,8 @@ IF(USE_HDF5 OR ENABLE_NETCDF_4)
+     SET(HDF5_C_LIBRARY_hdf5 "${HDF5_C_LIBRARY}")
+   ENDIF()
+ 
++  find_package(Threads REQUIRED)
++
+   ###
+   # The following options are not used in Windows currently.
+   ###
+-- 
+2.15.0
+

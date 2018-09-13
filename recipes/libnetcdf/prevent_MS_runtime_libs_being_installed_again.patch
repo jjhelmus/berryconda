@@ -1,0 +1,11 @@
+--- netcdf-c-4.6.1.orig/CMakeLists.txt	2018-03-18 21:24:27.000000000 -0300
++++ netcdf-c-4.6.1/CMakeLists.txt	2018-08-07 10:00:48.645367867 -0300
+@@ -1711,7 +1711,7 @@
+ # Subdirectory CMakeLists.txt files should specify their own
+ # 'install' files.
+ # Including 'CPack' kicks everything off.
+-INCLUDE(InstallRequiredSystemLibraries)
++#INCLUDE(InstallRequiredSystemLibraries)
+ CONFIGURE_FILE(
+   ${CMAKE_CURRENT_SOURCE_DIR}/FixBundle.cmake.in
+   ${CMAKE_CURRENT_BINARY_DIR}/FixBundle.cmake

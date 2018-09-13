@@ -1,0 +1,117 @@
+From cfd8c1558648975786e925cc86fd19a0be314bfe Mon Sep 17 00:00:00 2001
+From: Ray Donnelly <mingw.android@gmail.com>
+Date: Sat, 12 May 2018 11:35:22 -0500
+Subject: [PATCH 8/9] Finish the missing code to handle VS in test_common.in
+
+Now the testsuite should be able to run.
+---
+ CMakeLists.txt           | 7 +++++++
+ configure.ac             | 1 +
+ examples/CDL/do_comps.sh | 8 +++++---
+ ncdump/tst_netcdf4.sh    | 2 +-
+ test_common.in           | 9 +++++++--
+ 5 files changed, 21 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 93e2806a..7085e26e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1876,6 +1876,13 @@ FILE(COPY ${netCDF_SOURCE_DIR}/include/netcdf_meta.h
+ SET(EXTRA_DIST ${EXTRA_DIST} ${CMAKE_SOURCE_DIR}/test_common.in)
+ SET(TOPSRCDIR "${CMAKE_SOURCE_DIR}")
+ SET(TOPBUILDDIR "${CMAKE_BINARY_DIR}")
++IF(MSVC)
++  # Seems this is always upper-case by this point :-(
++  SET(VS_CONFIGURATION "/${CMAKE_BUILD_TYPE}")
++ELSE()
++  SET(VS_CONFIGURATION "")
++ENDIF()
++
+ configure_file(${CMAKE_SOURCE_DIR}/test_common.in ${CMAKE_BINARY_DIR}/test_common.sh @ONLY NEWLINE_STYLE LF)
+ 
+ #####
+diff --git a/configure.ac b/configure.ac
+index b0552d60..edef2db1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1333,6 +1333,7 @@ AC_SUBST(HAS_MMAP,[$enable_mmap])
+ AC_SUBST(HAS_JNA,[$enable_jna])
+ AC_SUBST(RELAX_COORD_BOUND,[$enable_relax_coord_bound])
+ AC_SUBST(HAS_ERANGE_FILL,[$enable_erange_fill])
++AC_SUBST(VS_CONFIGURATION,[])
+ 
+ # Include some specifics for netcdf on windows.
+ #AH_VERBATIM([_WIN32_STRICMP],
+diff --git a/examples/CDL/do_comps.sh b/examples/CDL/do_comps.sh
+index 88f80f91..e25ffe2c 100755
+--- a/examples/CDL/do_comps.sh
++++ b/examples/CDL/do_comps.sh
+@@ -2,6 +2,8 @@
+ # This shell script runs the cmp test on the example programs.
+ # $Id: do_comps.sh,v 1.1 2006/06/27 17:44:54 ed Exp $
+ 
++. ../../test_common.sh
++
+ set -e
+ 
+ ##
+@@ -11,13 +13,13 @@ set -e
+ echo ""
+ echo "*** Creating example data files from CDL scripts."
+ echo "*** creating simple_xy.nc..."
+-../../ncgen/ncgen -b -o simple_xy.nc $srcdir/simple_xy.cdl
++../../ncgen${VS}/ncgen -b -o simple_xy.nc $srcdir/simple_xy.cdl
+ 
+ echo "*** checking sfc_pres_temp.nc..."
+-../../ncgen/ncgen -b -o sfc_pres_temp.nc $srcdir/sfc_pres_temp.cdl
++../../ncgen${VS}/ncgen -b -o sfc_pres_temp.nc $srcdir/sfc_pres_temp.cdl
+ 
+ echo "*** checking pres_temp_4D.nc..."
+-../../ncgen/ncgen -b -o pres_temp_4D.nc $srcdir/pres_temp_4D.cdl
++../../ncgen${VS}/ncgen -b -o pres_temp_4D.nc $srcdir/pres_temp_4D.cdl
+ 
+ echo "*** All example creations worked!"
+ 
+diff --git a/ncdump/tst_netcdf4.sh b/ncdump/tst_netcdf4.sh
+index 4c126025..8e8f8948 100755
+--- a/ncdump/tst_netcdf4.sh
++++ b/ncdump/tst_netcdf4.sh
+@@ -74,7 +74,7 @@ ${NCDUMP} tst_nans.nc | sed 's/e+0/e+/g' > tst_nans.cdl ; ERR
+ diff -b tst_nans.cdl $srcdir/ref_tst_nans.cdl ; ERR
+ 
+ # Do unicode test only if it exists => BUILD_UTF8 is true
+-if test -f ./tst_unicode -o -f ./tst_unicode.exe ; then
++if test -f ./tst_unicode -o -f ./tst_unicode.exe -o -f ${execdir}/tst_unicode.exe; then
+   echo "*** dumping tst_unicode.nc to tst_unicode.cdl..."
+   ${execdir}/tst_unicode ; ERR
+ ${NCDUMP} tst_unicode.nc | sed 's/e+0/e+/g' > tst_unicode.cdl ; ERR
+diff --git a/test_common.in b/test_common.in
+index b8af5185..30e4c4a5 100644
+--- a/test_common.in
++++ b/test_common.in
+@@ -59,8 +59,8 @@ if test "x$SETX" = x1 ; then set -x ; fi
+ top_srcdir="$TOPSRCDIR"
+ top_builddir="$TOPBUILDDIR"
+ 
+-# Currently not used, but left as a Visual Studio placeholder.
+-# VS=Debug
++# Only set via CMake builds, where it must contain a leading '/'
++export VS=@VS_CONFIGURATION@
+ 
+ # srcdir may or may not be defined, but if not, then create it
+ if test "x$srcdir" = x ; then
+@@ -77,6 +77,11 @@ builddir=`pwd`
+ # execdir is an alias for builddir
+ execdir="${builddir}"
+ 
++# VS build dir support
++if test -d "${execdir}${VS}"; then
++  execdir="${execdir}${VS}"
++fi
++
+ # pick off the last component as the relative name of this directory
+ thisdir=`basename $srcdir`
+ 
+-- 
+2.15.0
+

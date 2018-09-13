@@ -1,0 +1,11 @@
+--- netcdf-c-4.6.1.orig/libdispatch/dauth.c	2018-03-18 21:24:27.000000000 -0300
++++ netcdf-c-4.6.1/libdispatch/dauth.c	2018-08-30 14:37:15.614304551 -0300
+@@ -30,7 +30,7 @@
+ 
+ /* Define the curl flag defaults in envv style */
+ static const char* AUTHDEFAULTS[] = {
+-"HTTP.TIMEOUT","10", /*seconds */
++"HTTP.TIMEOUT","3600", /*seconds */
+ NULL
+ };
+ 
