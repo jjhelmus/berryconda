@@ -9,12 +9,13 @@ source:
   sha256: 55abf9ade563b8f9be1f34e4233c7b7bde726059947a593322e8a553cc4c067a
 
 build:
-  number: 0
-  script: python setup.py install
+  number: 1
+  script: "{{ PYTHON }} setup.py install"
 
 requirements:
-  build:
+  host:
     - python
+    - setuptools
   run:
     - python
     - ptyprocess  # [not win]
@@ -24,21 +25,30 @@ requirements:
 test:
   imports:
     - terminado
-
   requires:
     - nose
+    - posix  # [win]
 
   commands:
     # Failing test on osx: https://github.com/conda-forge/staged-recipes/pull/313#issuecomment-208426267
-    - nosetests terminado  # [not osx]
+    # Tests are passing but hangs at the end on Wnidow :-/
+    - nosetests terminado  # [not (osx or win)]
 
 about:
-  home: http://github.com/mitsuhiko/markupsafe
-  license: BSD 3-clause
+  home: https://github.com/jupyter/terminado
+  license: BSD-2-Clause
+  license_file: LICENSE
   summary: Terminals served by tornado websockets
+  description: |
+    Terminado is a Tornado websocket backend for the term.js Javascript
+    terminal emulator library.
+  doc_url: http://terminado.readthedocs.org/en/latest/
+  doc_source_url: https://github.com/takluyver/terminado/blob/master/doc/index.rst
+  dev_url: https://github.com/takluyver/terminado
 
 extra:
   recipe-maintainers:
     - blink1073
     - pelson
-    - takluyver 
+    - takluyver
+    - ocefpaf
