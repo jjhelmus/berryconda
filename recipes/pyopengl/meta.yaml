@@ -10,11 +10,13 @@ source:
   sha256: c96d909b359abe3271b746bacf7e6ba52935141e2406a8f90231e4e44dfa4075
 
 build:
-  script: python setup.py install --single-version-externally-managed --record record.txt
-  number: 0
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
+  number: 1
 
 requirements:
-  build:
+  host:
+    - pip
     - setuptools
     - python
 
@@ -33,3 +35,9 @@ about:
   doc_url: http://pyopengl.sourceforge.net/documentation/index.html
   doc_source_url: https://sourceforge.net/projects/pyopengl/
   dev_url: https://github.com/mcfletch/pyopengl
+
+extra:
+  recipe-maintainers:
+    - almarklein
+    - mcfletch
+    - tadeu
