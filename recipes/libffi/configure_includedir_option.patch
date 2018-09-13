@@ -1,32 +1,17 @@
-diff --git a/include/Makefile.am b/include/Makefile.am
-index fd28024..15301d6 100644
---- a/include/Makefile.am
-+++ b/include/Makefile.am
-@@ -5,5 +5,5 @@ AUTOMAKE_OPTIONS=foreign
+diff -Naur libffi-3.2.1.orig/include/Makefile.am libffi-3.2.1/include/Makefile.am
+--- libffi-3.2.1.orig/include/Makefile.am	2014-11-12 10:00:59.000000000 -0200
++++ libffi-3.2.1/include/Makefile.am	2018-08-10 13:46:39.761552423 -0300
+@@ -5,5 +5,5 @@
  DISTCLEANFILES=ffitarget.h
  EXTRA_DIST=ffi.h.in ffi_common.h
  
 -includesdir = $(libdir)/@PACKAGE_NAME@-@PACKAGE_VERSION@/include
 +includesdir = $(includedir)
  nodist_includes_HEADERS = ffi.h ffitarget.h
-diff --git a/include/Makefile.in b/include/Makefile.in
-index 9d747e8..f8f4af0 100644
---- a/include/Makefile.in
-+++ b/include/Makefile.in
-@@ -314,7 +314,7 @@ top_srcdir = @top_srcdir@
- AUTOMAKE_OPTIONS = foreign
- DISTCLEANFILES = ffitarget.h
- EXTRA_DIST = ffi.h.in ffi_common.h
--includesdir = $(libdir)/@PACKAGE_NAME@-@PACKAGE_VERSION@/include
-+includesdir = $(includedir)
- nodist_includes_HEADERS = ffi.h ffitarget.h
- all: all-am
- 
-diff --git a/libffi.pc.in b/libffi.pc.in
-index edf6fde..0b58ac2 100644
---- a/libffi.pc.in
-+++ b/libffi.pc.in
-@@ -2,7 +2,7 @@ prefix=@prefix@
+diff -Naur libffi-3.2.1.orig/libffi.pc.in libffi-3.2.1/libffi.pc.in
+--- libffi-3.2.1.orig/libffi.pc.in	2014-11-12 10:00:59.000000000 -0200
++++ libffi-3.2.1/libffi.pc.in	2018-08-10 13:47:40.678693800 -0300
+@@ -2,7 +2,7 @@
  exec_prefix=@exec_prefix@
  libdir=@libdir@
  toolexeclibdir=@toolexeclibdir@
