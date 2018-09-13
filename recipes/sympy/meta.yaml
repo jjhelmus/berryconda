@@ -1,4 +1,4 @@
-{% set version = "1.1.1" %}
+{% set version = "1.2" %}
 
 package:
   name: sympy
@@ -7,11 +7,10 @@ package:
 source:
   fn: sympy-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/s/sympy/sympy-{{ version }}.tar.gz
-  md5: c410a9c2346878716d16ec873d72e72a
+  md5: 11b24840f5740bb03feddb7d60c18a67
 
 build:
   number: 0
-  noarch: python
   script: python setup.py install
 
 requirements:
@@ -23,10 +22,11 @@ requirements:
     - fastcache
     - mpmath >=0.19
     - python
+    - gmpy2 >=2.0.8   # [not win]
 
 test:
   commands:
-    - isympy -help
+    - isympy --help
   imports:
     - sympy
 
@@ -42,3 +42,9 @@ about:
     simple as possible in order to be comprehensible and easily extensible.
   doc_url: http://docs.sympy.org/latest/index.html
   dev_url: https://github.com/sympy/sympy
+
+extra:
+  recipe-maintainers:
+    - asmeurer
+    - msarahan
+    - scopatz
