@@ -1,32 +1,30 @@
-{% set name = "cffi" %}
-{% set version = "1.11.4" %}
-{% set hash_type = "sha256" %}
-{% set hash = "df9083a992b17a28cd4251a3f5c879e0198bb26c9e808c4647e0a18739f1d11d" %}
+{% set version = "1.11.5" %}
 
 package:
-  name: {{ name|lower }}
+  name: cffi
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash }}
+  url: https://pypi.io/packages/source/c/cffi/cffi-{{ version }}.tar.gz
+  sha256: e90f17980e6ab0f3c2f3730e56d1fe9bcba1891eeea58966e89d352492cc74f4
   patches:
-    - setup-linux.patch  # [unix]
+    - setup-linux.patch  # [not win]
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
-    - libffi  # [unix]
+    - pip
+    - libffi  # [not win]
     - pycparser
-    - setuptools
   run:
     - python
-    - libffi  # [unix]
+    - libffi  # [not win]
     - pycparser
 
 test:
@@ -40,3 +38,10 @@ about:
   license_file: LICENSE
   summary: Foreign Function Interface for Python calling C code.
   doc_url: http://cffi.readthedocs.org
+
+extra:
+  recipe-maintainers:
+    - goanpeca
+    - inducer
+    - jschueller
+    - ocefpaf
