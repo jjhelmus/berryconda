@@ -1,0 +1,43 @@
+{% set version = "1.14.4" %}
+
+package:
+  name: blosc
+  version: {{ version }}
+
+source:
+  url: https://github.com/Blosc/c-blosc/archive/v{{ version }}.tar.gz
+  sha256: 42a85de871d142cdc89b607a90cceeb0eab60d995f6fae8d44aae397ab414002
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+
+test:
+  commands:
+    - test -e $PREFIX/include/blosc.h                    # [unix]
+    - test -e $PREFIX/include/blosc-export.h             # [unix]
+    - test -e $PREFIX/lib/libblosc.a                     # [unix]
+    - test -e $PREFIX/lib/libblosc${SHLIB_EXT}           # [unix]
+    - if not exist %LIBRARY_INC%\\blosc.h exit 1         # [win]
+    - if not exist %LIBRARY_INC%\\blosc-export.h exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\blosc.dll exit 1       # [win]
+    - if not exist %LIBRARY_LIB%\\blosc.lib exit 1       # [win]
+    - if not exist %LIBRARY_LIB%\\libblosc.lib exit 1    # [win]
+
+about:
+  home: https://github.com/Blosc/c-blosc
+  license: BSD 3-Clause
+  license_file: LICENSES/BLOSC.txt
+  summary: 'A blocking, shuffling and loss-less compression library that can be faster than `memcpy()`'
+
+extra:
+  recipe-maintainers:
+    - danielfrg
+    - FrancescElies
+    - jakirkham
