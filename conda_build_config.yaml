@@ -1,10 +1,81 @@
-python:
-  - 2.7
-  - 3.5
-  - 3.6
 c_compiler:
   - system_compiler_c
 cxx_compiler:
   - system_compiler_cxx
 fortran_compiler:
   - system_compiler_fort
+bzip2:
+  - 1
+curl:
+  - 7.61
+expat:
+  - 2
+ffmpeg:
+  - 4.0
+freetype:
+  - 2.9.1
+giflib:
+  - 5.1
+hdf4:
+  - 4.2
+hdf5:
+  - 1.10.3
+icu:
+  - 58
+jasper:
+  - 1.900.1
+jpeg:
+  - 9
+krb5:
+  - 1.16
+libffi:
+  - 3.2
+libnetcdf:
+  - 4.6
+libpng:
+  - 1.6
+libssh2:
+  - 1.8
+libtiff:
+  - 4
+libwebp:
+  - 0.5
+libxml2:
+  - 2.9
+lzo:
+  - 2
+ncurses:
+  - 6.1
+openssl:
+  - 1.0.2
+perl:
+  - 5.26
+readline:
+  - 7.0
+sqlite:
+  - 3
+tk:
+  - 8.6
+x264:
+  - 1!152.*
+zeromq:
+  - 4.2.5
+xz:
+  - 5.2
+zlib:
+  - 1.2
+python:
+  - 2.7
+  - 3.5
+  - 3.6
+
+# TODO: remove these when run_exports are added to the packages.
+pin_run_as_build:
+  hdf5:
+    max_pin: x.x.x
+  libssh2:
+    max_pin: x.x
+  curl:
+    max_pin: x
+  icu:
+    max_pin: x
