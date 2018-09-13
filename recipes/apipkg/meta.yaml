@@ -1,0 +1,40 @@
+{% set name = "apipkg" %}
+{% set version = "1.5" %}
+{% set hash_type = "sha256" %}
+{% set hash = "37228cda29411948b422fae072f57e31d3396d2ee1c9783775980ee9c9990af6" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash }}
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install . --no-deps --ignore-installed
+
+requirements:
+  build:
+    - pip
+    - setuptools_scm
+  run:
+    - python
+
+test:
+  imports:
+    - apipkg
+
+about:
+  home: https://github.com/pytest-dev/apipkg
+  dev_url: https://github.com/pytest-dev/apipkg
+  license: MIT
+  license_file: LICENSE
+  summary: With apipkg you can control the exported namespace of a python package and greatly reduce the number of imports for your users.
+
+extra:
+  recipe-maintainers:
+    - nicoddemus
