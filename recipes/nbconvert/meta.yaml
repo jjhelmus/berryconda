@@ -1,4 +1,3 @@
-{% set name = "nbconvert" %}
 {% set version = "5.3.1" %}
 
 package:
@@ -6,14 +5,14 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  fn: nbconvert-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/n/nbconvert/nbconvert-{{ version }}.tar.gz
   sha256: 12b1a4671d4463ab73af6e4cbcc965b62254e05d182cd54995dda0d0ef9e2db9
 
 build:
-  number: 0
-  noarch: python
+  number: 1
   script: pip install --no-deps .
+  noarch: python
   entry_points:
     - jupyter-nbconvert = nbconvert.nbconvertapp:main
 
@@ -26,9 +25,10 @@ requirements:
     - entrypoints >=0.2.2
     - jinja2
     - jupyter_core
-    - mistune >0.6
+    - jupyter_client >=4.2
+    - mistune >=0.7.4
     - nbformat >=4.4
-    #- pandoc
+    - pandoc
     - pandocfilters >=1.4.1
     - python
     - pygments
@@ -46,11 +46,24 @@ test:
     - nbconvert.tests
     - nbconvert.utils
     - nbconvert.writers
+  source_files:
+    - nbconvert/tests/files/notebook1.ipynb
 
   commands:
-    - jupyter-nbconvert --help
+    - jupyter nbconvert --help
+    - jupyter nbconvert nbconvert/tests/files/notebook1.ipynb
 
 about:
   home: http://jupyter.org
   license: BSD 3-Clause
   summary: 'Converting Jupyter Notebooks'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mpacer
+    - minrk
+    - pelson
+    - takluyver
+    - mseal
+    - blink1073
