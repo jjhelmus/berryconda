@@ -1,0 +1,43 @@
+{% set name = "execnet" %}
+{% set version = "1.5.0" %}
+{% set hash_type = "sha256" %}
+{% set hash = "a7a84d5fa07a089186a329528f127c9d73b9de57f1a1131b82bb5320ee651f6a" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+  noarch: python
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - setuptools_scm
+  run:
+    - python
+    - apipkg >=1.4
+
+test:
+  imports:
+    - execnet
+
+about:
+  home: http://codespeak.net/execnet
+  dev_url: https://github.com/pytest-dev/execnet
+  doc_url: http://codespeak.net/execnet
+  license: MIT
+  license_file: LICENSE
+  summary: distributed Python deployment and communication
+
+extra:
+  recipe-maintainers:
+    - nicoddemus
