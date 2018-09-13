@@ -1,33 +1,37 @@
-{% set version = "2.7.1" %}
+{% set version = "2.8.0" %}
+{% set sha256 = "eae41382be28b7264824450ce343dd625f972bedaaa3b0cced284986aabcbaee" %}
 
 package:
   name: h5py
   version: {{ version }}
 
 source:
-  fn: h5py-{{ version }}.tar.gz
   url: https://github.com/h5py/h5py/archive/{{ version }}.tar.gz
-  sha256: 55bdefda47c49973ec24384097d18eb5f84797c057aaf0bf0b6b0f7860ad43e7
+  sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
+    - {{ compiler("c") }}
+
+  host:
     - python
     - setuptools
-    - numpy 1.11*
-    - hdf5 1.8.17|1.8.17.*
+    - numpy
+    - hdf5
     - cython
     - six
     - pkgconfig
 
   run:
     - python
-    - numpy >=1.11
-    - hdf5 1.8.17|1.8.17.*
+    - {{ pin_compatible('numpy') }}
+    - hdf5
     - six
-    - unittest2    # [py26]
+    - unittest2    # [py26 or py27]
+    - pyreadline  # [win]
 
 test:
   imports:
@@ -38,3 +42,9 @@ about:
   license: BSD 3-Clause
   license_file: licenses/license.txt
   summary: Read and write HDF5 files from Python.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - pitrou
+    - tacaswell
