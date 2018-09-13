@@ -1,0 +1,56 @@
+{% set name = "Faker" %}
+{% set version = "0.9.0" %}
+{% set bundle = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash = "f6d67f04abfb2b4bea7afc7fa6c18cf4c523a67956e455668be9ae42bccc21ad" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ bundle }}
+  {{ hash_type }}: {{ hash }}
+
+build:
+  entry_points:
+    - faker = faker.cli:execute_from_command_line
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+
+requirements:
+  host:
+    - python
+    - pip
+
+  run:
+    - python
+    - python-dateutil >=2.4
+    - six >=1.10
+    - text-unidecode ==1.2
+    - ipaddress  # [py27]
+
+test:
+  files:
+    - run_test.py
+  commands:
+    - faker --help  # [osx]
+    - PYTHONIOENCODING=utf8 faker --help  # [linux]
+    - SET "PYTHONIOENCODING=utf8" & faker --help  # [win]
+  requires:
+    - email_validator >=1.0.0,<1.1.0
+    - ukpostcodeparser >=1.1.1
+    - mock
+
+about:
+  home: https://faker.readthedocs.io
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: 'Faker is a Python package that generates fake data for you.'
+  dev_url: https://github.com/joke2k/faker
+  doc_url: https://faker.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - pmlandwehr
