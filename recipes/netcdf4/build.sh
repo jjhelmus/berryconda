@@ -1,10 +1,10 @@
 #!/bin/bash
 
-SETUPCFG=$SRC_DIR\setup.cfg
+if [[ $(uname) == Darwin ]]; then
+    export LDFLAGS="-headerpad_max_install_names $LDFLAGS"
+fi
 
-echo "[options]" > $SETUPCFG
-echo "use_cython=True" >> $SETUPCFG
-echo "[directories]" >> $SETUPCFG
-echo "netCDF4_dir = $PREFIX" >> $SETUPCFG
+export netCDF4_DIR=$PREFIX
+export HDF5_DIR=$PREFIX
 
-${PYTHON} setup.py install --single-version-externally-managed --record record.txt
+${PYTHON} -m pip install --no-deps --ignore-installed .
