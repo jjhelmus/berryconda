@@ -1,0 +1,20 @@
+diff --git a/setup.py b/setup.py
+index b5c55ba..d8671b4 100755
+--- a/setup.py
++++ b/setup.py
+@@ -848,15 +848,6 @@ if 'BLOSC' not in optional_libs:
+             CFLAGS.append('-msse2')
+         blosc_sources += [f for f in glob.glob('c-blosc/blosc/*.c')
+                           if 'sse2' in f]
+-    # AVX2
+-    # Detection code for AVX2 only works for gcc/clang, not for MSVC yet
+-    if ('avx2' in cpu_flags and
+-            compiler_has_flags(compiler, ["-mavx2"])):
+-                print('AVX2 detected')
+-                CFLAGS.append('-DSHUFFLE_AVX2_ENABLED')
+-                CFLAGS.append('-mavx2')
+-                blosc_sources += [f for f in glob.glob('c-blosc/blosc/*.c')
+-                                  if 'avx2' in f]
+ else:
+     ADDLIBS += ['blosc']
+ 

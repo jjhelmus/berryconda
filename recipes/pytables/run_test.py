@@ -13,11 +13,6 @@ import tables.tableextension
 import tables.utilsextension
 
 
-if sys.platform.startswith('linux'):
-    lzo_ver = tables.which_lib_version("lzo")[1]
-    assert lzo_ver == '2.06', lzo_ver
-
-
 if __name__ == "__main__":
     from multiprocessing import freeze_support
     freeze_support()
