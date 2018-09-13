@@ -1,26 +1,24 @@
-{% set version = "5.4.0" %}
+{% set version = "5.6.0" %}
 
 package:
   name: notebook
   version: {{ version }}
 
 source:
-  fn: notebook-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/n/notebook/notebook-{{ version }}.tar.gz
-  sha256: dd431fad9bdd25aa9ff8265da096ef770475e21bf1d327982611a7de5cd904ca
-
+  sha256: e2c8e931cc19db4f8c63e6a396efbc13a228b2cb5b2919df011b946f28239a08
 
 build:
-  script: pip install --no-deps .
-  number: 0
-  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  number: 1
   entry_points:
     - jupyter-notebook = notebook.notebookapp:main
     - jupyter-nbextension = notebook.nbextensions:main
     - jupyter-serverextension = notebook.serverextensions:main
+    - jupyter-bundlerextension = notebook.bundler.bundlerextensions:main
 
 requirements:
-  build:
+  host:
     - python
     - pip
   run:
@@ -32,20 +30,34 @@ requirements:
     - nbconvert
     - nbformat
     - python
+    - pyzmq >=17
+    - send2trash
     - terminado >=0.8.1
     - tornado >=4
     - traitlets >=4.2.1
-    - send2trash
+    - prometheus_client
+    - ipaddress  # [py2k]
 
 test:
   commands:
     - jupyter notebook -h
     - jupyter nbextension -h
     - jupyter serverextension -h
+    - jupyter bundlerextension -h
   imports:
     - notebook
 
 about:
   home: http://jupyter.org
   license: BSD 3-clause
+  license_file: COPYING.md
   summary: A web-based notebook environment for interactive computing
+
+extra:
+  recipe-maintainers:
+    - SylvainCorlay
+    - jakirkham
+    - minrk
+    - pelson
+    - gnestor
+    - takluyver
