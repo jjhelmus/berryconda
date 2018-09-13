@@ -1,0 +1,43 @@
+{% set name = "patch" %}
+{% set version = "2.7.6" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://ftp.gnu.org/gnu/patch/patch-{{ version }}.tar.gz
+  sha256: 8cf86e00ad3aaa6d26aca30640e86b0e3e1f395ed99f189b06d4c9f74bc58a4e
+
+build:
+  number: 1
+  skip: True  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+  host:
+
+test:
+  commands:
+    - patch --help
+  files:
+    - testfile
+    - testfile2
+    - testfile.patch
+
+about:
+  home: http://savannah.gnu.org/projects/patch/
+  license: GPL 3
+  license_file: COPYING
+  summary: Native Win32 versions of common unix tools
+  description: |
+    Patch takes a patch file containing a difference listing produced by the
+    diff program and applies those differences to one or more original files,
+    producing patched versions.
+  dev_url: http://git.savannah.gnu.org/cgit/patch.git
+
+extra:
+  recipe-maintainers:
+    - nehaljwani
