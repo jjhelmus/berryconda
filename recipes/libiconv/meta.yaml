@@ -1,0 +1,46 @@
+{% set version = "1.15" %}
+
+package:
+  name: libiconv
+  version: {{ version }}
+
+source:
+  url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-{{ version }}.tar.gz
+  sha256: ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178
+  patches:
+    - glibc.patch  # [linux]
+    - CMakeLists.txt.patch  # [win]
+    - config.h.patch  # [win]
+    - configure.cmake.patch  # [win]
+
+build:
+  number: 1003
+  run_exports:
+    # Pretty good recently, let's trust them.
+    #   https://abi-laboratory.pro/tracker/timeline/libiconv/
+    - {{ pin_subpackage('libiconv') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - cmake   # [win]
+    - m2-patch  # [win]
+
+test:
+  commands:
+    - iconv --help  # [not win]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: https://www.gnu.org/software/libiconv/
+  license: GPL and LGPL
+  license_file: COPYING
+  summary: "Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)"
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - jakirkham
+    - jhamman
+    - scopatz
