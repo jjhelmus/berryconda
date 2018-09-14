@@ -30,6 +30,8 @@ krb5:
   - 1.16
 libffi:
   - 3.2
+libiconv:
+  - 1.15
 libnetcdf:
   - 4.6
 libpng:
@@ -78,4 +80,6 @@ pin_run_as_build:
   curl:
     max_pin: x
   icu:
+    max_pin: x
+  lzo:
     max_pin: x
