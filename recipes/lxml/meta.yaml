@@ -1,29 +1,30 @@
-{% set version = "4.0.0" %}
+{% set version = "4.2.4" %}
 
 package:
   name: lxml
   version: {{ version }}
 
 source:
-  fn: lxml-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/l/lxml/lxml-{{ version }}.tar.gz
-  sha256: f7bc9f702500e205b1560d620f14015fec76dcd6f9e889a946a2ddcc3c344fd0
+  sha256: e2afbe403090f5893e254958d02875e0732975e73c4c0cdd33c1f009a61963ca
 
 build:
   number: 0
   script:
-    - python setup.py install --single-version-externally-managed --record record.txt --with-xslt-config=$PREFIX/bin/xslt-config
+    - python -m pip install --no-deps --ignore-installed . --global-option="--with-xslt-config=$PREFIX/bin/xslt-config"  # [not win]
+    - python -m pip install --no-deps --ignore-installed .  # [win]
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
+    - libxml2
     - python
-    - setuptools
+    - pip
     - cython
-    - libxml2 2.9.*
     - libxslt
   run:
     - python
-    - libxml2 2.9.*
     - libxslt
 
 test:
@@ -32,7 +33,8 @@ test:
     - lxml.etree
     - lxml.objectify
   commands:
-    - conda inspect linkages -p $PREFIX lxml
+    - conda inspect linkages -p $PREFIX lxml  # [not win]
+    - conda inspect objects -p $PREFIX lxml  # [osx]
 
 about:
   home: http://lxml.de/
@@ -46,3 +48,9 @@ about:
     mostly compatible but superior to the well-known ElementTree API.
   doc_url: 'http://lxml.de/index.html#documentation'
   dev_url: https://github.com/lxml/lxml
+  doc_source_url: https://github.com/lxml/lxml/tree/master/doc
+
+extra:
+  recipe-maintainers:
+    - jjhelmus
+    - ocefpaf
