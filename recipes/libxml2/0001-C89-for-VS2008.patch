@@ -1,0 +1,36 @@
+diff --git a/xpath.c b/xpath.c
+index f440696..43ec1ff 100644
+--- a/xpath.c
++++ b/xpath.c
+@@ -478,16 +478,26 @@ int wrap_cmp( xmlNodePtr x, xmlNodePtr y );
+  ************************************************************************/
+ 
+ #ifndef NAN
+-#define NAN (0.0 / 0.0)
++#define NAN 0
+ #endif
+ 
+ #ifndef INFINITY
+-#define INFINITY HUGE_VAL
++#define INFINITY 1
+ #endif
+ 
+-double xmlXPathNAN = NAN;
+-double xmlXPathPINF = INFINITY;
+-double xmlXPathNINF = -INFINITY;
++#ifndef NAN
++	double xmlXPathNAN = 0;
++#else
++	double xmlXPathNAN = NAN;
++#endif
++
++#ifndef INFINITY
++	double xmlXPathPINF = 1;
++	double xmlXPathNINF = -1;
++#else
++	double xmlXPathPINF = INFINITY;
++	double xmlXPathNINF = -INFINITY;
++#endif
+ 
+ /**
+  * xmlXPathInit:

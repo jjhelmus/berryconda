@@ -1,39 +1,69 @@
-{% set version = "2.9.4" %}
+{% set version = "2.9.8" %}
 
 package:
   name: libxml2
   version: {{ version }}
 
 source:
-  fn: libxml2-{{ version }}.tar.gz
-  url: https://git.gnome.org/browse/libxml2/snapshot/libxml2-{{ version }}.tar.gz
-  sha256: 1d5257abac02aab323bf6ab26199ce0bb2a7b798bb7acea302e136438237268a
+  url: ftp://xmlsoft.org/libxml2/libxml2-{{ version }}.tar.gz
+  sha256: 0b74e51595654f958148759cfef0993114ddccccbb6f31aee018f3558e8e2732
   patches:
-    # Bug 767063 - Fix build of libxml2 2.9.4 (git master) on pre-C99 compilers.
-    - pre-c99.patch
-    # https://bugzilla.gnome.org/show_bug.cgi?id=766834
-    - fix-attribute-decoding-during-xml-schema-validation.patch
+    # Some C99 that vs2008 can't cope with
+    - 0001-C89-for-VS2008.patch
+    - 0004-CVE-2017-8872.patch
 
 build:
-  number: 0
+  number: 3
+  run_exports:
+    # remove symbols at minor versions.
+    #    https://abi-laboratory.pro/tracker/timeline/libxml2/
+    - {{ pin_subpackage('libxml2', max_pin='x.x') }}
 
 requirements:
   build:
-    - zlib 1.2.*
-    - xz 5.2.*
+    - {{ compiler('c') }}
+    - autoconf  # [not win]
+    - automake  # [not win]
+    - libtool  # [not win]
+    - pkg-config  # [not win]
+    - make  # [not win]
+  host:
+    - icu  # [not win]
+    - libiconv
+    - xz  # [not win]
+    - zlib
   run:
-    - zlib 1.2.*
-    - xz 5.2.*
+    - icu  # [not win]
+    - libiconv
+    - xz  # [not win]
+    - zlib
 
 test:
   files:
     - test.xml
   commands:
     - xmllint test.xml
-    - conda inspect linkages -p $PREFIX libxml2
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: http://xmlsoft.org/
   license: MIT
+  license_family: MIT
   license_file: Copyright
-  summary: 'The XML C parser and toolkit of Gnome.'
+  summary: The XML C parser and toolkit of Gnome
+  description: |
+     Though libxml2 is written in C a variety of language
+     bindings make it available in other environments.
+  doc_url: http://xmlsoft.org/html/index.html
+  doc_source_url: https://github.com/GNOME/libxml2/blob/master/doc/index.html
+  dev_url: https://git.gnome.org/browse/libxml2/
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - jakirkham
+    - gillins
+    - jschueller
+    - msarahan
+    - scopatz
