@@ -1,31 +1,41 @@
-{% set name = "numpy" %}
-{% set version = "1.14.0" %}
+{% set version = "1.15.1" %}
+{% set variant = "openblas" %}
 
 package:
-  name: {{ name }}
+  name: numpy
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.zip
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
-  sha256: 3de643935b212307b420248018323a44ec51987a336d1d747c1322afc3c099fb
+  url: https://github.com/numpy/numpy/releases/download/v{{ version }}/numpy-{{ version }}.tar.gz
+  sha256: 3c1ccce5d935ef8df16ae0595b459ef08a5cdb05aee195ebc04b9d89a72be7fa
+  patches:
+    - numpy_distutils_ldflags.diff
 
 build:
-  number: 0
+  number: 1
+  skip: true  # [win32 or (win and py27)]
+  features:
+    - blas_{{ variant }}
 
 requirements:
   build:
-    - cython
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+  host:
     - python
-    - setuptools
-    - openblas 0.2.19
+    - pip
+    - cython
+    - blas 1.1 {{ variant }}
+    - openblas
   run:
     - python
-    - openblas 0.2.19
+    - blas 1.1 {{ variant }}
+    - openblas
 
 test:
   requires:
-    - nose
+    - pytest
   commands:
     - f2py -h
   imports:
@@ -36,4 +46,14 @@ about:
   home: http://numpy.scipy.org/
   license: BSD 3-Clause
   license_file: LICENSE.txt
-  summary: array processing for numbers, strings, records, and objects.
+  summary: 'Array processing for numbers, strings, records, and objects.'
+  doc_url: https://docs.scipy.org/doc/numpy/reference/
+  dev_url: https://github.com/numpy/numpy
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - pelson
+    - rgommers
+    - ocefpaf
