@@ -1,34 +1,44 @@
-{% set version = "0.5.2" %}
+{% set version = "1.0.0" %}
 
 package:
   name: pywavelets
   version: {{ version }}
 
 source:
-  fn: PyWavelets-{{ version }}.tar.gz
   url: https://github.com/PyWavelets/pywt/archive/v{{ version }}.tar.gz
-  sha256: e36d629f40f7781da2dcaa2139bc476e9deaf91d79f675b5ce0bde6e775d1b53
+  sha256: 1696cbbbb74d670dda6bb75c0628fd1f82d98750661fcd9bd375082559252de8
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
+    - pip
     - cython
-    - numpy x.x
-    - setuptools
+    - numpy
   run:
     - python
-    - numpy x.x
+    - {{ pin_compatible('numpy') }}
 
 test:
   requires:
     - nose
+  commands:
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME   # [osx]
 
 about:
   home: https://github.com/PyWavelets/pywt
   license: MIT
-  license_file: COPYING
+  license_file: LICENSE
   summary: 'Discrete Wavelet Transforms in Python.'
+
+extra:
+  recipe-maintainers:
+    - grlee77
+    - jakirkham
+    - ocefpaf
