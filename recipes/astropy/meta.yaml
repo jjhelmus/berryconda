@@ -1,45 +1,52 @@
-{%set name = "astropy" %}
-{%set version = "2.0.3" %}
+{% set version = "3.0.4" %}
 
 package:
-  name: {{ name }}
-  version: {{ version }}
+  name: astropy
+  version: {{version}}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: fdfc0248f6250798ed6d1327be609cb901db89ae01fc768cfbc9e263bdf56f4f
+  fn: astropy-{{version}}.tar.gz
+  url: https://pypi.io/packages/source/a/astropy/astropy-{{version}}.tar.gz
+  sha256: f5d37d20632ba74bd0b12a85179c12f64a9ea037ffc916d8a2de3be4f4656c76
+
 
 build:
-  number: 0
+  detect_binary_files_with_prefix: False
   entry_points:
     - fits2bitmap = astropy.visualization.scripts.fits2bitmap:main
     - fitscheck = astropy.io.fits.scripts.fitscheck:main
     - fitsdiff = astropy.io.fits.scripts.fitsdiff:main
     - fitsheader = astropy.io.fits.scripts.fitsheader:main
-    - samp_hub = astropy.vo.samp.hub_script:hub_script
+    - fitsinfo = astropy.io.fits.scripts.fitsinfo:main
+    - samp_hub = astropy.samp.hub_script:hub_script
     - volint = astropy.io.votable.volint:main
     - wcslint = astropy.wcs.wcslint:main
+  number: 0
 
 requirements:
+
   build:
     - python
     - setuptools
-    - numpy 1.11*
-    - pytest >=2.8
-    - cython >=0.21
-    - jinja2 >=2.7
+    - numpy 1.10.*  # [py35]
+    - numpy 1.11.*  # [py36]
+
   run:
     - python
-    - numpy >=1.11
-    - argparse          [py26]
-    - pytest >=2.8
+    - numpy >=1.10  # [py35]
+    - numpy >=1.11  # [py36]
+    - pytest-astropy
 
 test:
   commands:
+    - fits2bitmap --help
     - fitscheck --help
     - fitsdiff --help
+    - fitsheader --help
+    - fitsinfo --help
+    - samp_hub --help
     - volint --help
+    - wcslint --help
   imports:
     - astropy
 
@@ -53,3 +60,9 @@ about:
     needed for performing astronomy and astrophysics research with Python.
   doc_url: http://docs.astropy.org/en/stable/
   dev_url: https://github.com/astropy/astropy
+
+extra:
+  recipe-maintainers:
+    - astrofrog-conda-forge
+    - mwcraig
+    - bsipocz

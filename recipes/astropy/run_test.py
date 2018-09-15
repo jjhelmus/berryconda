@@ -15,3 +15,11 @@ import astropy.table._np_utils
 import astropy.utils._compiler
 import astropy.utils.xml._iterparser
 import astropy.wcs._wcs
+
+# We run a subset of the tests which are the most likely to have
+# issues because they rely on C extensions and bundled libraries
+
+from astropy import test
+test(package='io.ascii')
+test(package='time')
+test(package='wcs')
