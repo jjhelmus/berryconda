@@ -1,32 +1,31 @@
-{% set version = "1.2.0" %}
+{% set version = "1.2.1" %}
 
 package:
   name: bottleneck
   version: {{ version }}
 
 source:
-  fn: Bottleneck-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/B/Bottleneck/Bottleneck-{{ version }}.tar.gz
-  sha256: 3bec84564a4adbe97c24e875749b949a19cfba4e4588be495cc441db7c6b05e8
+  sha256: 6efcde5f830aed64feafca0359b51db0e184c72af8ba6675b4a99f263922eb36
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
-    - setuptools
-    - numpy x.x
-
+    - pip
+    - numpy
   run:
     - python
-    - numpy x.x
+    - {{ pin_compatible('numpy') }}
 
 test:
   requires:
     - nose
-
   imports:
     - bottleneck
     - bottleneck.slow
@@ -35,9 +34,10 @@ test:
     - bottleneck.nonreduce
     - bottleneck.nonreduce_axis
     - bottleneck.move
-
   commands:
     - python -c "import bottleneck; bottleneck.test()"
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: http://berkeleyanalytics.com/bottleneck
@@ -50,3 +50,10 @@ about:
     Cython.
   doc_url: http://berkeleyanalytics.com/bottleneck
   dev_url: https://github.com/kwgoodman/bottleneck
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - wesm
+    - ocefpaf
