@@ -1,0 +1,43 @@
+{% set version = "0.5.0" %}
+{% set pkg_name = "patsy" %}
+
+
+package:
+  name: {{ pkg_name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ pkg_name[0] }}/{{ pkg_name }}/{{ pkg_name }}-{{ version }}.tar.gz
+  sha256: e05f38d5c38c8d216f0cc2b765b1069b433c92d628b954fb2fee68d13e42883b
+
+build:
+  noarch: python
+  number: 1
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - python
+    - numpy >=1.4.0
+    - scipy
+    - six
+
+test:
+  imports:
+    - patsy
+
+about:
+  home: https://github.com/pydata/patsy
+  license: BSD-2-Clause, PSF2
+  license_family: BSD
+  license_file: LICENSE.txt
+  summary: Describing statistical models in Python using symbolic formulas
+
+extra:
+  recipe-maintainers:
+    - bollwyvl
+    - croth1
