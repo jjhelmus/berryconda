@@ -1,0 +1,44 @@
+{% set version = "0.9.0" %}
+
+package:
+  name: statsmodels
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/s/statsmodels/statsmodels-{{ version }}.tar.gz
+  sha256: 6461f93a842c649922c2c9a9bc9d9c4834110b89de8c4af196a791ab8f42ba3b
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - cython
+    - numpy 1.11.*
+    - scipy
+    - pandas
+    - patsy
+  run:
+    - python
+    - numpy >=1.11
+    - scipy
+    - pandas
+    - patsy
+
+test:
+  imports:
+    - statsmodels
+
+about:
+  home: https://www.statsmodels.org
+  license: BSD 3-Clause
+  summary: 'Statistical computations and models for use with SciPy'
+
+extra:
+  recipe-maintainers:
+    - tomaugspurger
+    - croth1
+    - ocefpaf
