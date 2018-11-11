@@ -1,0 +1,49 @@
+{% set version = "10.8.0" %}
+
+package:
+  name: nodejs
+  version: {{ version }}
+
+source:
+  fn: node-v{{ version }}.tar.gz
+  url: https://nodejs.org/dist/v{{ version }}/node-v{{ version }}.tar.gz
+  sha256: 5584205b601a5bb0727eb5dd0c9824caf26ce1c02fd157d31e14b3a8765a0c0c
+  patches:
+    - macosx-target.patch
+
+build:
+  number: 1001
+  ignore_prefix_files:
+    - bin/node
+
+requirements:
+  build:
+    - {{ compiler('c') }}  # [not win]
+    - {{ compiler('cxx') }}  # [not win]
+    - python 2.7.*
+    - nasm  # [win]
+  host:
+    - vs2015_runtime  # [win]
+  run:
+    - vs2015_runtime  # [win]
+
+test:
+  commands:
+    - node -h
+    - node -v
+    - npm version
+    - npm install -h
+    - npm config get prefix -g
+    - test $(echo "console.log(1 + 3)" | node) == 4  # [not win]
+
+about:
+  home: https://nodejs.org/
+  license: MIT
+  license_file: LICENSE
+  summary: a platform for easily building fast, scalable network applications
+
+extra:
+  recipe-maintainers:
+    - minrk
+    - msarahan
+    - pelson
