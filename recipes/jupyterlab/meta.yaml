@@ -1,0 +1,78 @@
+
+{% set version = "0.35.4" %}
+{% set sha256 = "deba0b2803640fcad72c61366bff11d5945173015961586d5e3b2f629ffeb455" %}
+
+
+package:
+  name: jupyterlab
+  version: {{ version }}
+
+source:
+    fn: jupyterlab-{{ version }}.tar.gz
+    url: https://pypi.io/packages/source/j/jupyterlab/jupyterlab-{{ version }}.tar.gz
+    sha256: {{ sha256 }}
+build:
+  number: 0
+  skip: True  # [py<35]
+  script: python -m pip install --no-deps --ignore-installed --install-option="--skip-npm" --verbose .
+  entry_points:
+    - jupyter-lab = jupyterlab.labapp:main
+    - jupyter-labextension = jupyterlab.labextensions:main
+    - jupyter-labhub = jupyterlab.labhubapp:main
+
+requirements:
+  build:
+    - python
+    - pip
+    - nodejs >=8
+  run:
+    - python
+    - jupyterlab_server >=0.2.0,<0.3.0
+    - notebook >=4.3.1
+test:
+  requires:
+    - nodejs
+  imports:
+    - jupyterlab
+  commands:
+    - jupyter lab --version
+    - jlpm --version
+    - jlpm versions
+    - jupyter labextension list
+    - jupyter lab path
+    - jupyter lab build
+    - jupyter lab clean
+
+about:
+  home: https://github.com/jupyterlab/jupyterlab
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: >
+    An extensible environment for interactive and reproducible computing, based
+    on the Jupyter Notebook and Architecture.
+  doc_url: https://jupyterlab.readthedocs.io
+  dev_url: https://github.com/jupyterlab/jupyterlab
+  description: >
+    JupyterLab is the next-generation user interface for Project Jupyter. It
+    offers all the familiar building blocks of the classic Jupyter Notebook
+    (notebook, terminal, text editor, file browser, rich outputs, etc.) in a
+    flexible and powerful user inteface. Eventually, JupyterLab will replace
+    the classic Jupyter Notebook.
+
+    JupyterLab can be extended using extensions that are npm packages and use
+    our public APIs. You can search for the GitHub topic or npm keyword
+    `jupyterlab-extension` to find extensions. To learn more about extensions,
+    see our user documentation.
+
+    JupyterLab is suitable for general usage. For JupyterLab extension
+    developers, the extension APIs will continue to evolve.
+
+extra:
+  recipe-maintainers:
+    - jasongrout
+    - blink1073
+    - jochym
+    - ian-r-rose
+    - afshin
+    - ellisonbg
