@@ -1,0 +1,42 @@
+{% set version = "0.2.0" %}
+
+package:
+  name: jupyterlab_server
+  version: {{ version }}
+
+source:
+  fn: jupyterlab_server-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/j/jupyterlab_server/jupyterlab_server-{{ version }}.tar.gz
+  sha256: 72d916a73957a880cdb885def6d8664a6d1b2760ef5dca5ad665aa1e8d1bb783
+
+build:
+    number: 0
+    noarch: python
+    script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+
+requirements:
+  host:
+    - pip
+    - python >=3.5
+    - setuptools
+
+  run:
+    - python >=3.5
+    - notebook
+
+test:
+  imports:
+    - jupyterlab_server
+
+about:
+  home: http://github.com/jupyterlab/jupyterlab_server
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: A set of server components for JupyterLab and JupyterLab like applications.
+
+extra:
+  recipe-maintainers:
+    - jasongrout
+    - blink1073
+    - afshin
+    - SylvainCorlay
