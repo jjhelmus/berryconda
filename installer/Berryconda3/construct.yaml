@@ -5,7 +5,7 @@ channels:
   - http://conda.anaconda.org/rpi
   
 conda_default_channels: 
-  - rpi
+  - http://conda.anaconda.org/rpi
 
 license_file: ../installer_license.txt
 
