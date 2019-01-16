@@ -5,4 +5,4 @@ PERL=${BUILD_PREFIX}/bin/perl
 ./Configure linux-armv4 shared --prefix=${PREFIX} -march=armv6 -mfpu=vfp -mfloat-abi=hard -Wa,--noexecstack
 make -j$CPU_COUNT
 make test
-make install
+make install_sw

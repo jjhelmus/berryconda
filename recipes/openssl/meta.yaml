@@ -1,4 +1,4 @@
-{% set version = "1.0.2p" %}
+{% set version = "1.0.2q" %}
 
 package:
   name: openssl
@@ -6,10 +6,10 @@ package:
 
 source:
   url: http://www.openssl.org/source/openssl-{{ version }}.tar.gz
-  sha256: 50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00
+  sha256: 5744cfcbcec2b1b48629f7354203bc1e5e9b5466998bbccc5b5fcde3b18eb684
 
 build:
-  number: 1
+  number: 0
   no_link: lib/libcrypto.so.1.0.0        # [linux]
   no_link: lib/libcrypto.1.0.0.dylib     # [osx]
   has_prefix_files:                      # [unix]
