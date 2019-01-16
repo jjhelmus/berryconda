@@ -9,7 +9,7 @@ source:
   sha256: 50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00
 
 build:
-  number: 0
+  number: 1
   no_link: lib/libcrypto.so.1.0.0        # [linux]
   no_link: lib/libcrypto.1.0.0.dylib     # [osx]
   has_prefix_files:                      # [unix]
@@ -20,6 +20,8 @@ build:
     - lib/pkgconfig/openssl.pc           # [unix]
   run_exports:
     - {{ pin_subpackage('openssl', max_pin='x.x.x') }}
+  ignore_prefix_files:
+    - lib/libcrypto.so.1.0.0             # [linux]
 
 requirements:
   build:
