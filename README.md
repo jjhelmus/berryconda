@@ -52,7 +52,7 @@ using the configuration files in the **installer** directory of this
 repository.
 
 The packages in the [rpi](https://anaconda.org/rpi/) channel were created
-using [conda-build](http://conda.pydata.org/docs/building/recipe.html)
+using [conda-build](https://conda.io/projects/conda-build/en/latest/concepts/recipe.html)
 using the recipes in the **recipes** directory of this repository.
 
 Package building is done on two Raspberry Pi 3s, a Raspberry Pi 1, and a
