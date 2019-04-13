@@ -1,4 +1,4 @@
-{% set version = "1.0.2q" %}
+{% set version = "1.0.2r" %}
 
 package:
   name: openssl
@@ -6,7 +6,7 @@ package:
 
 source:
   url: http://www.openssl.org/source/openssl-{{ version }}.tar.gz
-  sha256: 5744cfcbcec2b1b48629f7354203bc1e5e9b5466998bbccc5b5fcde3b18eb684
+  sha256: ae51d08bba8a83958e894946f15303ff894d75c2b8bbd44a852b64e3fe11d0d6
 
 build:
   number: 0
@@ -20,8 +20,6 @@ build:
     - lib/pkgconfig/openssl.pc           # [unix]
   run_exports:
     - {{ pin_subpackage('openssl', max_pin='x.x.x') }}
-  ignore_prefix_files:
-    - lib/libcrypto.so.1.0.0             # [linux]
 
 requirements:
   build:
