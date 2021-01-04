@@ -1,7 +1,7 @@
-This project is no longer active, no recipe will be updated and no packages will be added
+This project is no longer active, no recipes will be updated and no packages will be added
 to the `rpi` channel.  
 
-Please use issue [#83](https://github.com/jjhelmus/berryconda/issues/83) to discuss the of the project.
+Please use issue [#83](https://github.com/jjhelmus/berryconda/issues/83) to discuss the future of the project.
 
 ## Berry Conda
 
